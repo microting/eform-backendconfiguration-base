@@ -45,7 +45,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
 
         private void GetContext(string connectionStr)
         {
-            var contextFactory = new BackendConfigurationPnContextPnFactory();
+            var contextFactory = new BackendConfigurationPnContextFactory();
             DbContext = contextFactory.CreateDbContext(new[] {connectionStr});
 
             DbContext.Database.Migrate();

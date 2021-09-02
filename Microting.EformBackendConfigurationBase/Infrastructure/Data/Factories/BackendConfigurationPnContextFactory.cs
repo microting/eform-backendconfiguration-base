@@ -29,7 +29,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Factories
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Design;
 
-    public class BackendConfigurationPnContextPnFactory : IDesignTimeDbContextFactory<BackendConfigurationPnDbContext>
+    public class BackendConfigurationPnContextFactory : IDesignTimeDbContextFactory<BackendConfigurationPnDbContext>
     {
         public BackendConfigurationPnDbContext CreateDbContext(string[] args)
         {
