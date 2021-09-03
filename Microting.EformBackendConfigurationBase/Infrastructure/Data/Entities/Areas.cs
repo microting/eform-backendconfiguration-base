@@ -20,10 +20,8 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    public class Areas
+    public class Areas : PnBase
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
     }
 }

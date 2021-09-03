@@ -20,10 +20,8 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    public class AreaRulesVersion
+    public class AreaRulesVersion : PnBase
     {
-        public int Id { get; set; }
-
         public int AreaId { get; set; }
         
         // ReSharper disable once InconsistentNaming

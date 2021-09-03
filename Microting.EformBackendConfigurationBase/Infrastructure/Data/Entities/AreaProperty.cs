@@ -22,10 +22,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class AreaProperty
+    public class AreaProperty : PnBase
     {
-        public int Id { get; set; }
-
         public int ProperyId { get; set; }
 
         [ForeignKey("ProperyId")]

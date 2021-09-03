@@ -20,10 +20,8 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    public class Workers
+    public class Workers : PnBase
     {
-        public int Id { get; set; }
-
         public int DeviceUserId { get; set; }
 
         public string FirstName { get; set; }

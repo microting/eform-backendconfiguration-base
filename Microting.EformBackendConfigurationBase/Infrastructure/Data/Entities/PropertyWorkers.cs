@@ -22,10 +22,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class PropertyWorkers
+    public class PropertyWorkers : PnBase
     {
-        public int Id { get; set; }
-
         public int PropertyId { get; set; }
 
         [ForeignKey("PropertyId")]

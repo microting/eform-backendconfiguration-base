@@ -22,10 +22,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class AreaRules
+    public class AreaRules : PnBase
     {
-        public int Id { get; set; }
-
         public int AreaId { get; set; }
 
         [ForeignKey("AreaId")]
