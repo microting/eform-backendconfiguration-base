@@ -27,12 +27,12 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int ProperyId { get; set; }
 
         [ForeignKey("ProperyId")]
-        public Properties Property { get; set; }
+        public virtual Properties Property { get; set; }
 
         public int AreaId { get; set; }
 
         [ForeignKey("AreaId")]
-        public Areas Area { get; set; }
+        public virtual Areas Area { get; set; }
 
         public bool Checked { get; set; }
     }

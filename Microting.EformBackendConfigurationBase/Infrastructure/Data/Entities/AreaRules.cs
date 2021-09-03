@@ -27,7 +27,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int AreaId { get; set; }
 
         [ForeignKey("AreaId")]
-        public Areas Area { get; set; }
+        public virtual Areas Area { get; set; }
         
         // ReSharper disable once InconsistentNaming
         public int eFormId { get; set; }
