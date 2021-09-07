@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
@@ -242,51 +242,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Workers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    DeviceUserId = table.Column<int>(type: "int", nullable: false),
-                    FirstName = table.Column<string>(type: "longtext", nullable: true),
-                    LastName = table.Column<string>(type: "longtext", nullable: true),
-                    Notification = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
-                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
-                    UpdatedByUserId = table.Column<int>(type: "int", nullable: false),
-                    Version = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Workers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "WorkerVersions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    DeviceUserId = table.Column<int>(type: "int", nullable: false),
-                    FirstName = table.Column<string>(type: "longtext", nullable: true),
-                    LastName = table.Column<string>(type: "longtext", nullable: true),
-                    Notification = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    WorkersId = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
-                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
-                    UpdatedByUserId = table.Column<int>(type: "int", nullable: false),
-                    Version = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WorkerVersions", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AreaRules",
                 columns: table => new
                 {
@@ -399,12 +354,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         principalTable: "Properties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PropertyWorkers_Workers_WorkerId",
-                        column: x => x.WorkerId,
-                        principalTable: "Workers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -431,11 +380,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 name: "IX_PropertyWorkers_PropertyId",
                 table: "PropertyWorkers",
                 column: "PropertyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PropertyWorkers_WorkerId",
-                table: "PropertyWorkers",
-                column: "WorkerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -477,9 +421,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 name: "PropertyWorkerVersions");
 
             migrationBuilder.DropTable(
-                name: "WorkerVersions");
-
-            migrationBuilder.DropTable(
                 name: "Areas");
 
             migrationBuilder.DropTable(
@@ -487,9 +428,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
             migrationBuilder.DropTable(
                 name: "Properties");
-
-            migrationBuilder.DropTable(
-                name: "Workers");
         }
     }
 }

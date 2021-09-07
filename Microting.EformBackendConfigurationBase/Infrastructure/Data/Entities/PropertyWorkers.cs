@@ -30,8 +30,5 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public virtual Properties Property { get; set; }
 
         public int WorkerId { get; set; }
-
-        [ForeignKey("WorkerId")]
-        public virtual Workers Worker { get; set; }
     }
 }

@@ -24,7 +24,6 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
 {
-    using eForm.Infrastructure.Data.Entities;
     using eFormApi.BasePn.Abstractions;
     using eFormApi.BasePn.Infrastructure.Database.Entities;
     using Entities;
@@ -37,10 +36,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public BackendConfigurationPnDbContext(DbContextOptions<BackendConfigurationPnDbContext> options) : base(options)
         {
         }
-
-        public DbSet<Workers> Workers { get; set; }
-        public DbSet<WorkersVersion> WorkerVersions { get; set; }
-
+        
         public DbSet<PropertyWorkers> PropertyWorkers { get; set; }
         public DbSet<PropertyWorkersVersion> PropertyWorkerVersions { get; set; }
 
