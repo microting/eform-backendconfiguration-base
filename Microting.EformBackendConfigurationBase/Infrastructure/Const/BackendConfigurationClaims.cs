@@ -21,10 +21,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Const
 {
     public static class BackendConfigurationClaims
     {
-        public const string AccessBackendConfigurationPlugin = "backend_configuration_access";
+        public const string AccessBackendConfigurationPlugin = "backend_configuration_plugin_access";
+        public const string CreateProperties = "properties_create";
+        public const string GetProperties = "properties_get";
+        public const string EditProperties = "property_edit";
     }
 }

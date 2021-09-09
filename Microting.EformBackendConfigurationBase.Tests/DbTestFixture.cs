@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-
 namespace Microting.EformBackendConfigurationBase.Tests
 {
     using System;
@@ -89,8 +88,6 @@ namespace Microting.EformBackendConfigurationBase.Tests
         {
             var modelNames = new List<string>
             {
-                "Workers",
-                "WorkerVersions",
                 "PropertyWorkers",
                 "PropertyWorkerVersions",
                 "Properties",
