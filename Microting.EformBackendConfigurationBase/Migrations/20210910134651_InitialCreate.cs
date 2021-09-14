@@ -16,7 +16,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ProperyId = table.Column<int>(type: "int", nullable: false),
+                    PropertyId = table.Column<int>(type: "int", nullable: false),
                     AreaId = table.Column<int>(type: "int", nullable: false),
                     Checked = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     AreaPropertyId = table.Column<int>(type: "int", nullable: false),
@@ -305,7 +305,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ProperyId = table.Column<int>(type: "int", nullable: false),
+                    PropertyId = table.Column<int>(type: "int", nullable: false),
                     AreaId = table.Column<int>(type: "int", nullable: false),
                     Checked = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -325,8 +325,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AreaProperty_Properties_ProperyId",
-                        column: x => x.ProperyId,
+                        name: "FK_AreaProperty_Properties_PropertyId",
+                        column: x => x.PropertyId,
                         principalTable: "Properties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -364,9 +364,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 column: "AreaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AreaProperty_ProperyId",
+                name: "IX_AreaProperty_PropertyId",
                 table: "AreaProperty",
-                column: "ProperyId");
+                column: "PropertyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AreaRules_AreaId",

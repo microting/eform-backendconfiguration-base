@@ -59,9 +59,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<PluginGroupPermission> PluginGroupPermissions { get; set; }
         public DbSet<PluginGroupPermissionVersion> PluginGroupPermissionVersions { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+        //}
     }
 }
