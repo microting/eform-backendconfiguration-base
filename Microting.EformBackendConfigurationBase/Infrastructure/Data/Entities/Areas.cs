@@ -27,5 +27,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
     public class Areas : PnBase
     {
         public string Name { get; set; }
+
+        public string Description { get; set; }
     }
 }

@@ -35,7 +35,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProperyId")
+                    b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -55,7 +55,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AreaId");
 
-                    b.HasIndex("ProperyId");
+                    b.HasIndex("PropertyId");
 
                     b.ToTable("AreaProperty");
                 });
@@ -81,7 +81,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProperyId")
+                    b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -209,6 +209,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
@@ -244,6 +247,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
@@ -625,7 +631,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Properties", "Property")
                         .WithMany()
-                        .HasForeignKey("ProperyId")
+                        .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

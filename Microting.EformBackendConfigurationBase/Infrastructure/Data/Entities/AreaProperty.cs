@@ -28,9 +28,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
     public class AreaProperty : PnBase
     {
-        public int ProperyId { get; set; }
+        public int PropertyId { get; set; }
 
-        [ForeignKey("ProperyId")]
+        [ForeignKey("PropertyId")]
         public virtual Properties Property { get; set; }
 
         public int AreaId { get; set; }
