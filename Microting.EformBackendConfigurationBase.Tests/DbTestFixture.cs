@@ -37,8 +37,8 @@ namespace Microting.EformBackendConfigurationBase.Tests
     {
         protected BackendConfigurationPnDbContext DbContext;
         private string _connectionString;
-        private string path;
-        private const string DatebaseName = "backend-configuration-pn-tests";
+        private string _path;
+        private const string DatabaseName = "backend-configuration-pn-tests";
 
 
 
@@ -56,7 +56,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
         {
 
             _connectionString =
-                @$"Server = localhost; port = 3306; Database = {DatebaseName}; user = root; password = secretpassword; Convert Zero Datetime = true;";
+                @$"Server = localhost; port = 3306; Database = {DatabaseName}; user = root; password = secretpassword; Convert Zero Datetime = true;";
 
             GetContext(_connectionString);
 
@@ -109,12 +109,12 @@ namespace Microting.EformBackendConfigurationBase.Tests
                     if (firstRunNotDone)
                     {
                         DbContext.Database.ExecuteSqlRaw(
-                            $"SET FOREIGN_KEY_CHECKS = 0;TRUNCATE `{DatebaseName}`.`{modelName}`");
+                            $"SET FOREIGN_KEY_CHECKS = 0;TRUNCATE `{DatabaseName}`.`{modelName}`");
                     }
                 }
                 catch (Exception ex)
                 {
-                    if (ex.Message == $"Unknown database '{DatebaseName}'")
+                    if (ex.Message == $"Unknown database '{DatabaseName}'")
                     {
                         firstRunNotDone = false;
                     }
@@ -128,10 +128,10 @@ namespace Microting.EformBackendConfigurationBase.Tests
 
         private void ClearFile()
         {
-            path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
-            path = Path.GetDirectoryName(path)?.Replace(@"file:\", "");
+            _path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+            _path = Path.GetDirectoryName(_path)?.Replace(@"file:\", "");
 
-            var picturePath = path + @"\output\dataFolder\picture\Deleted";
+            var picturePath = _path + @"\output\dataFolder\picture\Deleted";
 
             var diPic = new DirectoryInfo(picturePath);
 

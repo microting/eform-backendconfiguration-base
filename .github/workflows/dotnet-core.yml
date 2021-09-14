@@ -45,7 +45,7 @@ jobs:
     - name: Unit Tests
       run: dotnet test --no-restore -c Release -v n Microting.EformBackendConfigurationBase.Tests/Microting.EformBackendConfigurationBase.Tests.csproj
     - name: Pack
-      run: dotnet pack Microting.EformAngularFrontendBase.sln -c Release -o ./artifacts -p:PackageVersion=${{ steps.get_version.outputs.VERSION }}
+      run: dotnet pack Microting.EformBackendConfigurationBase.sln -c Release -o ./artifacts -p:PackageVersion=${{ steps.get_version.outputs.VERSION }}
     - name: Push generated package to GitHub registry
       run: dotnet nuget push /home/runner/work/eform-backendconfiguration-base/eform-backendconfiguration-base/artifacts/Microting.EformBackendConfigurationBase.${{ steps.get_version.outputs.VERSION }}.nupkg -k ${{secrets.NUGET_SECRET_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols true
     - name: Notify slack fail
