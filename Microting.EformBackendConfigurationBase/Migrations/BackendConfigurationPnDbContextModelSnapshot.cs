@@ -57,7 +57,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PropertyId");
 
-                    b.ToTable("AreaProperty");
+                    b.ToTable("AreaProperties");
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaPropertyVersion", b =>
@@ -102,6 +102,90 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.ToTable("AreaPropertyVersions");
                 });
 
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRuleTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AreaRuleId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaRuleId");
+
+                    b.ToTable("AreaRuleTranslations");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRuleTranslationVersion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AreaRuleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AreaRuleTranslationId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AreaRuleTranslationVersions");
+                });
+
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRules", b =>
                 {
                     b.Property<int>("Id")
@@ -116,6 +200,12 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
+
+                    b.Property<int>("EformId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EformName")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("FolderId")
                         .HasColumnType("int");
@@ -135,12 +225,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("WorkflowState")
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
-
-                    b.Property<int>("eFormId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("eFormName")
-                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -167,6 +251,12 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("EformId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EformName")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("FolderId")
                         .HasColumnType("int");
 
@@ -185,12 +275,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("WorkflowState")
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
-
-                    b.Property<int>("eFormId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("eFormName")
-                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -640,6 +724,17 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Navigation("Property");
                 });
 
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRuleTranslation", b =>
+                {
+                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRules", "AreaRule")
+                        .WithMany("AreaRuleTranslations")
+                        .HasForeignKey("AreaRuleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AreaRule");
+                });
+
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRules", b =>
                 {
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Areas", "Area")
@@ -671,6 +766,11 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .IsRequired();
 
                     b.Navigation("Permission");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRules", b =>
+                {
+                    b.Navigation("AreaRuleTranslations");
                 });
 #pragma warning restore 612, 618
         }

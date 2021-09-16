@@ -96,8 +96,10 @@ namespace Microting.EformBackendConfigurationBase.Tests
                 "AreaVersions",
                 "AreaRules",
                 "AreaRuleVersions",
-                "AreaProperty",
+                "AreaProperties",
                 "AreaPropertyVersions",
+                "AreaRuleTranslations",
+                "AreaRuleTranslationVersions"
             };
 
             var firstRunNotDone = true;

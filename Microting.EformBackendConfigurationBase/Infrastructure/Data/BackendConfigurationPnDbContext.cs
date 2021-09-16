@@ -49,8 +49,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<AreaRules> AreaRules { get; set; }
         public DbSet<AreaRulesVersion> AreaRuleVersions { get; set; }
 
-        public DbSet<AreaProperty> AreaProperty { get; set; }
+        public DbSet<AreaProperty> AreaProperties { get; set; }
         public DbSet<AreaPropertyVersion> AreaPropertyVersions { get; set; }
+
+        public DbSet<AreaRuleTranslation> AreaRuleTranslations { get; set; }
+        public DbSet<AreaRuleTranslationVersion> AreaRuleTranslationVersions { get; set; }
 
         // common tables
         public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
@@ -59,9 +62,14 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<PluginGroupPermission> PluginGroupPermissions { get; set; }
         public DbSet<PluginGroupPermissionVersion> PluginGroupPermissionVersions { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<AreaRuleTranslation>().HasOne(x => x.AreaRule)
+                .WithMany(x => x.AreaRuleTranslations)
+                .HasForeignKey(x => x.AreaRuleId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
     }
 }
