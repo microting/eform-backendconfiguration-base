@@ -1,4 +1,4 @@
-﻿/*
+/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2021 Microting A/S
@@ -24,6 +24,7 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
 
     public class AreaRules : PnBase
@@ -32,15 +33,16 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         [ForeignKey("AreaId")]
         public virtual Areas Area { get; set; }
-        
-        // ReSharper disable once InconsistentNaming
-        public int eFormId { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string eFormName { get; set; }
+        public int EformId { get; set; }
+        
+        public string EformName { get; set; }
 
         public int FolderId { get; set; }
 
         public string FolderName { get; set; }
+
+        public virtual List<AreaRuleTranslation> AreaRuleTranslations { get; set; }
+            = new();
     }
 }

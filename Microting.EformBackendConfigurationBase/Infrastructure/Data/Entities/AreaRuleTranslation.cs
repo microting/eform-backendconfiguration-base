@@ -24,18 +24,19 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    public class AreaRulesVersion : PnBase
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    public class AreaRuleTranslation : PnBase
     {
-        public int AreaId { get; set; }
+        [StringLength(250)]
+        public string Name { get; set; }
 
-        public int EformId { get; set; }
+        public int LanguageId { get; set; }
 
-        public string EformName { get; set; }
+        public int AreaRuleId { get; set; }
 
-        public int FolderId { get; set; }
-
-        public string FolderName { get; set; }
-
-        public int AreaRulesId { get; set; }
+        [ForeignKey("AreaRuleId")]
+        public virtual AreaRules AreaRule { get; set; }
     }
 }
