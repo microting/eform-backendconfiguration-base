@@ -24,6 +24,8 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
+    using Enum;
+
     public class AreaRulesPlanning: PnBase
     {
         public string StartDate { get; set; }
@@ -37,5 +39,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int? RepeatType { get; set; }
 
         public bool Status { get; set; }
+
+        public bool SendNotifications { get; set; }
+
+        public AreaRuleT2AlarmsEnum Alarm { get; set; }
+
+        public AreaRuleT2TypesEnum Type { get; set; }
     }
 }

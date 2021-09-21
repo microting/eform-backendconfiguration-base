@@ -44,6 +44,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     RepeatEvery = table.Column<int>(type: "int", nullable: true),
                     RepeatType = table.Column<int>(type: "int", nullable: true),
                     Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    SendNotifications = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Alarm = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
@@ -69,6 +72,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     RepeatEvery = table.Column<int>(type: "int", nullable: true),
                     RepeatType = table.Column<int>(type: "int", nullable: true),
                     Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    SendNotifications = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Alarm = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
@@ -174,6 +180,47 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AreaVersions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlanningSites",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    PlanningId = table.Column<int>(type: "int", nullable: false),
+                    SiteId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    UpdatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlanningSites", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlanningSitesVersions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    PlanningSitesId = table.Column<int>(type: "int", nullable: false),
+                    PlanningId = table.Column<int>(type: "int", nullable: false),
+                    SiteId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    UpdatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlanningSitesVersions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -578,6 +625,12 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
             migrationBuilder.DropTable(
                 name: "AreaVersions");
+
+            migrationBuilder.DropTable(
+                name: "PlanningSites");
+
+            migrationBuilder.DropTable(
+                name: "PlanningSitesVersions");
 
             migrationBuilder.DropTable(
                 name: "PluginConfigurationValues");

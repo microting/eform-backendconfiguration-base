@@ -61,6 +61,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<AreaRulesPlanning> AreaRulePlannings { get; set; }
         public DbSet<AreaRulesPlanningVersion> AreaRulesPlanningVersions { get; set; }
 
+        public DbSet<PlanningSites> PlanningSites { get; set; }
+        public DbSet<PlanningSitesVersion> PlanningSitesVersions { get; set; }
+
         // common tables
         public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
         public DbSet<PluginConfigurationValueVersion> PluginConfigurationValueVersions { get; set; }
