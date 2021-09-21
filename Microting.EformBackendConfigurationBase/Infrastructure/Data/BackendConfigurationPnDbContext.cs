@@ -55,6 +55,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<AreaRuleTranslation> AreaRuleTranslations { get; set; }
         public DbSet<AreaRuleTranslationVersion> AreaRuleTranslationVersions { get; set; }
 
+        public DbSet<PropertySelectedLanguages> PropertySelectedLanguages { get; set; }
+        public DbSet<PropertySelectedLanguageVersions> PropertySelectedLanguageVersions { get; set; }
+
         // common tables
         public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
         public DbSet<PluginConfigurationValueVersion> PluginConfigurationValueVersions { get; set; }
@@ -69,6 +72,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
             modelBuilder.Entity<AreaRuleTranslation>().HasOne(x => x.AreaRule)
                 .WithMany(x => x.AreaRuleTranslations)
                 .HasForeignKey(x => x.AreaRuleId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PropertySelectedLanguages>().HasOne(x => x.Properties)
+                .WithMany(x => x.SelectedLanguages)
+                .HasForeignKey(x => x.PropertyId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

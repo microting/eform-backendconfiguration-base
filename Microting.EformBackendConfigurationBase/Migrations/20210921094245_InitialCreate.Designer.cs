@@ -9,7 +9,7 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    [Migration("20210916131736_InitialCreate")]
+    [Migration("20210921094245_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -194,8 +194,14 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int?>("Alarm")
+                        .HasColumnType("int");
+
                     b.Property<int>("AreaId")
                         .HasColumnType("int");
+
+                    b.Property<bool?>("ChecklistStable")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -203,10 +209,16 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EformId")
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EformId")
                         .HasColumnType("int");
 
                     b.Property<string>("EformName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("EndDate")
                         .HasColumnType("longtext");
 
                     b.Property<int>("FolderId")
@@ -214,6 +226,24 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<string>("FolderName")
                         .HasColumnType("longtext");
+
+                    b.Property<int?>("PlanningId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RepeatEvery")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RepeatType")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("SendNotifications")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool?>("TailBite")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int?>("Type")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
@@ -241,16 +271,25 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int?>("Alarm")
+                        .HasColumnType("int");
+
                     b.Property<int>("AreaId")
                         .HasColumnType("int");
 
                     b.Property<int>("AreaRulesId")
                         .HasColumnType("int");
 
+                    b.Property<bool?>("ChecklistStable")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DayOfWeek")
                         .HasColumnType("int");
 
                     b.Property<int>("EformId")
@@ -259,11 +298,32 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("EformName")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("EndDate")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("FolderId")
                         .HasColumnType("int");
 
                     b.Property<string>("FolderName")
                         .HasColumnType("longtext");
+
+                    b.Property<int?>("PlanningId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RepeatEvery")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RepeatType")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("SendNotifications")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool?>("TailBite")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int?>("Type")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
@@ -437,6 +497,83 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PropertieVersions");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertySelectedLanguageVersions", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PropertySelectedLanguagesId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PropertySelectedLanguageVersions");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertySelectedLanguages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
+
+                    b.ToTable("PropertySelectedLanguages");
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertyWorkers", b =>
@@ -748,6 +885,17 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Navigation("Area");
                 });
 
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertySelectedLanguages", b =>
+                {
+                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Properties", "Properties")
+                        .WithMany("SelectedLanguages")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Properties");
+                });
+
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertyWorkers", b =>
                 {
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Properties", "Property")
@@ -773,6 +921,11 @@ namespace Microting.EformBackendConfigurationBase.Migrations
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRules", b =>
                 {
                     b.Navigation("AreaRuleTranslations");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Properties", b =>
+                {
+                    b.Navigation("SelectedLanguages");
                 });
 #pragma warning restore 612, 618
         }

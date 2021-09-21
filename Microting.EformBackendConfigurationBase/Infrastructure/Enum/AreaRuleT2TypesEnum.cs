@@ -22,20 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Enum
 {
-    using System.Collections.Generic;
-
-    public class Properties : PnBase
+    public enum AreaRuleT2TypesEnum
     {
-        public string Name { get; set; }
-
-        // ReSharper disable once InconsistentNaming
-        public string CHR { get; set; }
-
-        public string Address { get; set; }
-
-        public virtual List<PropertySelectedLanguages> SelectedLanguages { get; set; }
-            = new();
+        Open = 1,
+        Closed = 2,
     }
 }
