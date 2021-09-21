@@ -9,7 +9,7 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    [Migration("20210921215744_InitialCreate")]
+    [Migration("20210921220651_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -268,7 +268,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("DayOfWeek")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("EdnDate")
+                    b.Property<string>("EndDate")
                         .HasColumnType("longtext");
 
                     b.Property<int?>("RepeatEvery")
@@ -319,7 +319,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("DayOfWeek")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("EdnDate")
+                    b.Property<string>("EndDate")
                         .HasColumnType("longtext");
 
                     b.Property<int?>("RepeatEvery")

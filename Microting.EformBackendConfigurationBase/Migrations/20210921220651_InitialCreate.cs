@@ -39,7 +39,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     StartDate = table.Column<string>(type: "longtext", nullable: true),
-                    EdnDate = table.Column<string>(type: "longtext", nullable: true),
+                    EndDate = table.Column<string>(type: "longtext", nullable: true),
                     DayOfWeek = table.Column<string>(type: "longtext", nullable: true),
                     RepeatEvery = table.Column<int>(type: "int", nullable: true),
                     RepeatType = table.Column<int>(type: "int", nullable: true),
@@ -64,7 +64,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     AreaRulesPlanning = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<string>(type: "longtext", nullable: true),
-                    EdnDate = table.Column<string>(type: "longtext", nullable: true),
+                    EndDate = table.Column<string>(type: "longtext", nullable: true),
                     DayOfWeek = table.Column<string>(type: "longtext", nullable: true),
                     RepeatEvery = table.Column<int>(type: "int", nullable: true),
                     RepeatType = table.Column<int>(type: "int", nullable: true),

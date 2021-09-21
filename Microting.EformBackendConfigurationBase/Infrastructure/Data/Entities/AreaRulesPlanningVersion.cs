@@ -30,7 +30,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public string StartDate { get; set; }
 
-        public string EdnDate { get; set; }
+        public string EndDate { get; set; }
 
         public string DayOfWeek { get; set; }
 

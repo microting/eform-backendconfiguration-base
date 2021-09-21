@@ -266,7 +266,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("DayOfWeek")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("EdnDate")
+                    b.Property<string>("EndDate")
                         .HasColumnType("longtext");
 
                     b.Property<int?>("RepeatEvery")
@@ -317,7 +317,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("DayOfWeek")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("EdnDate")
+                    b.Property<string>("EndDate")
                         .HasColumnType("longtext");
 
                     b.Property<int?>("RepeatEvery")
