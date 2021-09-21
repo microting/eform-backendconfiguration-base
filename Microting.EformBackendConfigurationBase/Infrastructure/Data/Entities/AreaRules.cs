@@ -26,6 +26,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Enum;
 
     public class AreaRules : PnBase
     {
@@ -34,13 +35,33 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         [ForeignKey("AreaId")]
         public virtual Areas Area { get; set; }
 
-        public int EformId { get; set; }
+        public int? EformId { get; set; }
         
         public string EformName { get; set; }
 
         public int FolderId { get; set; }
 
         public string FolderName { get; set; }
+
+        public AreaRuleT2AlarmsEnum? Alarm { get; set; }
+
+        public AreaRuleT2TypesEnum? Type { get; set; }
+
+        public bool? ChecklistStable { get; set; }
+
+        public bool? TailBite { get; set; }
+
+        public int? PlanningId { get; set; }
+
+        public int? RepeatEvery { get; set; }
+
+        public int? RepeatType { get; set; }
+
+        public string EndDate { get; set; }
+
+        public int DayOfWeek { get; set; }
+
+        public bool? SendNotifications { get; set; }
 
         public virtual List<AreaRuleTranslation> AreaRuleTranslations { get; set; }
             = new();

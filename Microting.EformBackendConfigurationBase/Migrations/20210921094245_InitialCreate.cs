@@ -66,6 +66,16 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     FolderId = table.Column<int>(type: "int", nullable: false),
                     FolderName = table.Column<string>(type: "longtext", nullable: true),
                     AreaRulesId = table.Column<int>(type: "int", nullable: false),
+                    Alarm = table.Column<int>(type: "int", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: true),
+                    ChecklistStable = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    TailBite = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    PlanningId = table.Column<int>(type: "int", nullable: true),
+                    RepeatEvery = table.Column<int>(type: "int", nullable: true),
+                    RepeatType = table.Column<int>(type: "int", nullable: true),
+                    EndDate = table.Column<string>(type: "longtext", nullable: true),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: false),
+                    SendNotifications = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
@@ -245,6 +255,27 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PropertySelectedLanguageVersions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    PropertySelectedLanguagesId = table.Column<int>(type: "int", nullable: false),
+                    PropertyId = table.Column<int>(type: "int", nullable: false),
+                    LanguageId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    UpdatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PropertySelectedLanguageVersions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PropertyWorkerVersions",
                 columns: table => new
                 {
@@ -272,10 +303,20 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     AreaId = table.Column<int>(type: "int", nullable: false),
-                    EformId = table.Column<int>(type: "int", nullable: false),
+                    EformId = table.Column<int>(type: "int", nullable: true),
                     EformName = table.Column<string>(type: "longtext", nullable: true),
                     FolderId = table.Column<int>(type: "int", nullable: false),
                     FolderName = table.Column<string>(type: "longtext", nullable: true),
+                    Alarm = table.Column<int>(type: "int", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: true),
+                    ChecklistStable = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    TailBite = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    PlanningId = table.Column<int>(type: "int", nullable: true),
+                    RepeatEvery = table.Column<int>(type: "int", nullable: true),
+                    RepeatType = table.Column<int>(type: "int", nullable: true),
+                    EndDate = table.Column<string>(type: "longtext", nullable: true),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: false),
+                    SendNotifications = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
@@ -352,6 +393,32 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         principalTable: "Properties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PropertySelectedLanguages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    PropertyId = table.Column<int>(type: "int", nullable: false),
+                    LanguageId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    UpdatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PropertySelectedLanguages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PropertySelectedLanguages_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -433,6 +500,11 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 column: "PermissionId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PropertySelectedLanguages_PropertyId",
+                table: "PropertySelectedLanguages",
+                column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PropertyWorkers_PropertyId",
                 table: "PropertyWorkers",
                 column: "PropertyId");
@@ -472,6 +544,12 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
             migrationBuilder.DropTable(
                 name: "PropertieVersions");
+
+            migrationBuilder.DropTable(
+                name: "PropertySelectedLanguages");
+
+            migrationBuilder.DropTable(
+                name: "PropertySelectedLanguageVersions");
 
             migrationBuilder.DropTable(
                 name: "PropertyWorkers");
