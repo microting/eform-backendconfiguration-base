@@ -58,6 +58,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<PropertySelectedLanguages> PropertySelectedLanguages { get; set; }
         public DbSet<PropertySelectedLanguageVersions> PropertySelectedLanguageVersions { get; set; }
 
+        public DbSet<AreaRulesPlanning> AreaRulePlannings { get; set; }
+        public DbSet<AreaRulesPlanningVersion> AreaRulesPlanningVersions { get; set; }
+
         // common tables
         public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
         public DbSet<PluginConfigurationValueVersion> PluginConfigurationValueVersions { get; set; }

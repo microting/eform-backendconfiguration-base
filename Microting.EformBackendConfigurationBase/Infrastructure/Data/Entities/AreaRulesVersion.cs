@@ -28,17 +28,17 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
     public class AreaRulesVersion : PnBase
     {
+        public int AreaRulesId { get; set; }
+
         public int AreaId { get; set; }
 
-        public int EformId { get; set; }
+        public int? EformId { get; set; }
 
         public string EformName { get; set; }
 
         public int FolderId { get; set; }
 
         public string FolderName { get; set; }
-
-        public int AreaRulesId { get; set; }
 
         public AreaRuleT2AlarmsEnum? Alarm { get; set; }
 
@@ -50,14 +50,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public int? PlanningId { get; set; }
 
-        public int? RepeatEvery { get; set; }
-
-        public int? RepeatType { get; set; }
-
-        public string EndDate { get; set; }
-
         public int DayOfWeek { get; set; }
-
-        public bool? SendNotifications { get; set; }
     }
 }

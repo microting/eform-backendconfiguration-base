@@ -24,12 +24,18 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    public class Areas : PnBase
+    public class AreaRulesPlanning: PnBase
     {
-        public string Name { get; set; }
+        public string StartDate { get; set; }
 
-        public string Description { get; set; }
+        public string EdnDate { get; set; }
 
-        public int Type { get; set; }
+        public string DayOfWeek { get; set; }
+
+        public int? RepeatEvery { get; set; }
+
+        public int? RepeatType { get; set; }
+
+        public bool Status { get; set; }
     }
 }

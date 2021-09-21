@@ -33,6 +33,55 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AreaRulePlannings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    StartDate = table.Column<string>(type: "longtext", nullable: true),
+                    EdnDate = table.Column<string>(type: "longtext", nullable: true),
+                    DayOfWeek = table.Column<string>(type: "longtext", nullable: true),
+                    RepeatEvery = table.Column<int>(type: "int", nullable: true),
+                    RepeatType = table.Column<int>(type: "int", nullable: true),
+                    Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    UpdatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AreaRulePlannings", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AreaRulesPlanningVersions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    AreaRulesPlanning = table.Column<int>(type: "int", nullable: false),
+                    StartDate = table.Column<string>(type: "longtext", nullable: true),
+                    EdnDate = table.Column<string>(type: "longtext", nullable: true),
+                    DayOfWeek = table.Column<string>(type: "longtext", nullable: true),
+                    RepeatEvery = table.Column<int>(type: "int", nullable: true),
+                    RepeatType = table.Column<int>(type: "int", nullable: true),
+                    Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    UpdatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AreaRulesPlanningVersions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AreaRuleTranslationVersions",
                 columns: table => new
                 {
@@ -60,22 +109,18 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    AreaRulesId = table.Column<int>(type: "int", nullable: false),
                     AreaId = table.Column<int>(type: "int", nullable: false),
-                    EformId = table.Column<int>(type: "int", nullable: false),
+                    EformId = table.Column<int>(type: "int", nullable: true),
                     EformName = table.Column<string>(type: "longtext", nullable: true),
                     FolderId = table.Column<int>(type: "int", nullable: false),
                     FolderName = table.Column<string>(type: "longtext", nullable: true),
-                    AreaRulesId = table.Column<int>(type: "int", nullable: false),
                     Alarm = table.Column<int>(type: "int", nullable: true),
                     Type = table.Column<int>(type: "int", nullable: true),
                     ChecklistStable = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     TailBite = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     PlanningId = table.Column<int>(type: "int", nullable: true),
-                    RepeatEvery = table.Column<int>(type: "int", nullable: true),
-                    RepeatType = table.Column<int>(type: "int", nullable: true),
-                    EndDate = table.Column<string>(type: "longtext", nullable: true),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
-                    SendNotifications = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
@@ -96,6 +141,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext", nullable: true),
                     Description = table.Column<string>(type: "longtext", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
@@ -116,6 +162,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext", nullable: true),
                     Description = table.Column<string>(type: "longtext", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     AreasId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
@@ -312,11 +359,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     ChecklistStable = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     TailBite = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     PlanningId = table.Column<int>(type: "int", nullable: true),
-                    RepeatEvery = table.Column<int>(type: "int", nullable: true),
-                    RepeatType = table.Column<int>(type: "int", nullable: true),
-                    EndDate = table.Column<string>(type: "longtext", nullable: true),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
-                    SendNotifications = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
@@ -517,6 +560,12 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
             migrationBuilder.DropTable(
                 name: "AreaPropertyVersions");
+
+            migrationBuilder.DropTable(
+                name: "AreaRulePlannings");
+
+            migrationBuilder.DropTable(
+                name: "AreaRulesPlanningVersions");
 
             migrationBuilder.DropTable(
                 name: "AreaRuleTranslations");

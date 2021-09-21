@@ -9,7 +9,7 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    [Migration("20210921094245_InitialCreate")]
+    [Migration("20210921215744_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -218,9 +218,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("EformName")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("EndDate")
-                        .HasColumnType("longtext");
-
                     b.Property<int>("FolderId")
                         .HasColumnType("int");
 
@@ -229,15 +226,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int?>("PlanningId")
                         .HasColumnType("int");
-
-                    b.Property<int?>("RepeatEvery")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RepeatType")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("SendNotifications")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool?>("TailBite")
                         .HasColumnType("tinyint(1)");
@@ -263,6 +251,105 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("AreaId");
 
                     b.ToTable("AreaRules");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulesPlanning", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DayOfWeek")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("EdnDate")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("RepeatEvery")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RepeatType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StartDate")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AreaRulePlannings");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulesPlanningVersion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AreaRulesPlanning")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DayOfWeek")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("EdnDate")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("RepeatEvery")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RepeatType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StartDate")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AreaRulesPlanningVersions");
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulesVersion", b =>
@@ -292,13 +379,10 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("DayOfWeek")
                         .HasColumnType("int");
 
-                    b.Property<int>("EformId")
+                    b.Property<int?>("EformId")
                         .HasColumnType("int");
 
                     b.Property<string>("EformName")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("EndDate")
                         .HasColumnType("longtext");
 
                     b.Property<int>("FolderId")
@@ -309,15 +393,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int?>("PlanningId")
                         .HasColumnType("int");
-
-                    b.Property<int?>("RepeatEvery")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RepeatType")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("SendNotifications")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool?>("TailBite")
                         .HasColumnType("tinyint(1)");
@@ -361,6 +436,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -399,6 +477,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");

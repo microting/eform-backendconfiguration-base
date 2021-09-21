@@ -30,6 +30,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public string Description { get; set; }
 
+        public int Type { get; set; }
+
         public int AreasId { get; set; }
     }
 }

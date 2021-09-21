@@ -52,17 +52,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public bool? TailBite { get; set; }
 
         public int? PlanningId { get; set; }
-
-        public int? RepeatEvery { get; set; }
-
-        public int? RepeatType { get; set; }
-
-        public string EndDate { get; set; }
-
+        
         public int DayOfWeek { get; set; }
-
-        public bool? SendNotifications { get; set; }
-
+        
         public virtual List<AreaRuleTranslation> AreaRuleTranslations { get; set; }
             = new();
     }
