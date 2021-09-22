@@ -40,7 +40,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
         public async Task Properties_Save_DoesSave()
         {
             // Arrange
-            var properties = new Properties
+            var properties = new Property
             {
                 Address = GetRandomStr(),
                 CHR = GetRandomStr(),
@@ -79,7 +79,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
         public async Task Properties_Update_DoesUpdate()
         {
             // Arrange
-            var properties = new Properties
+            var properties = new Property
             {
                 Address = GetRandomStr(),
                 CHR = GetRandomStr(),
@@ -119,7 +119,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
             Assert.AreEqual(propertiesOld.CreatedByUserId, propertiesListVersions[0].CreatedByUserId);
             Assert.AreEqual(propertiesOld.UpdatedByUserId, propertiesListVersions[0].UpdatedByUserId);
             Assert.AreEqual(Constants.WorkflowStates.Created, propertiesListVersions[0].WorkflowState);
-            Assert.AreEqual(properties.Id, propertiesListVersions[0].PropertiesId);
+            Assert.AreEqual(properties.Id, propertiesListVersions[0].PropertyId);
             Assert.AreEqual(1, propertiesListVersions[0].Version);
 
             Assert.AreEqual(properties.Address, propertiesListVersions[1].Address);
@@ -128,7 +128,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
             Assert.AreEqual(properties.CreatedByUserId, propertiesListVersions[1].CreatedByUserId);
             Assert.AreEqual(properties.UpdatedByUserId, propertiesListVersions[1].UpdatedByUserId);
             Assert.AreEqual(Constants.WorkflowStates.Created, propertiesListVersions[1].WorkflowState);
-            Assert.AreEqual(properties.Id, propertiesListVersions[0].PropertiesId);
+            Assert.AreEqual(properties.Id, propertiesListVersions[0].PropertyId);
             Assert.AreEqual(2, propertiesListVersions[1].Version);
         }
 
@@ -136,7 +136,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
         public async Task Properties_Delete_DoesDelete()
         {
             // Arrange
-            var properties = new Properties
+            var properties = new Property
             {
                 Address = GetRandomStr(),
                 CHR = GetRandomStr(),

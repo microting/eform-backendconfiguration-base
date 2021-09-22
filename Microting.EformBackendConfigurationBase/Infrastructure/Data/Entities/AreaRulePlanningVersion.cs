@@ -24,24 +24,33 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
+    using System;
+    using Enum;
 
-    public class AreaProperty : PnBase
+    public class AreaRulePlanningVersion: PnBase
     {
-        public int PropertyId { get; set; }
+        public int AreaRulePlanning { get; set; }
 
-        [ForeignKey("PropertyId")]
-        public virtual Property Property { get; set; }
+        public DateTime? StartDate { get; set; }
 
-        public int AreaId { get; set; }
+        public DateTime? EndDate { get; set; }
 
-        [ForeignKey("AreaId")]
-        public virtual Area Area { get; set; }
+        public int DayOfWeek { get; set; }
 
-        public bool Checked { get; set; }
+        public int? RepeatEvery { get; set; }
 
-        public virtual List<ProperyAreaFolder> ProperyAreaFolders { get; set; }
-            = new ();
+        public int? RepeatType { get; set; }
+
+        public bool Status { get; set; }
+
+        public bool SendNotifications { get; set; }
+
+        public AreaRuleT2AlarmsEnum Alarm { get; set; }
+
+        public AreaRuleT2TypesEnum Type { get; set; }
+
+        public int AreaRulesId { get; set; }
+
+        public int ItemPlanningId { get; set; }
     }
 }

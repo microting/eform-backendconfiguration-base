@@ -24,10 +24,13 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    public class PlanningSites: PnBase
-    {
-        public int PlanningId { get; set; }
 
-        public int SiteId { get; set; }
+    public class ProperyAreaFolder: PnBase
+    {
+        public int ProperyAreaAsignmentId { get; set; }
+
+        public int FolderId { get; set; }
+        
+        public virtual AreaProperty AreaProperty { get; set; }
     }
 }

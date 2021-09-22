@@ -24,24 +24,17 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    public class AreaProperty : PnBase
+    public class PropertyVersion : PnBase
     {
         public int PropertyId { get; set; }
 
-        [ForeignKey("PropertyId")]
-        public virtual Property Property { get; set; }
+        public string Name { get; set; }
 
-        public int AreaId { get; set; }
+        // ReSharper disable once InconsistentNaming
+        public string CHR { get; set; }
 
-        [ForeignKey("AreaId")]
-        public virtual Area Area { get; set; }
+        public string Address { get; set; }
 
-        public bool Checked { get; set; }
-
-        public virtual List<ProperyAreaFolder> ProperyAreaFolders { get; set; }
-            = new ();
+        public int? FolderId { get; set; }
     }
 }

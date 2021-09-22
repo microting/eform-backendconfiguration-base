@@ -24,14 +24,16 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    public class AreasVersion : PnBase
+    using Enum;
+
+    public class AreaVersion : PnBase
     {
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public int Type { get; set; }
+        public AreaTypesEnum Type { get; set; }
 
-        public int AreasId { get; set; }
+        public int AreaId { get; set; }
     }
 }

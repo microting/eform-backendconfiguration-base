@@ -1,4 +1,4 @@
-﻿/*
+/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2021 Microting A/S
@@ -24,12 +24,39 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    public class PropertySelectedLanguageVersions : PnBase
+    using System.Collections.Generic;
+    using Enum;
+
+    public class AreaRule : PnBase
     {
-        public int PropertySelectedLanguagesId { get; set; }
+        public int AreaId { get; set; }
 
-        public int PropertyId { get; set; }
+        public virtual Area Area { get; set; }
 
-        public int LanguageId { get; set; }
+        public int? EformId { get; set; }
+        
+        public string EformName { get; set; }
+
+        public int FolderId { get; set; }
+
+        public string FolderName { get; set; }
+
+        public AreaRuleT2AlarmsEnum? Alarm { get; set; }
+
+        public AreaRuleT2TypesEnum? Type { get; set; }
+
+        public bool? ChecklistStable { get; set; }
+
+        public bool? TailBite { get; set; }
+
+        public int? PlanningId { get; set; }
+        
+        public int DayOfWeek { get; set; }
+        
+        public virtual List<AreaRuleTranslation> AreaRuleTranslations { get; set; }
+            = new();
+
+        public virtual List<AreaRulePlanning> AreaRulesPlannings { get; set; }
+            = new();
     }
 }

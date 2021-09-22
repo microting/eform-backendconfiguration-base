@@ -24,28 +24,20 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    using Enum;
+    using System.Collections.Generic;
 
-    public class AreaRulesPlanningVersion: PnBase
+    public class Property : PnBase
     {
-        public int AreaRulesPlanning { get; set; }
+        public string Name { get; set; }
 
-        public string StartDate { get; set; }
+        // ReSharper disable once InconsistentNaming
+        public string CHR { get; set; }
 
-        public string EndDate { get; set; }
+        public string Address { get; set; }
 
-        public string DayOfWeek { get; set; }
+        public virtual List<PropertySelectedLanguage> SelectedLanguages { get; set; }
+            = new();
 
-        public int? RepeatEvery { get; set; }
-
-        public int? RepeatType { get; set; }
-
-        public bool Status { get; set; }
-
-        public bool SendNotifications { get; set; }
-
-        public AreaRuleT2AlarmsEnum Alarm { get; set; }
-
-        public AreaRuleT2TypesEnum Type { get; set; }
+        public int? FolderId { get; set; }
     }
 }

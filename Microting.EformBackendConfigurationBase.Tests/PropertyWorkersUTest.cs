@@ -39,7 +39,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
         [Test]
         public async Task PropertyWorkers_Save_DoesSave()
         {
-            var properties = new Properties
+            var properties = new Property
             {
                 Address = GetRandomStr(),
                 CHR = GetRandomStr(),
@@ -51,7 +51,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
             await properties.Create(DbContext);
 
             // Arrange
-            var propertyWorkers = new PropertyWorkers
+            var propertyWorkers = new PropertyWorker
             {
                 WorkerId = 1,
                 PropertyId = properties.Id,
@@ -84,14 +84,14 @@ namespace Microting.EformBackendConfigurationBase.Tests
             Assert.AreEqual(propertyWorkers.UpdatedByUserId, propertyWorkersListVersions[0].UpdatedByUserId);
             Assert.AreEqual(propertyWorkers.WorkerId, propertyWorkersListVersions[0].WorkerId);
             Assert.AreEqual(propertyWorkers.PropertyId, propertyWorkersListVersions[0].PropertyId);
-            Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[0].PropertyWorkersId);
+            Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[0].PropertyWorkerId);
             Assert.AreEqual(1, propertyWorkersListVersions[0].Version);
         }
 
         [Test]
         public async Task PropertyWorkers_Update_DoesUpdate()
         {
-            var oneProperties = new Properties
+            var oneProperties = new Property
             {
                 Address = GetRandomStr(),
                 CHR = GetRandomStr(),
@@ -100,7 +100,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
                 UpdatedByUserId = 1,
             };
 
-            var twoProperties = new Properties
+            var twoProperties = new Property
             {
                 Address = GetRandomStr(),
                 CHR = GetRandomStr(),
@@ -113,7 +113,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
             await twoProperties.Create(DbContext);
 
             // Arrange
-            var propertyWorkers = new PropertyWorkers
+            var propertyWorkers = new PropertyWorker
             {
                 WorkerId = 1,
                 PropertyId = oneProperties.Id,
@@ -151,7 +151,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
             Assert.AreEqual(propertyWorkerOld.CreatedByUserId, propertyWorkersListVersions[0].CreatedByUserId);
             Assert.AreEqual(propertyWorkerOld.UpdatedByUserId, propertyWorkersListVersions[0].UpdatedByUserId);
             Assert.AreEqual(Constants.WorkflowStates.Created, propertyWorkersListVersions[0].WorkflowState);
-            Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[0].PropertyWorkersId);
+            Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[0].PropertyWorkerId);
             Assert.AreEqual(1, propertyWorkersListVersions[0].Version);
 
             Assert.AreEqual(propertyWorkers.WorkerId, propertyWorkersListVersions[1].WorkerId);
@@ -159,14 +159,14 @@ namespace Microting.EformBackendConfigurationBase.Tests
             Assert.AreEqual(propertyWorkers.CreatedByUserId, propertyWorkersListVersions[1].CreatedByUserId);
             Assert.AreEqual(propertyWorkers.UpdatedByUserId, propertyWorkersListVersions[1].UpdatedByUserId);
             Assert.AreEqual(Constants.WorkflowStates.Created, propertyWorkersListVersions[1].WorkflowState);
-            Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[1].PropertyWorkersId);
+            Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[1].PropertyWorkerId);
             Assert.AreEqual(2, propertyWorkersListVersions[1].Version);
         }
 
         [Test]
         public async Task PropertyWorkers_Delete_DoesDelete()
         {
-            var oneProperties = new Properties
+            var oneProperties = new Property
             {
                 Address = GetRandomStr(),
                 CHR = GetRandomStr(),
@@ -178,7 +178,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
             await oneProperties.Create(DbContext);
 
             // Arrange
-            var propertyWorkers = new PropertyWorkers
+            var propertyWorkers = new PropertyWorker
             {
                 WorkerId = 1,
                 PropertyId = oneProperties.Id,
@@ -210,7 +210,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
             Assert.AreEqual(propertyWorkers.CreatedByUserId, propertyWorkersListVersions[0].CreatedByUserId);
             Assert.AreEqual(propertyWorkers.UpdatedByUserId, propertyWorkersListVersions[0].UpdatedByUserId);
             Assert.AreEqual(Constants.WorkflowStates.Created, propertyWorkersListVersions[0].WorkflowState);
-            Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[0].PropertyWorkersId);
+            Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[0].PropertyWorkerId);
             Assert.AreEqual(1, propertyWorkersListVersions[0].Version);
 
             Assert.AreEqual(propertyWorkers.WorkerId, propertyWorkersListVersions[1].WorkerId);
@@ -218,7 +218,7 @@ namespace Microting.EformBackendConfigurationBase.Tests
             Assert.AreEqual(propertyWorkers.CreatedByUserId, propertyWorkersListVersions[1].CreatedByUserId);
             Assert.AreEqual(propertyWorkers.UpdatedByUserId, propertyWorkersListVersions[1].UpdatedByUserId);
             Assert.AreEqual(Constants.WorkflowStates.Removed, propertyWorkersListVersions[1].WorkflowState);
-            Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[1].PropertyWorkersId);
+            Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[1].PropertyWorkerId);
             Assert.AreEqual(2, propertyWorkersListVersions[1].Version);
         }
     }
