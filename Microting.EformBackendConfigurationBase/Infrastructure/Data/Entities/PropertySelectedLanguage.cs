@@ -24,18 +24,12 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    using System.Collections.Generic;
-
-    public class Properties : PnBase
+    public class PropertySelectedLanguage: PnBase
     {
-        public string Name { get; set; }
+        public int PropertyId { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string CHR { get; set; }
+        public int LanguageId { get; set; }
 
-        public string Address { get; set; }
-
-        public virtual List<PropertySelectedLanguages> SelectedLanguages { get; set; }
-            = new();
+        public virtual Property Property { get; set; }
     }
 }

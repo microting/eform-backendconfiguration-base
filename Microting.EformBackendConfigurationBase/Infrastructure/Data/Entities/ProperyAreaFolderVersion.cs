@@ -24,15 +24,12 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    public class PropertiesVersion : PnBase
+    public class ProperyAreaFolderVersion : PnBase
     {
-        public string Name { get; set; }
+        public int ProperyAreaFolderId { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string CHR { get; set; }
+        public int ProperyAreaAsignmentId { get; set; }
 
-        public string Address { get; set; }
-
-        public int PropertiesId { get; set; }
+        public int FolderId { get; set; }
     }
 }

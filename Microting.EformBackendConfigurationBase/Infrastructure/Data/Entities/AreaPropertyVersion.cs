@@ -26,12 +26,12 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
     public class AreaPropertyVersion : PnBase
     {
+        public int AreaPropertyId { get; set; }
+
         public int PropertyId { get; set; }
         
         public int AreaId { get; set; }
         
         public bool Checked { get; set; }
-
-        public int AreaPropertyId { get; set; }
     }
 }

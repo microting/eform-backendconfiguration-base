@@ -24,12 +24,20 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    public class PropertyWorkersVersion : PnBase
-    {
-        public int PropertyId { get; set; }
-        
-        public int WorkerId { get; set; }
+    using System.Collections.Generic;
 
-        public int PropertyWorkersId { get; set; }
+    public class Property : PnBase
+    {
+        public string Name { get; set; }
+
+        // ReSharper disable once InconsistentNaming
+        public string CHR { get; set; }
+
+        public string Address { get; set; }
+
+        public virtual List<PropertySelectedLanguage> SelectedLanguages { get; set; }
+            = new();
+
+        public int? FolderId { get; set; }
     }
 }

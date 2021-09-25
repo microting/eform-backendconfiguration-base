@@ -24,40 +24,33 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
+    using System;
     using Enum;
 
-    public class AreaRulesVersion : PnBase
+    public class AreaRulePlanning: PnBase
     {
-        public int AreaId { get; set; }
+        public DateTime? StartDate { get; set; }
 
-        public int EformId { get; set; }
+        public DateTime? EndDate { get; set; }
 
-        public string EformName { get; set; }
-
-        public int FolderId { get; set; }
-
-        public string FolderName { get; set; }
-
-        public int AreaRulesId { get; set; }
-
-        public AreaRuleT2AlarmsEnum? Alarm { get; set; }
-
-        public AreaRuleT2TypesEnum? Type { get; set; }
-
-        public bool? ChecklistStable { get; set; }
-
-        public bool? TailBite { get; set; }
-
-        public int? PlanningId { get; set; }
+        public int DayOfWeek { get; set; }
 
         public int? RepeatEvery { get; set; }
 
         public int? RepeatType { get; set; }
 
-        public string EndDate { get; set; }
+        public bool Status { get; set; }
 
-        public int DayOfWeek { get; set; }
+        public bool SendNotifications { get; set; }
 
-        public bool? SendNotifications { get; set; }
+        public AreaRuleT2AlarmsEnum Alarm { get; set; }
+
+        public AreaRuleT2TypesEnum Type { get; set; }
+
+        public int AreaRuleId { get; set; }
+
+        public virtual AreaRule AreaRule { get; set; }
+
+        public int ItemPlanningId { get; set; }
     }
 }

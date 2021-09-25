@@ -24,15 +24,12 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    public class PropertyWorkers : PnBase
+    public class PropertySelectedLanguageVersion : PnBase
     {
+        public int PropertySelectedLanguageId { get; set; }
+
         public int PropertyId { get; set; }
 
-        [ForeignKey("PropertyId")]
-        public virtual Properties Property { get; set; }
-
-        public int WorkerId { get; set; }
+        public int LanguageId { get; set; }
     }
 }

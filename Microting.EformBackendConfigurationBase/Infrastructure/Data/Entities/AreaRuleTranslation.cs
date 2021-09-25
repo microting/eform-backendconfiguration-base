@@ -37,6 +37,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int AreaRuleId { get; set; }
 
         [ForeignKey("AreaRuleId")]
-        public virtual AreaRules AreaRule { get; set; }
+        public virtual AreaRule AreaRule { get; set; }
     }
 }

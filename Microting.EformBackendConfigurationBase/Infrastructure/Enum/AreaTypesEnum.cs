@@ -22,26 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Enum
 {
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    public class AreaProperty : PnBase
+    public enum AreaTypesEnum
     {
-        public int PropertyId { get; set; }
-
-        [ForeignKey("PropertyId")]
-        public virtual Property Property { get; set; }
-
-        public int AreaId { get; set; }
-
-        [ForeignKey("AreaId")]
-        public virtual Area Area { get; set; }
-
-        public bool Checked { get; set; }
-
-        public virtual List<ProperyAreaFolder> ProperyAreaFolders { get; set; }
-            = new ();
+        Type1 = 1,
+        Type2,
+        Type3,
+        Type4,
+        Type5,
     }
 }

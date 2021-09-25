@@ -24,12 +24,12 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    public class PropertySelectedLanguages: PnBase
+    public class PlanningSiteVersion: PnBase
     {
-        public int PropertyId { get; set; }
+        public int PlanningSiteId { get; set; }
 
-        public int LanguageId { get; set; }
+        public int PlanningId { get; set; }
 
-        public virtual Properties Properties { get; set; }
+        public int SiteId { get; set; }
     }
 }

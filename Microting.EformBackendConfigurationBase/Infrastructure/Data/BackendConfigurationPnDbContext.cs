@@ -37,17 +37,17 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         {
         }
         
-        public DbSet<PropertyWorkers> PropertyWorkers { get; set; }
-        public DbSet<PropertyWorkersVersion> PropertyWorkerVersions { get; set; }
+        public DbSet<PropertyWorker> PropertyWorkers { get; set; }
+        public DbSet<PropertyWorkerVersion> PropertyWorkerVersions { get; set; }
 
-        public DbSet<Properties> Properties { get; set; }
-        public DbSet<PropertiesVersion> PropertieVersions { get; set; }
+        public DbSet<Property> Properties { get; set; }
+        public DbSet<PropertyVersion> PropertieVersions { get; set; }
 
-        public DbSet<Areas> Areas { get; set; }
-        public DbSet<AreasVersion> AreaVersions { get; set; }
+        public DbSet<Area> Areas { get; set; }
+        public DbSet<AreaVersion> AreaVersions { get; set; }
 
-        public DbSet<AreaRules> AreaRules { get; set; }
-        public DbSet<AreaRulesVersion> AreaRuleVersions { get; set; }
+        public DbSet<AreaRule> AreaRules { get; set; }
+        public DbSet<AreaRuleVersion> AreaRuleVersions { get; set; }
 
         public DbSet<AreaProperty> AreaProperties { get; set; }
         public DbSet<AreaPropertyVersion> AreaPropertyVersions { get; set; }
@@ -55,8 +55,17 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<AreaRuleTranslation> AreaRuleTranslations { get; set; }
         public DbSet<AreaRuleTranslationVersion> AreaRuleTranslationVersions { get; set; }
 
-        public DbSet<PropertySelectedLanguages> PropertySelectedLanguages { get; set; }
-        public DbSet<PropertySelectedLanguageVersions> PropertySelectedLanguageVersions { get; set; }
+        public DbSet<PropertySelectedLanguage> PropertySelectedLanguages { get; set; }
+        public DbSet<PropertySelectedLanguageVersion> PropertySelectedLanguageVersions { get; set; }
+
+        public DbSet<AreaRulePlanning> AreaRulePlannings { get; set; }
+        public DbSet<AreaRulePlanningVersion> AreaRulesPlanningVersions { get; set; }
+
+        public DbSet<PlanningSite> PlanningSites { get; set; }
+        public DbSet<PlanningSiteVersion> PlanningSitesVersions { get; set; }
+
+        public DbSet<ProperyAreaFolder> ProperyAreaFolders { get; set; }
+        public DbSet<ProperyAreaFolderVersion> ProperyAreaFolderVersions { get; set; }
 
         // common tables
         public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
@@ -74,9 +83,24 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
                 .HasForeignKey(x => x.AreaRuleId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<PropertySelectedLanguages>().HasOne(x => x.Properties)
+            modelBuilder.Entity<PropertySelectedLanguage>().HasOne(x => x.Property)
                 .WithMany(x => x.SelectedLanguages)
                 .HasForeignKey(x => x.PropertyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProperyAreaFolder>().HasOne(x => x.AreaProperty)
+                .WithMany(x => x.ProperyAreaFolders)
+                .HasForeignKey(x => x.ProperyAreaAsignmentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<AreaRulePlanning>().HasOne(x => x.AreaRule)
+                .WithMany(x => x.AreaRulesPlannings)
+                .HasForeignKey(x => x.AreaRuleId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<AreaRule>().HasOne(x => x.Area)
+                .WithMany(x => x.AreaRules)
+                .HasForeignKey(x => x.AreaId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
