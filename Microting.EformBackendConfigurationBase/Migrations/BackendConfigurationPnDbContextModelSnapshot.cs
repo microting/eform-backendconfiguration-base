@@ -529,13 +529,13 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("AreaRulePlanningsId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlanningId")
                         .HasColumnType("int");
 
                     b.Property<int>("SiteId")
@@ -555,6 +555,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AreaRulePlanningsId");
 
                     b.ToTable("PlanningSites");
                 });
@@ -1159,6 +1161,17 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Navigation("AreaRule");
                 });
 
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PlanningSite", b =>
+                {
+                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulePlanning", "AreaRulePlanning")
+                        .WithMany("PlanningSites")
+                        .HasForeignKey("AreaRulePlanningsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AreaRulePlanning");
+                });
+
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertySelectedLanguage", b =>
                 {
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Property", "Property")
@@ -1218,6 +1231,11 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Navigation("AreaRulesPlannings");
 
                     b.Navigation("AreaRuleTranslations");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulePlanning", b =>
+                {
+                    b.Navigation("PlanningSites");
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Property", b =>
