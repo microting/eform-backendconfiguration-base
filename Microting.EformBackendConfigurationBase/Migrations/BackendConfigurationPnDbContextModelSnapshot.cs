@@ -15,7 +15,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.9");
+                .HasAnnotation("ProductVersion", "5.0.10");
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Area", b =>
                 {
@@ -176,9 +176,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<string>("FolderName")
                         .HasColumnType("longtext");
-
-                    b.Property<int?>("PlanningId")
-                        .HasColumnType("int");
 
                     b.Property<bool?>("TailBite")
                         .HasColumnType("tinyint(1)");
@@ -459,9 +456,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<string>("FolderName")
                         .HasColumnType("longtext");
-
-                    b.Property<int?>("PlanningId")
-                        .HasColumnType("int");
 
                     b.Property<bool?>("TailBite")
                         .HasColumnType("tinyint(1)");
