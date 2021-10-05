@@ -25,6 +25,7 @@ SOFTWARE.
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
     using System;
+    using System.Collections.Generic;
     using Enum;
 
     public class AreaRulePlanning: PnBase
@@ -52,5 +53,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public virtual AreaRule AreaRule { get; set; }
 
         public int ItemPlanningId { get; set; }
+
+        public virtual List<PlanningSite> PlanningSites { get; set; }
     }
 }

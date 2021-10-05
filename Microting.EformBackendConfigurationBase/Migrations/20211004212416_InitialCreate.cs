@@ -110,7 +110,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     Type = table.Column<int>(type: "int", nullable: true),
                     ChecklistStable = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     TailBite = table.Column<bool>(type: "tinyint(1)", nullable: true),
-                    PlanningId = table.Column<int>(type: "int", nullable: true),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
@@ -174,28 +173,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AreaVersions", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "PlanningSites",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    PlanningId = table.Column<int>(type: "int", nullable: false),
-                    SiteId = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
-                    UpdatedByUserId = table.Column<int>(type: "int", nullable: false),
-                    Version = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlanningSites", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -459,7 +436,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     Type = table.Column<int>(type: "int", nullable: true),
                     ChecklistStable = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     TailBite = table.Column<bool>(type: "tinyint(1)", nullable: true),
-                    PlanningId = table.Column<int>(type: "int", nullable: true),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
@@ -696,6 +672,34 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "PlanningSites",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    AreaRulePlanningsId = table.Column<int>(type: "int", nullable: false),
+                    SiteId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    UpdatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlanningSites", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PlanningSites_AreaRulePlannings_AreaRulePlanningsId",
+                        column: x => x.AreaRulePlanningsId,
+                        principalTable: "AreaRulePlannings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AreaProperties_AreaId",
                 table: "AreaProperties",
@@ -722,6 +726,11 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 column: "AreaRuleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PlanningSites_AreaRulePlanningsId",
+                table: "PlanningSites",
+                column: "AreaRulePlanningsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PluginGroupPermissions_PermissionId",
                 table: "PluginGroupPermissions",
                 column: "PermissionId");
@@ -746,9 +755,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AreaPropertyVersions");
-
-            migrationBuilder.DropTable(
-                name: "AreaRulePlannings");
 
             migrationBuilder.DropTable(
                 name: "AreaRulesPlanningVersions");
@@ -805,7 +811,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 name: "ProperyAreaFolderVersions");
 
             migrationBuilder.DropTable(
-                name: "AreaRules");
+                name: "AreaRulePlannings");
 
             migrationBuilder.DropTable(
                 name: "PluginPermissions");
@@ -814,10 +820,13 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 name: "AreaProperties");
 
             migrationBuilder.DropTable(
-                name: "Areas");
+                name: "AreaRules");
 
             migrationBuilder.DropTable(
                 name: "Properties");
+
+            migrationBuilder.DropTable(
+                name: "Areas");
         }
     }
 }
