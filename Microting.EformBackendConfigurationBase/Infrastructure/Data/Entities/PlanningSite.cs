@@ -26,8 +26,10 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
     public class PlanningSite: PnBase
     {
-        public int PlanningId { get; set; }
+        public int AreaRulePlanningsId { get; set; }
 
         public int SiteId { get; set; }
+
+        public virtual AreaRulePlanning AreaRulePlanning { get; set; }
     }
 }

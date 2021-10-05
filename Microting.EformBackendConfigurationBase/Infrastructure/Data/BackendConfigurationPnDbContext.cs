@@ -102,6 +102,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
                 .WithMany(x => x.AreaRules)
                 .HasForeignKey(x => x.AreaId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PlanningSite>().HasOne(x => x.AreaRulePlanning)
+                .WithMany(x => x.PlanningSites)
+                .HasForeignKey(x => x.AreaRulePlanningsId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
