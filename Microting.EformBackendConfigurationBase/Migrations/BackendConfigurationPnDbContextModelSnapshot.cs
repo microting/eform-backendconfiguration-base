@@ -1328,9 +1328,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertyWorker", b =>
                 {
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Property", "Property")
-                        .WithMany()
+                        .WithMany("PropertyWorkers")
                         .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Property");
@@ -1386,6 +1386,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Property", b =>
                 {
+                    b.Navigation("PropertyWorkers");
+
                     b.Navigation("SelectedLanguages");
                 });
 #pragma warning restore 612, 618

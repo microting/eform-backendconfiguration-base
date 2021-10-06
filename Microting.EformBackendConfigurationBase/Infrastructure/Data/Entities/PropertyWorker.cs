@@ -1,4 +1,4 @@
-﻿/*
+/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2021 Microting A/S
@@ -30,7 +30,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
     {
         public int PropertyId { get; set; }
 
-        [ForeignKey("PropertyId")]
         public virtual Property Property { get; set; }
 
         public int WorkerId { get; set; }
