@@ -1,4 +1,4 @@
-/*
+﻿/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2021 Microting A/S
@@ -24,39 +24,29 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    using System.Collections.Generic;
+    using System;
     using Enum;
 
-    public class AreaRule: PnBase
+    public class AreaRuleInitialField: PnBase
     {
-        public int AreaId { get; set; }
-
-        public virtual Area Area { get; set; }
-
-        public int? EformId { get; set; }
-        
         public string EformName { get; set; }
 
-        public int FolderId { get; set; }
+        public bool Notifications { get; set; }
 
-        public string FolderName { get; set; }
+        public int? RepeatEvery { get; set; }
 
-        public AreaRuleT2AlarmsEnum? Alarm { get; set; }
+        public int? RepeatType { get; set; }
+
+        public int? DayOfWeek { get; set; }
 
         public AreaRuleT2TypesEnum? Type { get; set; }
 
-        public bool? ChecklistStable { get; set; }
+        public AreaRuleT2AlarmsEnum? Alarm { get; set; }
 
-        public bool? TailBite { get; set; }
+        public DateTime? EndDate { get; set; }
 
-        public int DayOfWeek { get; set; }
-        
-        public virtual List<AreaRuleTranslation> AreaRuleTranslations { get; set; }
-            = new();
+        public int AreaRuleId { get; set; }
 
-        public virtual List<AreaRulePlanning> AreaRulesPlannings { get; set; }
-            = new();
-
-        public virtual AreaRuleInitialField AreaRuleInitialField { get; set; }
+        public virtual AreaRule AreaRule { get; set; } 
     }
 }

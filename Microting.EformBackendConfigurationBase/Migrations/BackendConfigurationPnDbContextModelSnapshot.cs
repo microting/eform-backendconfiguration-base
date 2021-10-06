@@ -56,6 +56,66 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.ToTable("Areas");
                 });
 
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaInitialField", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Alarm")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AreaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DayOfWeek")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EformName")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("Notifications")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int?>("RepeatEvery")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RepeatType")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaId")
+                        .IsUnique();
+
+                    b.ToTable("AreaInitialFields");
+                });
+
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaProperty", b =>
                 {
                     b.Property<int>("Id")
@@ -201,6 +261,66 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("AreaId");
 
                     b.ToTable("AreaRules");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRuleInitialField", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Alarm")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AreaRuleId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DayOfWeek")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EformName")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("Notifications")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int?>("RepeatEvery")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RepeatType")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaRuleId")
+                        .IsUnique();
+
+                    b.ToTable("AreaRuleInitialFields");
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulePlanning", b =>
@@ -1109,6 +1229,17 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.ToTable("PluginPermissions");
                 });
 
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaInitialField", b =>
+                {
+                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Area", "Area")
+                        .WithOne("AreaInitialField")
+                        .HasForeignKey("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaInitialField", "AreaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Area");
+                });
+
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaProperty", b =>
                 {
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Area", "Area")
@@ -1137,6 +1268,17 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .IsRequired();
 
                     b.Navigation("Area");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRuleInitialField", b =>
+                {
+                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRule", "AreaRule")
+                        .WithOne("AreaRuleInitialField")
+                        .HasForeignKey("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRuleInitialField", "AreaRuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AreaRule");
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulePlanning", b =>
@@ -1218,6 +1360,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Area", b =>
                 {
+                    b.Navigation("AreaInitialField");
+
                     b.Navigation("AreaRules");
                 });
 
@@ -1228,6 +1372,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRule", b =>
                 {
+                    b.Navigation("AreaRuleInitialField");
+
                     b.Navigation("AreaRulesPlannings");
 
                     b.Navigation("AreaRuleTranslations");

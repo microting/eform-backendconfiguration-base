@@ -64,6 +64,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<PlanningSite> PlanningSites { get; set; }
         public DbSet<PlanningSiteVersion> PlanningSitesVersions { get; set; }
 
+        public DbSet<AreaRuleInitialField> AreaRuleInitialFields { get; set; }
+
+        public DbSet<AreaInitialField> AreaInitialFields { get; set; }
+
+
         public DbSet<ProperyAreaFolder> ProperyAreaFolders { get; set; }
         public DbSet<ProperyAreaFolderVersion> ProperyAreaFolderVersions { get; set; }
 
