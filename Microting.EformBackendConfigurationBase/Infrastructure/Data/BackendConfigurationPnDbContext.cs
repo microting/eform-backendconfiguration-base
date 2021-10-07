@@ -36,7 +36,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public BackendConfigurationPnDbContext(DbContextOptions<BackendConfigurationPnDbContext> options) : base(options)
         {
         }
-        
+
         public DbSet<PropertyWorker> PropertyWorkers { get; set; }
         public DbSet<PropertyWorkerVersion> PropertyWorkerVersions { get; set; }
 
@@ -45,6 +45,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
 
         public DbSet<Area> Areas { get; set; }
         public DbSet<AreaVersion> AreaVersions { get; set; }
+
+        public DbSet<AreaTranslation> AreaTranslations { get; set; }
+        public DbSet<AreaTranslationVersion> AreaTranslationVersions { get; set; }
 
         public DbSet<AreaRule> AreaRules { get; set; }
         public DbSet<AreaRuleVersion> AreaRuleVersions { get; set; }
@@ -67,6 +70,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<AreaRuleInitialField> AreaRuleInitialFields { get; set; }
 
         public DbSet<AreaInitialField> AreaInitialFields { get; set; }
+        public DbSet<AreaInitialFieldVersion> AreaInitialFieldVersions { get; set; }
 
 
         public DbSet<ProperyAreaFolder> ProperyAreaFolders { get; set; }
