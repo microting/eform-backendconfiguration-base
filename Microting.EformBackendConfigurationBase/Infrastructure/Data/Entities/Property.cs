@@ -26,7 +26,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
     using System.Collections.Generic;
 
-    public class Property : PnBase
+    public class Property: PnBase
     {
         public string Name { get; set; }
 
@@ -39,5 +39,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
             = new();
 
         public int? FolderId { get; set; }
+
+        public virtual List<PropertyWorker> PropertyWorkers { get; set; }
+            = new();
     }
 }

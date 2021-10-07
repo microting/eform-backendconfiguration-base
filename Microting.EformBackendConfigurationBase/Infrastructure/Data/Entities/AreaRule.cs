@@ -27,7 +27,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
     using System.Collections.Generic;
     using Enum;
 
-    public class AreaRule : PnBase
+    public class AreaRule: PnBase
     {
         public int AreaId { get; set; }
 
@@ -56,5 +56,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public virtual List<AreaRulePlanning> AreaRulesPlannings { get; set; }
             = new();
+
+        public virtual AreaRuleInitialField AreaRuleInitialField { get; set; }
     }
 }

@@ -37,5 +37,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public virtual List<AreaRule> AreaRules { get; set; }
             = new();
+
+        public virtual AreaInitialField AreaInitialField { get; set; }
     }
 }

@@ -64,6 +64,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<PlanningSite> PlanningSites { get; set; }
         public DbSet<PlanningSiteVersion> PlanningSitesVersions { get; set; }
 
+        public DbSet<AreaRuleInitialField> AreaRuleInitialFields { get; set; }
+
+        public DbSet<AreaInitialField> AreaInitialFields { get; set; }
+
+
         public DbSet<ProperyAreaFolder> ProperyAreaFolders { get; set; }
         public DbSet<ProperyAreaFolderVersion> ProperyAreaFolderVersions { get; set; }
 
@@ -106,6 +111,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
             modelBuilder.Entity<PlanningSite>().HasOne(x => x.AreaRulePlanning)
                 .WithMany(x => x.PlanningSites)
                 .HasForeignKey(x => x.AreaRulePlanningsId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PropertyWorker>().HasOne(x => x.Property)
+                .WithMany(x => x.PropertyWorkers)
+                .HasForeignKey(x => x.PropertyId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
