@@ -29,7 +29,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
     public class AreaRulePlanningVersion: PnBase
     {
-        public int AreaRulePlanning { get; set; }
+        public int AreaRulePlanningId { get; set; }
 
         public DateTime? StartDate { get; set; }
 

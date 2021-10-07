@@ -41,7 +41,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    AreaRulePlanning = table.Column<int>(type: "int", nullable: false),
+                    AreaRulePlanningId = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
@@ -147,6 +147,33 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Areas", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "AreaTranslationVersions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    AreaId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    LanguageId = table.Column<int>(type: "int", nullable: false),
+                    AreaTranslationId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    UpdatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AreaTranslationVersions", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -456,6 +483,43 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "AreaInitialFieldVersions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    EformName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Notifications = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    RepeatEvery = table.Column<int>(type: "int", nullable: true),
+                    RepeatType = table.Column<int>(type: "int", nullable: true),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: true),
+                    Alarm = table.Column<int>(type: "int", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    AreaId = table.Column<int>(type: "int", nullable: false),
+                    AreaInitialFieldId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    UpdatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AreaInitialFieldVersions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AreaInitialFieldVersions_Areas_AreaId",
+                        column: x => x.AreaId,
+                        principalTable: "Areas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "AreaRules",
                 columns: table => new
                 {
@@ -490,6 +554,38 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         principalTable: "Areas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "AreaTranslations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    AreaId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    LanguageId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    UpdatedByUserId = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AreaTranslations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AreaTranslations_Areas_AreaId",
+                        column: x => x.AreaId,
+                        principalTable: "Areas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -779,6 +875,11 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_AreaInitialFieldVersions_AreaId",
+                table: "AreaInitialFieldVersions",
+                column: "AreaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AreaProperties_AreaId",
                 table: "AreaProperties",
                 column: "AreaId");
@@ -808,6 +909,11 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 name: "IX_AreaRuleTranslations_AreaRuleId",
                 table: "AreaRuleTranslations",
                 column: "AreaRuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AreaTranslations_AreaId",
+                table: "AreaTranslations",
+                column: "AreaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlanningSites_AreaRulePlanningsId",
@@ -841,6 +947,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 name: "AreaInitialFields");
 
             migrationBuilder.DropTable(
+                name: "AreaInitialFieldVersions");
+
+            migrationBuilder.DropTable(
                 name: "AreaPropertyVersions");
 
             migrationBuilder.DropTable(
@@ -857,6 +966,12 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
             migrationBuilder.DropTable(
                 name: "AreaRuleVersions");
+
+            migrationBuilder.DropTable(
+                name: "AreaTranslations");
+
+            migrationBuilder.DropTable(
+                name: "AreaTranslationVersions");
 
             migrationBuilder.DropTable(
                 name: "AreaVersions");
