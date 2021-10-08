@@ -28,10 +28,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
     public class AreaVersion : PnBase
     {
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
         public AreaTypesEnum Type { get; set; }
 
         public int AreaId { get; set; }
