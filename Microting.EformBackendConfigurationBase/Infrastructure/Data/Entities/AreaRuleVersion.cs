@@ -49,5 +49,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public bool? TailBite { get; set; }
 
         public int DayOfWeek { get; set; }
+
+        public bool HoursAndEnergyEnabled { get; set; }
     }
 }
