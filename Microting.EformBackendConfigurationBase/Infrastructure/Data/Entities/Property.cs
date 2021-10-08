@@ -42,5 +42,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public virtual List<PropertyWorker> PropertyWorkers { get; set; }
             = new();
+
+        public virtual List<AreaProperty> AreaProperties { get; set; }
+            = new();
     }
 }

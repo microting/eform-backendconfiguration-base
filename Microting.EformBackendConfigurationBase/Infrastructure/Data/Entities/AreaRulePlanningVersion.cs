@@ -52,5 +52,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int AreaRulesId { get; set; }
 
         public int ItemPlanningId { get; set; }
+
+        public int FolderId { get; set; }
     }
 }

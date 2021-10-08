@@ -53,6 +53,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     Type = table.Column<int>(type: "int", nullable: false),
                     AreaRulesId = table.Column<int>(type: "int", nullable: false),
                     ItemPlanningId = table.Column<int>(type: "int", nullable: false),
+                    FolderId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -111,6 +112,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     ChecklistStable = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     TailBite = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
+                    HoursAndEnergyEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -131,10 +133,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Type = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
@@ -183,10 +181,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Type = table.Column<int>(type: "int", nullable: false),
                     AreaId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -537,6 +531,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     ChecklistStable = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     TailBite = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
+                    HoursAndEnergyEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -643,13 +638,13 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         column: x => x.AreaId,
                         principalTable: "Areas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AreaProperties_Properties_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "Properties",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -762,6 +757,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     Type = table.Column<int>(type: "int", nullable: false),
                     AreaRuleId = table.Column<int>(type: "int", nullable: false),
                     ItemPlanningId = table.Column<int>(type: "int", nullable: false),
+                    FolderId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)

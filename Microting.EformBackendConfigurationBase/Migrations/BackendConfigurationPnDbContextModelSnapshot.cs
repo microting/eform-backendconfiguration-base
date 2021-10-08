@@ -29,12 +29,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
@@ -299,6 +293,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("FolderName")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("HoursAndEnergyEnabled")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<bool?>("TailBite")
                         .HasColumnType("tinyint(1)");
 
@@ -409,6 +406,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("FolderId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ItemPlanningId")
                         .HasColumnType("int");
 
@@ -476,6 +476,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int>("FolderId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ItemPlanningId")
                         .HasColumnType("int");
@@ -639,6 +642,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("FolderName")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("HoursAndEnergyEnabled")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<bool?>("TailBite")
                         .HasColumnType("tinyint(1)");
 
@@ -766,12 +772,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -1405,15 +1405,15 @@ namespace Microting.EformBackendConfigurationBase.Migrations
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaProperty", b =>
                 {
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Area", "Area")
-                        .WithMany()
+                        .WithMany("AreaProperties")
                         .HasForeignKey("AreaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Property", "Property")
-                        .WithMany()
+                        .WithMany("AreaProperties")
                         .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Area");
@@ -1533,6 +1533,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 {
                     b.Navigation("AreaInitialField");
 
+                    b.Navigation("AreaProperties");
+
                     b.Navigation("AreaRules");
 
                     b.Navigation("AreaTranslations");
@@ -1559,6 +1561,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Property", b =>
                 {
+                    b.Navigation("AreaProperties");
+
                     b.Navigation("PropertyWorkers");
 
                     b.Navigation("SelectedLanguages");
