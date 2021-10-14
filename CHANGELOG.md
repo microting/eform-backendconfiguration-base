@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.0.13](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.13) (2021-10-14)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.12...v1.0.13)
+
 ## [v1.0.12](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.12) (2021-10-13)
 
 [Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.11...v1.0.12)
