@@ -41,6 +41,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public bool Checked { get; set; }
 
+        public int GroupMicrotingUuid { get; set; }
+
         public virtual List<ProperyAreaFolder> ProperyAreaFolders { get; set; }
             = new ();
     }

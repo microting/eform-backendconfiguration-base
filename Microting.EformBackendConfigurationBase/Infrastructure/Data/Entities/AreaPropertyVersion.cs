@@ -33,5 +33,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int AreaId { get; set; }
         
         public bool Checked { get; set; }
+
+        public int GroupMicrotingUuid { get; set; }
     }
 }
