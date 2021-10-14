@@ -1,5 +1,41 @@
 # Changelog
 
+## [v1.0.13](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.13) (2021-10-14)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.12...v1.0.13)
+
+## [v1.0.12](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.12) (2021-10-13)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.11...v1.0.12)
+
+## [v1.0.11](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.11) (2021-10-12)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.10...v1.0.11)
+
+## [v1.0.10](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.10) (2021-10-12)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.9...v1.0.10)
+
+## [v1.0.9](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.9) (2021-10-08)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.8...v1.0.9)
+
+**Merged pull requests:**
+
+- Updates [\#10](https://github.com/microting/eform-backendconfiguration-base/pull/10) ([sanioooook](https://github.com/sanioooook))
+
+## [v1.0.8](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.8) (2021-10-08)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.7...v1.0.8)
+
+## [v1.0.7](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.7) (2021-10-07)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.6...v1.0.7)
+
+**Merged pull requests:**
+
+- Add tables for default values [\#9](https://github.com/microting/eform-backendconfiguration-base/pull/9) ([sanioooook](https://github.com/sanioooook))
+
 ## [v1.0.6](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.6) (2021-10-06)
 
 [Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.5...v1.0.6)
