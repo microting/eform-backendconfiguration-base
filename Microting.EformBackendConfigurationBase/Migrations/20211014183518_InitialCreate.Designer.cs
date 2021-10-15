@@ -9,7 +9,7 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    [Migration("20211008094242_InitialCreate")]
+    [Migration("20211014183518_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -17,7 +17,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.10");
+                .HasAnnotation("ProductVersion", "5.0.11");
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Area", b =>
                 {
@@ -192,6 +192,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("GroupMicrotingUuid")
+                        .HasColumnType("int");
+
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
@@ -236,6 +239,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupMicrotingUuid")
                         .HasColumnType("int");
 
                     b.Property<int>("PropertyId")
@@ -295,8 +301,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("FolderName")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("HoursAndEnergyEnabled")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<int>("GroupItemId")
+                        .HasColumnType("int");
 
                     b.Property<bool?>("TailBite")
                         .HasColumnType("tinyint(1)");
@@ -411,6 +417,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("FolderId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("HoursAndEnergyEnabled")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int>("ItemPlanningId")
                         .HasColumnType("int");
 
@@ -481,6 +490,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int>("FolderId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("HoursAndEnergyEnabled")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("ItemPlanningId")
                         .HasColumnType("int");
@@ -644,8 +656,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("FolderName")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("HoursAndEnergyEnabled")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<int>("GroupItemId")
+                        .HasColumnType("int");
 
                     b.Property<bool?>("TailBite")
                         .HasColumnType("tinyint(1)");

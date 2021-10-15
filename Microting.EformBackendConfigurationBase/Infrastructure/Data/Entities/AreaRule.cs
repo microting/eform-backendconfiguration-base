@@ -51,8 +51,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public int DayOfWeek { get; set; }
 
-        public bool HoursAndEnergyEnabled { get; set; }
-        
+        public int GroupItemId { get; set; }
+
         public virtual List<AreaRuleTranslation> AreaRuleTranslations { get; set; }
             = new();
 

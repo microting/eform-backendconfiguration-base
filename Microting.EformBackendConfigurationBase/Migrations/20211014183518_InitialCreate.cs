@@ -21,6 +21,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     PropertyId = table.Column<int>(type: "int", nullable: false),
                     AreaId = table.Column<int>(type: "int", nullable: false),
                     Checked = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    GroupMicrotingUuid = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -54,6 +55,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     AreaRulesId = table.Column<int>(type: "int", nullable: false),
                     ItemPlanningId = table.Column<int>(type: "int", nullable: false),
                     FolderId = table.Column<int>(type: "int", nullable: false),
+                    HoursAndEnergyEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -112,7 +114,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     ChecklistStable = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     TailBite = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
-                    HoursAndEnergyEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    GroupItemId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -531,7 +533,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     ChecklistStable = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     TailBite = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
-                    HoursAndEnergyEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    GroupItemId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -622,6 +624,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     PropertyId = table.Column<int>(type: "int", nullable: false),
                     AreaId = table.Column<int>(type: "int", nullable: false),
                     Checked = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    GroupMicrotingUuid = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -758,6 +761,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     AreaRuleId = table.Column<int>(type: "int", nullable: false),
                     ItemPlanningId = table.Column<int>(type: "int", nullable: false),
                     FolderId = table.Column<int>(type: "int", nullable: false),
+                    HoursAndEnergyEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
