@@ -46,6 +46,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
+                    DayOfMonth = table.Column<int>(type: "int", nullable: false),
                     RepeatEvery = table.Column<int>(type: "int", nullable: true),
                     RepeatType = table.Column<int>(type: "int", nullable: true),
                     Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -115,6 +116,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     TailBite = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
                     GroupItemId = table.Column<int>(type: "int", nullable: false),
+                    PropertyId = table.Column<int>(type: "int", nullable: false),
+                    IsDefault = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -534,6 +537,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     TailBite = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
                     GroupItemId = table.Column<int>(type: "int", nullable: false),
+                    PropertyId = table.Column<int>(type: "int", nullable: false),
+                    IsDefault = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -752,6 +757,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
+                    DayOfMonth = table.Column<int>(type: "int", nullable: false),
                     RepeatEvery = table.Column<int>(type: "int", nullable: true),
                     RepeatType = table.Column<int>(type: "int", nullable: true),
                     Status = table.Column<bool>(type: "tinyint(1)", nullable: false),

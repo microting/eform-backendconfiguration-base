@@ -53,6 +53,10 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public int GroupItemId { get; set; }
 
+        public int PropertyId { get; set; }
+
+        public bool IsDefault { get; set; }
+
         public virtual List<AreaRuleTranslation> AreaRuleTranslations { get; set; }
             = new();
 

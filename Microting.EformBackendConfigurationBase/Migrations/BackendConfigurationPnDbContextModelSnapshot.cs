@@ -302,6 +302,12 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("GroupItemId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
                     b.Property<bool?>("TailBite")
                         .HasColumnType("tinyint(1)");
 
@@ -406,6 +412,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("DayOfMonth")
+                        .HasColumnType("int");
+
                     b.Property<int>("DayOfWeek")
                         .HasColumnType("int");
 
@@ -478,6 +487,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DayOfMonth")
                         .HasColumnType("int");
 
                     b.Property<int>("DayOfWeek")
@@ -655,6 +667,12 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<int>("GroupItemId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
                     b.Property<bool?>("TailBite")
