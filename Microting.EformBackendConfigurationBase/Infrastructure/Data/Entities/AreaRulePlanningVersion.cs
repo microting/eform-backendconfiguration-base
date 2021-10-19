@@ -27,7 +27,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
     using System;
     using Enum;
 
-    public class AreaRulePlanningVersion: PnBase
+    public class AreaRulePlanningVersion : PnBase
     {
         public int AreaRulePlanningId { get; set; }
 
@@ -36,6 +36,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public DateTime? EndDate { get; set; }
 
         public int DayOfWeek { get; set; }
+
+        public int DayOfMonth { get; set; }
 
         public int? RepeatEvery { get; set; }
 

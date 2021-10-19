@@ -51,5 +51,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int DayOfWeek { get; set; }
 
         public int GroupItemId { get; set; }
+
+        public int PropertyId { get; set; }
+
+        public bool IsDefault { get; set; }
     }
 }
