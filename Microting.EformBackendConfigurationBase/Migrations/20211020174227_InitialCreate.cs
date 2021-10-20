@@ -139,6 +139,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Type = table.Column<int>(type: "int", nullable: false),
+                    ItemPlanningTagId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -187,6 +188,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Type = table.Column<int>(type: "int", nullable: false),
+                    ItemPlanningTagId = table.Column<int>(type: "int", nullable: false),
                     AreaId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
@@ -334,6 +336,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     Address = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     FolderId = table.Column<int>(type: "int", nullable: true),
+                    ItemPlanningTagId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -362,6 +365,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     Address = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     FolderId = table.Column<int>(type: "int", nullable: true),
+                    ItemPlanningTagId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)

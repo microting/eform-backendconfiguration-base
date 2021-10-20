@@ -29,6 +29,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ItemPlanningTagId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
@@ -803,6 +806,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ItemPlanningTagId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
@@ -922,6 +928,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int?>("FolderId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ItemPlanningTagId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
@@ -1039,6 +1048,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("FolderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ItemPlanningTagId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
