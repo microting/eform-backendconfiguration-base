@@ -9,7 +9,7 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    [Migration("20211018210232_InitialCreate")]
+    [Migration("20211020174227_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,6 +29,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ItemPlanningTagId")
                         .HasColumnType("int");
 
                     b.Property<int>("Type")
@@ -805,6 +808,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ItemPlanningTagId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
@@ -924,6 +930,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int?>("FolderId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ItemPlanningTagId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
@@ -1041,6 +1050,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("FolderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ItemPlanningTagId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")

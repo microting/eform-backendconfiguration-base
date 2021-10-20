@@ -36,5 +36,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public string Address { get; set; }
 
         public int? FolderId { get; set; }
+
+        public int ItemPlanningTagId { get; set; }
     }
 }

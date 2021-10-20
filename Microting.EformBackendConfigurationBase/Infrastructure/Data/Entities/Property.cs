@@ -40,6 +40,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public int? FolderId { get; set; }
 
+        public int ItemPlanningTagId { get; set; }
+
         public virtual List<PropertyWorker> PropertyWorkers { get; set; }
             = new();
 
