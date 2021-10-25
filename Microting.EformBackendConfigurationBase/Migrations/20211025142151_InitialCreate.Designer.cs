@@ -9,7 +9,7 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    [Migration("20211020174227_InitialCreate")]
+    [Migration("20211025142151_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -313,6 +313,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
+                    b.Property<int>("RepeatEvery")
+                        .HasColumnType("int");
+
                     b.Property<bool?>("TailBite")
                         .HasColumnType("tinyint(1)");
 
@@ -335,6 +338,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AreaId");
+
+                    b.HasIndex("PropertyId");
 
                     b.ToTable("AreaRules");
                 });
@@ -678,6 +683,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RepeatEvery")
                         .HasColumnType("int");
 
                     b.Property<bool?>("TailBite")
@@ -1473,7 +1481,15 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Property", "Property")
+                        .WithMany()
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Area");
+
+                    b.Navigation("Property");
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRuleInitialField", b =>

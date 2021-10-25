@@ -55,5 +55,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int PropertyId { get; set; }
 
         public bool IsDefault { get; set; }
+
+        public int RepeatEvery { get; set; }
     }
 }

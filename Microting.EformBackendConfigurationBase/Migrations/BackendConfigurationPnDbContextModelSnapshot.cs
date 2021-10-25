@@ -311,6 +311,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
+                    b.Property<int>("RepeatEvery")
+                        .HasColumnType("int");
+
                     b.Property<bool?>("TailBite")
                         .HasColumnType("tinyint(1)");
 
@@ -333,6 +336,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AreaId");
+
+                    b.HasIndex("PropertyId");
 
                     b.ToTable("AreaRules");
                 });
@@ -676,6 +681,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RepeatEvery")
                         .HasColumnType("int");
 
                     b.Property<bool?>("TailBite")
@@ -1471,7 +1479,15 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Property", "Property")
+                        .WithMany()
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Area");
+
+                    b.Navigation("Property");
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRuleInitialField", b =>
