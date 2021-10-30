@@ -1,5 +1,49 @@
 # Changelog
 
+## [v1.0.20](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.20) (2021-10-30)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.19...v1.0.20)
+
+## [v1.0.19](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.19) (2021-10-25)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.17...v1.0.19)
+
+**Merged pull requests:**
+
+- Add repeatEvery for areaRule [\#18](https://github.com/microting/eform-backendconfiguration-base/pull/18) ([sanioooook](https://github.com/sanioooook))
+
+## [v1.0.17](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.17) (2021-10-21)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.18...v1.0.17)
+
+## [v1.0.18](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.18) (2021-10-21)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.16...v1.0.18)
+
+## [v1.0.16](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.16) (2021-10-20)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.15...v1.0.16)
+
+**Merged pull requests:**
+
+- Add props for item planning tags [\#17](https://github.com/microting/eform-backendconfiguration-base/pull/17) ([sanioooook](https://github.com/sanioooook))
+
+## [v1.0.15](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.15) (2021-10-19)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.14...v1.0.15)
+
+**Merged pull requests:**
+
+- Add props [\#16](https://github.com/microting/eform-backendconfiguration-base/pull/16) ([sanioooook](https://github.com/sanioooook))
+
+## [v1.0.14](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.14) (2021-10-15)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.13...v1.0.14)
+
+**Merged pull requests:**
+
+- Updates for entity select  [\#15](https://github.com/microting/eform-backendconfiguration-base/pull/15) ([sanioooook](https://github.com/sanioooook))
+
 ## [v1.0.13](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.13) (2021-10-14)
 
 [Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.12...v1.0.13)
