@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.0.22](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.22) (2021-11-04)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.21...v1.0.22)
+
 ## [v1.0.21](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.21) (2021-10-30)
 
 [Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.20...v1.0.21)
@@ -31,6 +35,7 @@
 **Merged pull requests:**
 
 - Add props for item planning tags [\#17](https://github.com/microting/eform-backendconfiguration-base/pull/17) ([sanioooook](https://github.com/sanioooook))
+- Add translations for areaRules [\#3](https://github.com/microting/eform-backendconfiguration-base/pull/3) ([sanioooook](https://github.com/sanioooook))
 
 ## [v1.0.15](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.15) (2021-10-19)
 
@@ -119,7 +124,6 @@
 **Merged pull requests:**
 
 - Add tables and props [\#4](https://github.com/microting/eform-backendconfiguration-base/pull/4) ([sanioooook](https://github.com/sanioooook))
-- Add translations for areaRules [\#3](https://github.com/microting/eform-backendconfiguration-base/pull/3) ([sanioooook](https://github.com/sanioooook))
 
 ## [v1.0.0](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.0) (2021-09-14)
 
