@@ -33,6 +33,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         // ReSharper disable once InconsistentNaming
         public string CHR { get; set; }
 
+        // ReSharper disable once InconsistentNaming
+        public string CVR { get; set; }
+
         public string Address { get; set; }
 
         public virtual List<PropertySelectedLanguage> SelectedLanguages { get; set; }
