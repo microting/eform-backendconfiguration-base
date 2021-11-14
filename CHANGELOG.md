@@ -1,5 +1,30 @@
 # Changelog
 
+## [v1.0.24](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.24) (2021-11-14)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.23...v1.0.24)
+
+**Implemented enhancements:**
+
+- Bump Microsoft.EntityFrameworkCore.Design from 5.0.11 to 6.0.0 [\#26](https://github.com/microting/eform-backendconfiguration-base/issues/26)
+- Bump Microting.eFormApi.BasePn from 3.0.64 to 3.1.0 [\#25](https://github.com/microting/eform-backendconfiguration-base/issues/25)
+- Bump Microting.eForm from 5.2.57 to 5.3.0 [\#24](https://github.com/microting/eform-backendconfiguration-base/issues/24)
+- Bump Microting.eFormApi.BasePn from 3.0.63 to 3.0.64 [\#23](https://github.com/microting/eform-backendconfiguration-base/issues/23)
+- Bump Microting.eForm from 5.2.56 to 5.2.57 [\#22](https://github.com/microting/eform-backendconfiguration-base/issues/22)
+- Bump Microting.eFormApi.BasePn from 3.0.62 to 3.0.63 [\#21](https://github.com/microting/eform-backendconfiguration-base/issues/21)
+- Bump Microting.eForm from 5.2.55 to 5.2.56 [\#20](https://github.com/microting/eform-backendconfiguration-base/issues/20)
+- Bump Microting.eForm from 5.2.54 to 5.2.55 [\#19](https://github.com/microting/eform-backendconfiguration-base/issues/19)
+- Bump Microting.eFormApi.BasePn from 3.0.59 to 3.0.60 [\#14](https://github.com/microting/eform-backendconfiguration-base/issues/14)
+- Bump Microting.eForm from 5.2.49 to 5.2.51 [\#13](https://github.com/microting/eform-backendconfiguration-base/issues/13)
+- Bump Microting.eFormApi.BasePn from 3.0.58 to 3.0.59 [\#12](https://github.com/microting/eform-backendconfiguration-base/issues/12)
+- Bump Microting.eForm from 5.2.48 to 5.2.49 [\#11](https://github.com/microting/eform-backendconfiguration-base/issues/11)
+- Bump Microting.eFormApi.BasePn from 3.0.54 to 3.0.55 [\#8](https://github.com/microting/eform-backendconfiguration-base/issues/8)
+- Bump Microting.eForm from 5.2.45 to 5.2.46 [\#7](https://github.com/microting/eform-backendconfiguration-base/issues/7)
+
+## [v1.0.23](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.23) (2021-11-10)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.22...v1.0.23)
+
 ## [v1.0.22](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.22) (2021-11-04)
 
 [Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.21...v1.0.22)
@@ -31,11 +56,6 @@
 ## [v1.0.16](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.16) (2021-10-20)
 
 [Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.15...v1.0.16)
-
-**Merged pull requests:**
-
-- Add props for item planning tags [\#17](https://github.com/microting/eform-backendconfiguration-base/pull/17) ([sanioooook](https://github.com/sanioooook))
-- Add translations for areaRules [\#3](https://github.com/microting/eform-backendconfiguration-base/pull/3) ([sanioooook](https://github.com/sanioooook))
 
 ## [v1.0.15](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.15) (2021-10-19)
 
@@ -87,6 +107,7 @@
 
 **Merged pull requests:**
 
+- Add props for item planning tags [\#17](https://github.com/microting/eform-backendconfiguration-base/pull/17) ([sanioooook](https://github.com/sanioooook))
 - Add tables for default values [\#9](https://github.com/microting/eform-backendconfiguration-base/pull/9) ([sanioooook](https://github.com/sanioooook))
 
 ## [v1.0.6](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.6) (2021-10-06)
@@ -124,6 +145,7 @@
 **Merged pull requests:**
 
 - Add tables and props [\#4](https://github.com/microting/eform-backendconfiguration-base/pull/4) ([sanioooook](https://github.com/sanioooook))
+- Add translations for areaRules [\#3](https://github.com/microting/eform-backendconfiguration-base/pull/3) ([sanioooook](https://github.com/sanioooook))
 
 ## [v1.0.0](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.0) (2021-09-14)
 
