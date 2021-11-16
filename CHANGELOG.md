@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.0.25](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.25) (2021-11-16)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.24...v1.0.25)
+
+**Implemented enhancements:**
+
+- Bump Microting.eFormApi.BasePn from 3.1.0 to 3.1.1 [\#28](https://github.com/microting/eform-backendconfiguration-base/issues/28)
+- Bump Microting.eForm from 5.3.0 to 5.3.2 [\#27](https://github.com/microting/eform-backendconfiguration-base/issues/27)
+
 ## [v1.0.24](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.24) (2021-11-14)
 
 [Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.23...v1.0.24)
@@ -57,6 +66,10 @@
 
 [Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.15...v1.0.16)
 
+**Merged pull requests:**
+
+- Add props for item planning tags [\#17](https://github.com/microting/eform-backendconfiguration-base/pull/17) ([sanioooook](https://github.com/sanioooook))
+
 ## [v1.0.15](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.15) (2021-10-19)
 
 [Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.14...v1.0.15)
@@ -107,7 +120,6 @@
 
 **Merged pull requests:**
 
-- Add props for item planning tags [\#17](https://github.com/microting/eform-backendconfiguration-base/pull/17) ([sanioooook](https://github.com/sanioooook))
 - Add tables for default values [\#9](https://github.com/microting/eform-backendconfiguration-base/pull/9) ([sanioooook](https://github.com/sanioooook))
 
 ## [v1.0.6](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.6) (2021-10-06)
