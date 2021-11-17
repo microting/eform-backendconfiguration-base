@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.0.26](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.26) (2021-11-17)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.25...v1.0.26)
+
+**Implemented enhancements:**
+
+- Bump Microting.eFormApi.BasePn from 3.1.1 to 3.1.2 [\#30](https://github.com/microting/eform-backendconfiguration-base/issues/30)
+- Bump Microting.eForm from 5.3.2 to 5.3.4 [\#29](https://github.com/microting/eform-backendconfiguration-base/issues/29)
+
 ## [v1.0.25](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.25) (2021-11-16)
 
 [Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.24...v1.0.25)
