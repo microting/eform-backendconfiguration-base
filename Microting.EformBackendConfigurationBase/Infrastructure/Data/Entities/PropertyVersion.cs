@@ -40,6 +40,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public int? FolderId { get; set; }
 
+        public int PropertyComplianceColorId { get; set; }
+
         public int ItemPlanningTagId { get; set; }
     }
 }

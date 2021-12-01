@@ -24,35 +24,17 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    using System.Collections.Generic;
 
-    public class Property: PnBase
+    public class PropertyComplianceColor
     {
+        public PropertyComplianceColor(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public int Id { get; set; }
+
         public string Name { get; set; }
-
-        // ReSharper disable once InconsistentNaming
-        public string CHR { get; set; }
-
-        // ReSharper disable once InconsistentNaming
-        public string CVR { get; set; }
-
-        public string Address { get; set; }
-
-        public virtual List<PropertySelectedLanguage> SelectedLanguages { get; set; }
-            = new();
-
-        public int? FolderId { get; set; }
-
-        public int ItemPlanningTagId { get; set; }
-
-        public int PropertyComplianceColorId { get; set; }
-
-        public virtual PropertyComplianceColor PropertyComplianceColor { get; set; }
-
-        public virtual List<PropertyWorker> PropertyWorkers { get; set; }
-            = new();
-
-        public virtual List<AreaProperty> AreaProperties { get; set; }
-            = new();
     }
 }

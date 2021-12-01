@@ -22,37 +22,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Extensions.Seed.CodeFirstLists
 {
+    using Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
     using System.Collections.Generic;
 
-    public class Property: PnBase
+    public class PropertyComplianceColorsCodeFirst
     {
-        public string Name { get; set; }
+        public static readonly PropertyComplianceColor Success = new(1, "Success");
+        public static readonly PropertyComplianceColor Warning = new(2, "Warning");
+        public static readonly PropertyComplianceColor Danger = new(3, "Danger");
 
-        // ReSharper disable once InconsistentNaming
-        public string CHR { get; set; }
+        public static List<PropertyComplianceColor> GetList()
+        {
+            var entryList = new List<PropertyComplianceColor>()
+            {
+                Success,
+                Warning,
+                Danger,
+            };
 
-        // ReSharper disable once InconsistentNaming
-        public string CVR { get; set; }
-
-        public string Address { get; set; }
-
-        public virtual List<PropertySelectedLanguage> SelectedLanguages { get; set; }
-            = new();
-
-        public int? FolderId { get; set; }
-
-        public int ItemPlanningTagId { get; set; }
-
-        public int PropertyComplianceColorId { get; set; }
-
-        public virtual PropertyComplianceColor PropertyComplianceColor { get; set; }
-
-        public virtual List<PropertyWorker> PropertyWorkers { get; set; }
-            = new();
-
-        public virtual List<AreaProperty> AreaProperties { get; set; }
-            = new();
+            return entryList;
+        }
     }
 }

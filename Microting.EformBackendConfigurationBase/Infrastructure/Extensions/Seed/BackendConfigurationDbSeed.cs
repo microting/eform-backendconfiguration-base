@@ -22,37 +22,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Extensions.Seed
 {
-    using System.Collections.Generic;
+    using Microsoft.EntityFrameworkCore;
+    using Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+    using Microting.EformBackendConfigurationBase.Infrastructure.Extensions.Seed.CodeFirstLists;
 
-    public class Property: PnBase
+    public static class BackendConfigurationDbSeed
     {
-        public string Name { get; set; }
+        public static ModelBuilder SeedLatest(this ModelBuilder modelBuilder)
+        {
+            var complianceColors = PropertyComplianceColorsCodeFirst.GetList();
 
-        // ReSharper disable once InconsistentNaming
-        public string CHR { get; set; }
+            modelBuilder.Entity<PropertyComplianceColor>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<PropertyComplianceColor>().HasData(complianceColors);
 
-        // ReSharper disable once InconsistentNaming
-        public string CVR { get; set; }
-
-        public string Address { get; set; }
-
-        public virtual List<PropertySelectedLanguage> SelectedLanguages { get; set; }
-            = new();
-
-        public int? FolderId { get; set; }
-
-        public int ItemPlanningTagId { get; set; }
-
-        public int PropertyComplianceColorId { get; set; }
-
-        public virtual PropertyComplianceColor PropertyComplianceColor { get; set; }
-
-        public virtual List<PropertyWorker> PropertyWorkers { get; set; }
-            = new();
-
-        public virtual List<AreaProperty> AreaProperties { get; set; }
-            = new();
+            return modelBuilder;
+        }
     }
 }
