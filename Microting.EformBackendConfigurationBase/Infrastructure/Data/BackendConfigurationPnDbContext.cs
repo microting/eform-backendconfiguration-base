@@ -29,7 +29,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
     using Entities;
     using Microsoft.EntityFrameworkCore;
     using Microting.EformBackendConfigurationBase.Infrastructure.Extensions.Seed;
-    using Microting.EformBackendConfigurationBase.Infrastructure.Extensions.Seed.CodeFirstLists;
 
     public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     {
@@ -73,8 +72,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
 
         public DbSet<AreaInitialField> AreaInitialFields { get; set; }
         public DbSet<AreaInitialFieldVersion> AreaInitialFieldVersions { get; set; }
-
-        public DbSet<PropertyComplianceColor> PropertyComplianceColors { get; set; }
 
 
         public DbSet<ProperyAreaFolder> ProperyAreaFolders { get; set; }
@@ -135,11 +132,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
                 .WithMany(x => x.AreaProperties)
                 .HasForeignKey(x => x.PropertyId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Property>().Property(p => p.PropertyComplianceColorId)
-                .HasDefaultValue(PropertyComplianceColorsCodeFirst.Success.Id);
-            modelBuilder.Entity<PropertyVersion>().Property(p => p.PropertyComplianceColorId)
-                .HasDefaultValue(PropertyComplianceColorsCodeFirst.Success.Id);
 
             modelBuilder.SeedLatest();
         }

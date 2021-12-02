@@ -45,10 +45,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public int ItemPlanningTagId { get; set; }
 
-        public int PropertyComplianceColorId { get; set; }
-
-        public virtual PropertyComplianceColor PropertyComplianceColor { get; set; }
-
         public virtual List<PropertyWorker> PropertyWorkers { get; set; }
             = new();
 

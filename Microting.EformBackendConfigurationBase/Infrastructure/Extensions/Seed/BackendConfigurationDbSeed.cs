@@ -25,20 +25,11 @@ SOFTWARE.
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Extensions.Seed
 {
     using Microsoft.EntityFrameworkCore;
-    using Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
-    using Microting.EformBackendConfigurationBase.Infrastructure.Extensions.Seed.CodeFirstLists;
 
     public static class BackendConfigurationDbSeed
     {
         public static ModelBuilder SeedLatest(this ModelBuilder modelBuilder)
         {
-            var complianceColors = PropertyComplianceColorsCodeFirst.GetList();
-
-            modelBuilder.Entity<PropertyComplianceColor>()
-                .Property(p => p.Id)
-                .ValueGeneratedOnAdd();
-            modelBuilder.Entity<PropertyComplianceColor>().HasData(complianceColors);
-
             return modelBuilder;
         }
     }

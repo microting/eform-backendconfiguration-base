@@ -51,7 +51,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public AreaRuleT2TypesEnum Type { get; set; }
 
-        public int AreaRulesId { get; set; }
+        public int AreaRuleId { get; set; }
 
         public int ItemPlanningId { get; set; }
 
