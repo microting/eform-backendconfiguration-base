@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.0.38](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.38) (2021-12-22)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.37...v1.0.38)
+
+**Implemented enhancements:**
+
+- Bump Microting.eFormApi.BasePn from 3.1.13 to 3.1.14 [\#46](https://github.com/microting/eform-backendconfiguration-base/issues/46)
+- Bump Microting.eForm from 5.3.19 to 5.3.20 [\#45](https://github.com/microting/eform-backendconfiguration-base/issues/45)
+
 ## [v1.0.37](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.37) (2021-12-21)
 
 [Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.36...v1.0.37)
@@ -89,6 +98,7 @@
 **Implemented enhancements:**
 
 - Bump Microting.eFormApi.BasePn from 3.1.1 to 3.1.2 [\#30](https://github.com/microting/eform-backendconfiguration-base/issues/30)
+- Bump Microting.eForm from 5.3.2 to 5.3.4 [\#29](https://github.com/microting/eform-backendconfiguration-base/issues/29)
 
 ## [v1.0.25](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.25) (2021-11-16)
 
@@ -96,9 +106,9 @@
 
 **Implemented enhancements:**
 
-- Bump Microting.eForm from 5.3.2 to 5.3.4 [\#29](https://github.com/microting/eform-backendconfiguration-base/issues/29)
 - Bump Microting.eFormApi.BasePn from 3.1.0 to 3.1.1 [\#28](https://github.com/microting/eform-backendconfiguration-base/issues/28)
 - Bump Microting.eForm from 5.3.0 to 5.3.2 [\#27](https://github.com/microting/eform-backendconfiguration-base/issues/27)
+- Bump Microting.eFormApi.BasePn from 3.0.64 to 3.1.0 [\#25](https://github.com/microting/eform-backendconfiguration-base/issues/25)
 
 ## [v1.0.24](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.24) (2021-11-14)
 
@@ -107,7 +117,6 @@
 **Implemented enhancements:**
 
 - Bump Microsoft.EntityFrameworkCore.Design from 5.0.11 to 6.0.0 [\#26](https://github.com/microting/eform-backendconfiguration-base/issues/26)
-- Bump Microting.eFormApi.BasePn from 3.0.64 to 3.1.0 [\#25](https://github.com/microting/eform-backendconfiguration-base/issues/25)
 - Bump Microting.eForm from 5.2.57 to 5.3.0 [\#24](https://github.com/microting/eform-backendconfiguration-base/issues/24)
 - Bump Microting.eFormApi.BasePn from 3.0.63 to 3.0.64 [\#23](https://github.com/microting/eform-backendconfiguration-base/issues/23)
 - Bump Microting.eForm from 5.2.56 to 5.2.57 [\#22](https://github.com/microting/eform-backendconfiguration-base/issues/22)
