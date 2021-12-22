@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.0.39](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.39) (2021-12-22)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.38...v1.0.39)
+
+**Implemented enhancements:**
+
+- Bump Microting.eFormApi.BasePn from 3.1.14 to 3.1.15 [\#48](https://github.com/microting/eform-backendconfiguration-base/issues/48)
+- Bump Microting.eForm from 5.3.20 to 5.3.21 [\#47](https://github.com/microting/eform-backendconfiguration-base/issues/47)
+
 ## [v1.0.38](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.38) (2021-12-22)
 
 [Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.37...v1.0.38)
@@ -108,7 +117,6 @@
 
 - Bump Microting.eFormApi.BasePn from 3.1.0 to 3.1.1 [\#28](https://github.com/microting/eform-backendconfiguration-base/issues/28)
 - Bump Microting.eForm from 5.3.0 to 5.3.2 [\#27](https://github.com/microting/eform-backendconfiguration-base/issues/27)
-- Bump Microting.eFormApi.BasePn from 3.0.64 to 3.1.0 [\#25](https://github.com/microting/eform-backendconfiguration-base/issues/25)
 
 ## [v1.0.24](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.24) (2021-11-14)
 
@@ -117,6 +125,7 @@
 **Implemented enhancements:**
 
 - Bump Microsoft.EntityFrameworkCore.Design from 5.0.11 to 6.0.0 [\#26](https://github.com/microting/eform-backendconfiguration-base/issues/26)
+- Bump Microting.eFormApi.BasePn from 3.0.64 to 3.1.0 [\#25](https://github.com/microting/eform-backendconfiguration-base/issues/25)
 - Bump Microting.eForm from 5.2.57 to 5.3.0 [\#24](https://github.com/microting/eform-backendconfiguration-base/issues/24)
 - Bump Microting.eFormApi.BasePn from 3.0.63 to 3.0.64 [\#23](https://github.com/microting/eform-backendconfiguration-base/issues/23)
 - Bump Microting.eForm from 5.2.56 to 5.2.57 [\#22](https://github.com/microting/eform-backendconfiguration-base/issues/22)
