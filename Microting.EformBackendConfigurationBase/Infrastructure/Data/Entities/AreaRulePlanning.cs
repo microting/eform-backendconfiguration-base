@@ -63,5 +63,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public virtual List<PlanningSite> PlanningSites { get; set; }
 
         public int PropertyId { get; set; }
+
+        public int AreaId { get; set; }
     }
 }
