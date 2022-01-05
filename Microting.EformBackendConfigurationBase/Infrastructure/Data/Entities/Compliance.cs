@@ -11,4 +11,6 @@ public class Compliance : PnBase
     public int PropertyId { get; set; }
     public DateTime Deadline { get; set; }
     public DateTime StartDate { get; set; }
+    public int MicrotingSdkCaseId { get; set; }
+    public int MicrotingSdkeFormId { get; set; }
 }
