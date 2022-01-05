@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 
@@ -10,9 +11,10 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    partial class BackendConfigurationPnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220105092557_CreateComplianceClass")]
+    partial class CreateComplianceClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -690,7 +692,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("AreaRulePlanningId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AreaRulePlanningId")
+                    b.Property<int>("AreaRulesId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -1049,8 +1051,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("AreaId")
-                        .HasColumnType("int");
+                    b.Property<string>("AreaId")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("AreaName")
                         .HasColumnType("longtext");
@@ -1066,12 +1068,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<string>("ItemName")
                         .HasColumnType("longtext");
-
-                    b.Property<int>("MicrotingSdkCaseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MicrotingSdkeFormId")
-                        .HasColumnType("int");
 
                     b.Property<int>("PlanningId")
                         .HasColumnType("int");
@@ -1106,8 +1102,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("AreaId")
-                        .HasColumnType("int");
+                    b.Property<string>("AreaId")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("AreaName")
                         .HasColumnType("longtext");
@@ -1126,12 +1122,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<string>("ItemName")
                         .HasColumnType("longtext");
-
-                    b.Property<int>("MicrotingSdkCaseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MicrotingSdkeFormId")
-                        .HasColumnType("int");
 
                     b.Property<int>("PlanningId")
                         .HasColumnType("int");
@@ -1498,11 +1488,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ProperyAreaFolder", b =>
                 {
-                    b.HasOne("Microting.eFormApi.BasePn.Infrastructure.Database.Entities.PluginPermission", "Permission")
-                        .WithMany()
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");

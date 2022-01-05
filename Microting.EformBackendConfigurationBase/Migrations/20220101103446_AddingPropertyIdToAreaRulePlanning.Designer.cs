@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 
@@ -10,9 +11,10 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    partial class BackendConfigurationPnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220101103446_AddingPropertyIdToAreaRulePlanning")]
+    partial class AddingPropertyIdToAreaRulePlanning
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -604,9 +606,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("Alarm")
                         .HasColumnType("int");
 
-                    b.Property<int>("AreaId")
-                        .HasColumnType("int");
-
                     b.Property<int>("AreaRuleId")
                         .HasColumnType("int");
 
@@ -684,13 +683,10 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("Alarm")
                         .HasColumnType("int");
 
-                    b.Property<int>("AreaId")
-                        .HasColumnType("int");
-
                     b.Property<int>("AreaRulePlanningId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AreaRulePlanningId")
+                    b.Property<int>("AreaRulesId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -1043,123 +1039,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.ToTable("AreaVersions");
                 });
 
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Compliance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("AreaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AreaName")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Deadline")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("ItemName")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("MicrotingSdkCaseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MicrotingSdkeFormId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlanningId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PropertyId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Compliances");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ComplianceVersion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("AreaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AreaName")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("ComplianceId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Deadline")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("ItemName")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("MicrotingSdkCaseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MicrotingSdkeFormId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlanningId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PropertyId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ComplianceVersions");
-                });
-
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PlanningSite", b =>
                 {
                     b.Property<int>("Id")
@@ -1251,9 +1130,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<string>("CVR")
                         .HasColumnType("longtext");
-
-                    b.Property<int>("ComplianceStatus")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -1380,9 +1256,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("CVR")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("ComplianceStatus")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -1498,11 +1371,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ProperyAreaFolder", b =>
                 {
-                    b.HasOne("Microting.eFormApi.BasePn.Infrastructure.Database.Entities.PluginPermission", "Permission")
-                        .WithMany()
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");

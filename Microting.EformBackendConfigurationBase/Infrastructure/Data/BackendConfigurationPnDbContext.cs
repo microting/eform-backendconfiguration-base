@@ -73,9 +73,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<AreaInitialField> AreaInitialFields { get; set; }
         public DbSet<AreaInitialFieldVersion> AreaInitialFieldVersions { get; set; }
 
-
         public DbSet<ProperyAreaFolder> ProperyAreaFolders { get; set; }
         public DbSet<ProperyAreaFolderVersion> ProperyAreaFolderVersions { get; set; }
+
+        public DbSet<Compliance> Compliances { get; set; }
+        public DbSet<ComplianceVersion> ComplianceVersions { get; set; }
 
         // common tables
         public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }

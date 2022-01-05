@@ -58,5 +58,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int FolderId { get; set; }
 
         public bool HoursAndEnergyEnabled { get; set; }
+
+        public int PropertyId { get; set; }
+
+        public int AreaId { get; set; }
     }
 }

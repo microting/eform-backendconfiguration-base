@@ -61,5 +61,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public bool HoursAndEnergyEnabled { get; set; }
 
         public virtual List<PlanningSite> PlanningSites { get; set; }
+
+        public int PropertyId { get; set; }
+
+        public int AreaId { get; set; }
     }
 }
