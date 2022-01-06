@@ -43,5 +43,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int ItemPlanningTagId { get; set; }
 
         public int ComplianceStatus { get; set; }
+
+        public int ComplianceStatusThirty { get; set; }
     }
 }

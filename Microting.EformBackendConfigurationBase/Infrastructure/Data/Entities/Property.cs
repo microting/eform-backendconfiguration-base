@@ -47,6 +47,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public int ComplianceStatus { get; set; }
 
+        public int ComplianceStatusThirty { get; set; }
+
         public virtual List<PropertyWorker> PropertyWorkers { get; set; }
             = new();
 
