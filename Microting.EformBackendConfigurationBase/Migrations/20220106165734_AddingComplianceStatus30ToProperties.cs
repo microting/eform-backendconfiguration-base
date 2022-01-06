@@ -21,13 +21,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
-
-            migrationBuilder.AddColumn<int>(
-                name: "AreaRuleId",
-                table: "AreaRulesPlanningVersions",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

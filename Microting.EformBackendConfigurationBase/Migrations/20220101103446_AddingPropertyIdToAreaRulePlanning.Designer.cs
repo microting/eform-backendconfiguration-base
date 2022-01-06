@@ -686,7 +686,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("AreaRulePlanningId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AreaRulesId")
+                    b.Property<int>("AreaRuleId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
