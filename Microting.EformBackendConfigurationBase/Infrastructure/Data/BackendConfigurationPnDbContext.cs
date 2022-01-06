@@ -28,6 +28,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
     using eFormApi.BasePn.Infrastructure.Database.Entities;
     using Entities;
     using Microsoft.EntityFrameworkCore;
+    using Microting.EformBackendConfigurationBase.Infrastructure.Extensions.Seed;
 
     public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     {
@@ -133,6 +134,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
                 .WithMany(x => x.AreaProperties)
                 .HasForeignKey(x => x.PropertyId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.SeedLatest();
         }
     }
 }

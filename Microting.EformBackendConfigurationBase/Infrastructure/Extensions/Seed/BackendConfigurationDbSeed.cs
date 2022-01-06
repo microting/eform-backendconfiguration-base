@@ -22,45 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Extensions.Seed
 {
-    using System;
-    using Enum;
+    using Microsoft.EntityFrameworkCore;
 
-    public class AreaRulePlanningVersion : PnBase
+    public static class BackendConfigurationDbSeed
     {
-        public int AreaRulePlanningId { get; set; }
-
-        public DateTime? StartDate { get; set; }
-
-        public DateTime? EndDate { get; set; }
-
-        public int DayOfWeek { get; set; }
-
-        public int DayOfMonth { get; set; }
-
-        public int? RepeatEvery { get; set; }
-
-        public int? RepeatType { get; set; }
-
-        public bool Status { get; set; }
-
-        public bool SendNotifications { get; set; }
-
-        public AreaRuleT2AlarmsEnum Alarm { get; set; }
-
-        public AreaRuleT2TypesEnum Type { get; set; }
-
-        public int AreaRuleId { get; set; }
-
-        public int ItemPlanningId { get; set; }
-
-        public int FolderId { get; set; }
-
-        public bool HoursAndEnergyEnabled { get; set; }
-
-        public int PropertyId { get; set; }
-
-        public int AreaId { get; set; }
+        public static ModelBuilder SeedLatest(this ModelBuilder modelBuilder)
+        {
+            return modelBuilder;
+        }
     }
 }
