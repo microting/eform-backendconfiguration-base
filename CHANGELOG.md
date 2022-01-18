@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.0.51](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.51) (2022-01-18)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.50...v1.0.51)
+
+**Implemented enhancements:**
+
+- Bump Microting.eFormApi.BasePn from 3.1.16 to 3.1.18 [\#53](https://github.com/microting/eform-backendconfiguration-base/issues/53)
+- Bump Microting.eForm from 5.3.22 to 5.4.1 [\#52](https://github.com/microting/eform-backendconfiguration-base/issues/52)
+
 ## [v1.0.50](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.50) (2022-01-17)
 
 [Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.49...v1.0.50)
@@ -170,7 +179,6 @@
 
 - Bump Microting.eFormApi.BasePn from 3.1.0 to 3.1.1 [\#28](https://github.com/microting/eform-backendconfiguration-base/issues/28)
 - Bump Microting.eForm from 5.3.0 to 5.3.2 [\#27](https://github.com/microting/eform-backendconfiguration-base/issues/27)
-- Bump Microting.eForm from 5.2.57 to 5.3.0 [\#24](https://github.com/microting/eform-backendconfiguration-base/issues/24)
 
 ## [v1.0.24](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.24) (2021-11-14)
 
@@ -180,6 +188,7 @@
 
 - Bump Microsoft.EntityFrameworkCore.Design from 5.0.11 to 6.0.0 [\#26](https://github.com/microting/eform-backendconfiguration-base/issues/26)
 - Bump Microting.eFormApi.BasePn from 3.0.64 to 3.1.0 [\#25](https://github.com/microting/eform-backendconfiguration-base/issues/25)
+- Bump Microting.eForm from 5.2.57 to 5.3.0 [\#24](https://github.com/microting/eform-backendconfiguration-base/issues/24)
 - Bump Microting.eFormApi.BasePn from 3.0.63 to 3.0.64 [\#23](https://github.com/microting/eform-backendconfiguration-base/issues/23)
 - Bump Microting.eForm from 5.2.56 to 5.2.57 [\#22](https://github.com/microting/eform-backendconfiguration-base/issues/22)
 - Bump Microting.eFormApi.BasePn from 3.0.62 to 3.0.63 [\#21](https://github.com/microting/eform-backendconfiguration-base/issues/21)
