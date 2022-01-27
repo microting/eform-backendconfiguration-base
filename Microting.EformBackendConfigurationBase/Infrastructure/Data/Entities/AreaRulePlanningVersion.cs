@@ -1,7 +1,7 @@
 ﻿/*
 The MIT License (MIT)
 
-Copyright (c) 2007 - 2021 Microting A/S
+Copyright (c) 2007 - 2022 Microting A/S
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -62,5 +62,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int PropertyId { get; set; }
 
         public int AreaId { get; set; }
+
+        public bool ComplianceEnabled { get; set; }
     }
 }
