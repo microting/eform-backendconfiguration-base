@@ -687,7 +687,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("AreaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AreaRulePlanningId")
+                    b.Property<int>("AreaRuleId")
                         .HasColumnType("int");
 
                     b.Property<int>("AreaRulePlanningId")
@@ -1255,6 +1255,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("ComplianceStatus")
                         .HasColumnType("int");
 
+                    b.Property<int>("ComplianceStatusThirty")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -1383,6 +1386,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("ComplianceStatus")
                         .HasColumnType("int");
 
+                    b.Property<int>("ComplianceStatusThirty")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -1498,11 +1504,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ProperyAreaFolder", b =>
                 {
-                    b.HasOne("Microting.eFormApi.BasePn.Infrastructure.Database.Entities.PluginPermission", "Permission")
-                        .WithMany()
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");

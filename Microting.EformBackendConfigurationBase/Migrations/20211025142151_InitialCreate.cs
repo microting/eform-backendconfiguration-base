@@ -53,7 +53,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     SendNotifications = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Alarm = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    AreaRulesId = table.Column<int>(type: "int", nullable: false),
+                    AreaRuleId = table.Column<int>(type: "int", nullable: false),
                     ItemPlanningId = table.Column<int>(type: "int", nullable: false),
                     FolderId = table.Column<int>(type: "int", nullable: false),
                     HoursAndEnergyEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),

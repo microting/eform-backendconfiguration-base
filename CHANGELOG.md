@@ -1,5 +1,67 @@
 # Changelog
 
+## [v1.0.51](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.51) (2022-01-18)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.50...v1.0.51)
+
+**Implemented enhancements:**
+
+- Bump Microting.eFormApi.BasePn from 3.1.16 to 3.1.18 [\#53](https://github.com/microting/eform-backendconfiguration-base/issues/53)
+- Bump Microting.eForm from 5.3.22 to 5.4.1 [\#52](https://github.com/microting/eform-backendconfiguration-base/issues/52)
+
+## [v1.0.50](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.50) (2022-01-17)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.49...v1.0.50)
+
+**Implemented enhancements:**
+
+- Bump Microting.eFormApi.BasePn from 3.1.15 to 3.1.16 [\#51](https://github.com/microting/eform-backendconfiguration-base/issues/51)
+- Bump Microting.eForm from 5.3.21 to 5.3.22 [\#50](https://github.com/microting/eform-backendconfiguration-base/issues/50)
+
+## [v1.0.49](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.49) (2022-01-11)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.48...v1.0.49)
+
+## [v1.0.48](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.48) (2022-01-11)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.47...v1.0.48)
+
+## [v1.0.47](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.47) (2022-01-06)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.46...v1.0.47)
+
+## [v1.0.46](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.46) (2022-01-06)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.45...v1.0.46)
+
+**Merged pull requests:**
+
+- Add new area type  [\#49](https://github.com/microting/eform-backendconfiguration-base/pull/49) ([sanioooook](https://github.com/sanioooook))
+
+## [v1.0.45](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.45) (2022-01-05)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.44...v1.0.45)
+
+## [v1.0.44](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.44) (2022-01-05)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.43...v1.0.44)
+
+## [v1.0.43](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.43) (2022-01-05)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.42...v1.0.43)
+
+## [v1.0.42](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.42) (2022-01-03)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.41...v1.0.42)
+
+## [v1.0.41](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.41) (2022-01-01)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.40...v1.0.41)
+
+## [v1.0.40](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.40) (2022-01-01)
+
+[Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.39...v1.0.40)
+
 ## [v1.0.39](https://github.com/microting/eform-backendconfiguration-base/tree/v1.0.39) (2021-12-22)
 
 [Full Changelog](https://github.com/microting/eform-backendconfiguration-base/compare/v1.0.38...v1.0.39)
