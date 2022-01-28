@@ -26,5 +26,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public virtual Area Area { get; set; }
 
         public int AreaInitialFieldId { get; set; }
+
+        public bool ComplianceEnabled { get; set; }
     }
 }
