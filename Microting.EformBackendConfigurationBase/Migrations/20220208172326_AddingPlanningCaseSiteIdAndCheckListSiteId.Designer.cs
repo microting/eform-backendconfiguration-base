@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 
@@ -10,9 +11,10 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    partial class BackendConfigurationPnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220208172326_AddingPlanningCaseSiteIdAndCheckListSiteId")]
+    partial class AddingPlanningCaseSiteIdAndCheckListSiteId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1294,9 +1296,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int?>("FolderId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FolderIdForTasks")
-                        .HasColumnType("int");
-
                     b.Property<int>("ItemPlanningTagId")
                         .HasColumnType("int");
 
@@ -1315,9 +1314,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("WorkflowState")
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
-
-                    b.Property<bool>("WorkorderEnable")
-                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
@@ -1431,9 +1427,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int?>("FolderId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FolderIdForTasks")
-                        .HasColumnType("int");
-
                     b.Property<int>("ItemPlanningTagId")
                         .HasColumnType("int");
 
@@ -1455,9 +1448,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("WorkflowState")
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
-
-                    b.Property<bool>("WorkorderEnable")
-                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
@@ -1618,83 +1608,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.ToTable("ProperyAreaFolderVersions");
                 });
 
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.WorkorderCase", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("CaseId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PropertyWorkerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PropertyWorkerId");
-
-                    b.ToTable("WorkorderCases");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.WorkorderCaseVersion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("CaseId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PropertyWorkerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("WorkorderCaseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("WorkorderCaseVersions");
-                });
-
             modelBuilder.Entity("Microting.eFormApi.BasePn.Infrastructure.Database.Entities.PluginGroupPermission", b =>
                 {
                     b.HasOne("Microting.eFormApi.BasePn.Infrastructure.Database.Entities.PluginPermission", "Permission")
@@ -1852,17 +1765,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Navigation("AreaProperty");
                 });
 
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.WorkorderCase", b =>
-                {
-                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertyWorker", "PropertyWorker")
-                        .WithMany("WorkorderCases")
-                        .HasForeignKey("PropertyWorkerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("PropertyWorker");
-                });
-
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Area", b =>
                 {
                     b.Navigation("AreaInitialField");
@@ -1900,11 +1802,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Navigation("PropertyWorkers");
 
                     b.Navigation("SelectedLanguages");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertyWorker", b =>
-                {
-                    b.Navigation("WorkorderCases");
                 });
 #pragma warning restore 612, 618
         }

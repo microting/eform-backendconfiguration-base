@@ -13,4 +13,6 @@ public class Compliance : PnBase
     public DateTime StartDate { get; set; }
     public int MicrotingSdkCaseId { get; set; }
     public int MicrotingSdkeFormId { get; set; }
+    public int PlanningCaseSiteId { get; set; }
+    public int CheckListSiteId { get; set; }
 }
