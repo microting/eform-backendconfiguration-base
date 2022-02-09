@@ -79,6 +79,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<Compliance> Compliances { get; set; }
         public DbSet<ComplianceVersion> ComplianceVersions { get; set; }
 
+        public DbSet<WorkorderCase> WorkorderCases { get; set; }
+        public DbSet<WorkorderCaseVersion> WorkorderCaseVersions { get; set; }
+
         // common tables
         public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
         public DbSet<PluginConfigurationValueVersion> PluginConfigurationValueVersions { get; set; }
@@ -133,6 +136,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
             modelBuilder.Entity<AreaProperty>().HasOne(x => x.Property)
                 .WithMany(x => x.AreaProperties)
                 .HasForeignKey(x => x.PropertyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<WorkorderCase>().HasOne(x => x.PropertyWorker)
+                .WithMany(x => x.WorkorderCases)
+                .HasForeignKey(x => x.PropertyWorkerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.SeedLatest();

@@ -1,4 +1,4 @@
-/*
+﻿/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2022 Microting A/S
@@ -22,20 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+
+public class WorkorderCaseVersion : PnBase
 {
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
+    public int WorkorderCaseId { get; set; }
+    
+    public int PropertyWorkerId { get; set; }
 
-    public class PropertyWorker : PnBase
-    {
-        public int PropertyId { get; set; }
-
-        public virtual Property Property { get; set; }
-
-        public int WorkerId { get; set; }
-
-        public virtual List<WorkorderCase> WorkorderCases { get; set; }
-            = new();
-    }
+    public int CaseId { get; set; }
 }

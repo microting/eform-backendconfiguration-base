@@ -45,5 +45,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int ComplianceStatus { get; set; }
 
         public int ComplianceStatusThirty { get; set; }
+
+        public bool WorkorderEnable { get; set; }
+
+        public int? FolderIdForTasks { get; set; }
     }
 }
