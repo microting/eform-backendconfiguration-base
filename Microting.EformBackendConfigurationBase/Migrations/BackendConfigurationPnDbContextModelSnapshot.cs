@@ -1627,6 +1627,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CaseId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CaseStatusesEnum")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -1663,6 +1666,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("CaseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CaseStatusesEnum")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")

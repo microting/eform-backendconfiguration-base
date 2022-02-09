@@ -44,6 +44,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     PropertyWorkerId = table.Column<int>(type: "int", nullable: false),
                     CaseId = table.Column<int>(type: "int", nullable: false),
+                    CaseStatusesEnum = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -73,6 +74,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     WorkorderCaseId = table.Column<int>(type: "int", nullable: false),
                     PropertyWorkerId = table.Column<int>(type: "int", nullable: false),
                     CaseId = table.Column<int>(type: "int", nullable: false),
+                    CaseStatusesEnum = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)

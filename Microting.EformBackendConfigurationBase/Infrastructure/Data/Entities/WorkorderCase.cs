@@ -24,6 +24,8 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
+using Enum;
+
 public class WorkorderCase : PnBase
 {
     public int PropertyWorkerId { get; set; }
@@ -31,4 +33,6 @@ public class WorkorderCase : PnBase
     public virtual PropertyWorker PropertyWorker { get; set; }
 
     public int CaseId { get; set; }
+
+    public CaseStatusesEnum CaseStatusesEnum { get; set; }
 }

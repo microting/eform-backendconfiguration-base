@@ -11,7 +11,7 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    [Migration("20220209112000_AddWorkorderFlow")]
+    [Migration("20220209132941_AddWorkorderFlow")]
     partial class AddWorkorderFlow
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1072,6 +1072,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("AreaName")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("CheckListSiteId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -1088,6 +1091,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("MicrotingSdkeFormId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlanningCaseSiteId")
                         .HasColumnType("int");
 
                     b.Property<int>("PlanningId")
@@ -1129,6 +1135,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("AreaName")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("CheckListSiteId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ComplianceId")
                         .HasColumnType("int");
 
@@ -1148,6 +1157,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("MicrotingSdkeFormId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlanningCaseSiteId")
                         .HasColumnType("int");
 
                     b.Property<int>("PlanningId")
@@ -1617,6 +1629,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CaseId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CaseStatusesEnum")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -1653,6 +1668,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("CaseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CaseStatusesEnum")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")

@@ -22,17 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Enum;
 
-using Enum;
-
-public class WorkorderCaseVersion : PnBase
+public enum CaseStatusesEnum
 {
-    public int WorkorderCaseId { get; set; }
-    
-    public int PropertyWorkerId { get; set; }
-
-    public int CaseId { get; set; }
-
-    public CaseStatusesEnum CaseStatusesEnum { get; set; }
+    NewTask = 0,
+    Ongoing = 1,
+    Completed = 2,
 }
