@@ -35,4 +35,6 @@ public class WorkorderCaseVersion : PnBase
     public int CaseId { get; set; }
 
     public CaseStatusesEnum CaseStatusesEnum { get; set; }
+
+    public int? ParentWorkorderCaseId { get; set; }
 }

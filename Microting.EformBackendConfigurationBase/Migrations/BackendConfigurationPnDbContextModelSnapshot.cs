@@ -1636,6 +1636,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ParentWorkorderCaseId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PropertyWorkerId")
                         .HasColumnType("int");
 
@@ -1653,6 +1656,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentWorkorderCaseId");
 
                     b.HasIndex("PropertyWorkerId");
 
@@ -1675,6 +1680,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ParentWorkorderCaseId")
                         .HasColumnType("int");
 
                     b.Property<int>("PropertyWorkerId")
@@ -1860,11 +1868,17 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.WorkorderCase", b =>
                 {
+                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.WorkorderCase", "ParentWorkorderCase")
+                        .WithMany()
+                        .HasForeignKey("ParentWorkorderCaseId");
+
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertyWorker", "PropertyWorker")
                         .WithMany("WorkorderCases")
                         .HasForeignKey("PropertyWorkerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("ParentWorkorderCase");
 
                     b.Navigation("PropertyWorker");
                 });

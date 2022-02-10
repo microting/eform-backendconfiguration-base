@@ -35,4 +35,9 @@ public class WorkorderCase : PnBase
     public int CaseId { get; set; }
 
     public CaseStatusesEnum CaseStatusesEnum { get; set; }
+
+    // id case with new task
+    public int? ParentWorkorderCaseId { get; set; }
+
+    public virtual WorkorderCase ParentWorkorderCase { get; set; }
 }

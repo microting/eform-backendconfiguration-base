@@ -45,6 +45,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     PropertyWorkerId = table.Column<int>(type: "int", nullable: false),
                     CaseId = table.Column<int>(type: "int", nullable: false),
                     CaseStatusesEnum = table.Column<int>(type: "int", nullable: false),
+                    ParentWorkorderCaseId = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -62,6 +63,11 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         principalTable: "PropertyWorkers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_WorkorderCases_WorkorderCases_ParentWorkorderCaseId",
+                        column: x => x.ParentWorkorderCaseId,
+                        principalTable: "WorkorderCases",
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -75,6 +81,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     PropertyWorkerId = table.Column<int>(type: "int", nullable: false),
                     CaseId = table.Column<int>(type: "int", nullable: false),
                     CaseStatusesEnum = table.Column<int>(type: "int", nullable: false),
+                    ParentWorkorderCaseId = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     WorkflowState = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -88,6 +95,11 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     table.PrimaryKey("PK_WorkorderCaseVersions", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkorderCases_ParentWorkorderCaseId",
+                table: "WorkorderCases",
+                column: "ParentWorkorderCaseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkorderCases_PropertyWorkerId",
