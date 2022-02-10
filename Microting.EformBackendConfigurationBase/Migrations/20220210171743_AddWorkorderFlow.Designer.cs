@@ -11,7 +11,7 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    [Migration("20220210123653_AddWorkorderFlow")]
+    [Migration("20220210171743_AddWorkorderFlow")]
     partial class AddWorkorderFlow
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
