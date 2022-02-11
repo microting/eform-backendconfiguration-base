@@ -1,4 +1,4 @@
-/*
+﻿/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2022 Microting A/S
@@ -22,20 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Enum;
+
+public enum CaseStatusesEnum
 {
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    public class PropertyWorker : PnBase
-    {
-        public int PropertyId { get; set; }
-
-        public virtual Property Property { get; set; }
-
-        public int WorkerId { get; set; }
-
-        public virtual List<WorkorderCase> WorkorderCases { get; set; }
-            = new();
-    }
+    NewTask = 0,
+    Ongoing = 1,
+    Completed = 2,
 }

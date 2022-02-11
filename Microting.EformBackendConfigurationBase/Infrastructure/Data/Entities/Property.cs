@@ -54,5 +54,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public virtual List<AreaProperty> AreaProperties { get; set; }
             = new();
+
+        public bool WorkorderEnable { get; set; }
+
+        public int? FolderIdForTasks { get; set; }
     }
 }
