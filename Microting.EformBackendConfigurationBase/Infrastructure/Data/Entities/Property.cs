@@ -58,5 +58,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public bool WorkorderEnable { get; set; }
 
         public int? FolderIdForTasks { get; set; }
+
+        public int? EntitySelectListAreas { get; set; }
+
+        public int? EntitySelectListDeviceUsers { get; set; }
     }
 }
