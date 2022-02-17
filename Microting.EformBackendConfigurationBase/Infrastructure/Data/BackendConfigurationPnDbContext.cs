@@ -82,6 +82,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<WorkorderCase> WorkorderCases { get; set; }
         public DbSet<WorkorderCaseVersion> WorkorderCaseVersions { get; set; }
 
+        public DbSet<WorkorderCaseImage> WorkorderCaseImages { get; set; }
+        public DbSet<WorkorderCaseImageVersion> WorkorderCaseImageVersions { get; set; }
+
         // common tables
         public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
         public DbSet<PluginConfigurationValueVersion> PluginConfigurationValueVersions { get; set; }
