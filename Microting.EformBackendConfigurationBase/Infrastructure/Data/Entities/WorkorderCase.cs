@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System;
+
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
 using Enum;
@@ -50,5 +52,7 @@ public class WorkorderCase : PnBase
     public string CreatedByText { get; set; }
 
     public string Description { get; set; }
+
+    public DateTime CaseInitiated { get; set; }
 
 }
