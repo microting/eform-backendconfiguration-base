@@ -41,4 +41,6 @@ public class WorkorderCaseVersion : PnBase
     public int? EntityItemIdForArea { get; set; }
 
     public string SelectedAreaName { get; set; }
+
+    public string CreatedByName { get; set; }
 }
