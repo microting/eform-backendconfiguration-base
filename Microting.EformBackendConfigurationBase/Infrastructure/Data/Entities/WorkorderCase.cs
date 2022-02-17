@@ -40,4 +40,9 @@ public class WorkorderCase : PnBase
     public int? ParentWorkorderCaseId { get; set; }
 
     public virtual WorkorderCase ParentWorkorderCase { get; set; }
+
+    public int? EntityItemIdForArea { get; set; }
+
+    public string SelectedAreaName { get; set; }
+
 }
