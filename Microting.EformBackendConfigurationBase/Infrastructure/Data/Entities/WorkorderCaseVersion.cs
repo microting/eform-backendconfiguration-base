@@ -45,4 +45,6 @@ public class WorkorderCaseVersion : PnBase
     public string CreatedByName { get; set; }
 
     public string CreatedByText { get; set; }
+
+    public string Description { get; set; }
 }
