@@ -43,4 +43,6 @@ public class WorkorderCaseVersion : PnBase
     public string SelectedAreaName { get; set; }
 
     public string CreatedByName { get; set; }
+
+    public string CreatedByText { get; set; }
 }

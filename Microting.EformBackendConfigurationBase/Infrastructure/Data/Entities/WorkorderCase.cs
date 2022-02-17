@@ -47,4 +47,6 @@ public class WorkorderCase : PnBase
 
     public string CreatedByName { get; set; }
 
+    public string CreatedByText { get; set; }
+
 }
