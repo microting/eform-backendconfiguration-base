@@ -27,9 +27,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
     public class PropertyWorkerVersion : PnBase
     {
         public int PropertyId { get; set; }
-        
+
         public int WorkerId { get; set; }
 
         public int PropertyWorkerId { get; set; }
+
+        public int? EntityItemId { get; set; }
     }
 }
