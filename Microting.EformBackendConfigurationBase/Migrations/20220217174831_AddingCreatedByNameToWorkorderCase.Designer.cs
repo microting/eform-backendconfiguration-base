@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 
@@ -10,9 +11,10 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    partial class BackendConfigurationPnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220217174831_AddingCreatedByNameToWorkorderCase")]
+    partial class AddingCreatedByNameToWorkorderCase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1663,9 +1665,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CaseId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CaseInitiated")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<int>("CaseStatusesEnum")
                         .HasColumnType("int");
 
@@ -1675,14 +1674,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("CreatedByName")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("CreatedByText")
-                        .HasColumnType("longtext");
-
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
 
                     b.Property<int?>("EntityItemIdForArea")
                         .HasColumnType("int");
@@ -1718,81 +1711,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.ToTable("WorkorderCases");
                 });
 
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.WorkorderCaseImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UploadedDataId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("WorkorderCaseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("WorkorderCaseImages");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.WorkorderCaseImageVersion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UploadedDataId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("WorkorderCaseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkorderCaseImageId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("WorkorderCaseImageVersions");
-                });
-
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.WorkorderCaseVersion", b =>
                 {
                     b.Property<int>("Id")
@@ -1801,9 +1719,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int>("CaseId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("CaseInitiated")
-                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CaseStatusesEnum")
                         .HasColumnType("int");
@@ -1814,14 +1729,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("CreatedByName")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("CreatedByText")
-                        .HasColumnType("longtext");
-
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
 
                     b.Property<int?>("EntityItemIdForArea")
                         .HasColumnType("int");
