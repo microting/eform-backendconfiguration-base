@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System;
+
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
 using Enum;
@@ -40,4 +42,17 @@ public class WorkorderCase : PnBase
     public int? ParentWorkorderCaseId { get; set; }
 
     public virtual WorkorderCase ParentWorkorderCase { get; set; }
+
+    public int? EntityItemIdForArea { get; set; }
+
+    public string SelectedAreaName { get; set; }
+
+    public string CreatedByName { get; set; }
+
+    public string CreatedByText { get; set; }
+
+    public string Description { get; set; }
+
+    public DateTime CaseInitiated { get; set; }
+
 }

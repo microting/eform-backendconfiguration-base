@@ -62,5 +62,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int? EntitySelectListAreas { get; set; }
 
         public int? EntitySelectListDeviceUsers { get; set; }
+
+        public int? FolderIdForNewTasks { get; set; }
+
+        public int? FolderIdForOngoingTasks { get; set; }
+
+        public int? FolderIdForCompletedTasks { get; set; }
     }
 }

@@ -37,5 +37,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public virtual List<WorkorderCase> WorkorderCases { get; set; }
             = new();
+
+        public int? EntityItemId { get; set; }
     }
 }
