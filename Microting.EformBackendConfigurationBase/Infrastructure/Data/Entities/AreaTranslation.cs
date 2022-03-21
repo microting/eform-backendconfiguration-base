@@ -12,5 +12,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public string Description { get; set; }
 
         public int LanguageId { get; set; }
+
+        public string InfoBox { get; set; }
+
+        public string Placeholder { get; set; }
     }
 }
