@@ -16,5 +16,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public string InfoBox { get; set; }
 
         public string Placeholder { get; set; }
+
+        public string NewItemName { get; set; }
     }
 }
