@@ -55,4 +55,7 @@ public class WorkorderCase : PnBase
 
     public DateTime CaseInitiated { get; set; }
 
+    public string LastUpdatedByName { get; set; }
+
+    public string LastAssignedToName { get; set; }
 }
