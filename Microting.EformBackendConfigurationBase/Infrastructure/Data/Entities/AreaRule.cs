@@ -38,7 +38,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public virtual Property Property { get; set; }
 
         public int? EformId { get; set; }
-        
+
         public string EformName { get; set; }
 
         public int FolderId { get; set; }
@@ -60,6 +60,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public bool IsDefault { get; set; }
 
         public int RepeatEvery { get; set; }
+
+        public int? RepeatType { get; set; }
 
         public virtual List<AreaRuleTranslation> AreaRuleTranslations { get; set; }
             = new();
