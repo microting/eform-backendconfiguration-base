@@ -63,6 +63,14 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public int? RepeatType { get; set; }
 
+        public bool? ComplianceEnabled { get; set; }
+
+        public bool ComplianceModifiable { get; set; }
+
+        public bool? Notifications { get; set; }
+
+        public bool NotificationsModifiable { get; set; }
+
         public virtual List<AreaRuleTranslation> AreaRuleTranslations { get; set; }
             = new();
 
