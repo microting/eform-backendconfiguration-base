@@ -59,5 +59,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int? FolderIdForOngoingTasks { get; set; }
 
         public int? FolderIdForCompletedTasks { get; set; }
+
+        public int? EntitySearchListChemicals { get; set; }
     }
 }
