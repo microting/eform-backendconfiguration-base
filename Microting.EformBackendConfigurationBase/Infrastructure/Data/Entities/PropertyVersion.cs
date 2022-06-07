@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System;
+
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
     public class PropertyVersion : PnBase
@@ -61,5 +63,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int? FolderIdForCompletedTasks { get; set; }
 
         public int? EntitySearchListChemicals { get; set; }
+
+        public int? EntitySearchListChemicalRegNos { get; set; }
+
+        public DateTime? ChemicalLastUpdatedAt { get; set; }
     }
 }
