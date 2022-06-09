@@ -76,5 +76,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int? EntitySearchListChemicalRegNos { get; set; }
 
         public DateTime? ChemicalLastUpdatedAt { get; set; }
+
+        public int? IndustryCode { get; set; }
+
+        public bool IsFarm { get; set; }
     }
 }
