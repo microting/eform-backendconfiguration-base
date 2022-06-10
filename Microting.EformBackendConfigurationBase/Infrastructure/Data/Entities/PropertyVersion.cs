@@ -23,6 +23,7 @@ SOFTWARE.
 */
 
 using System;
+using JetBrains.Annotations;
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
@@ -68,7 +69,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public DateTime? ChemicalLastUpdatedAt { get; set; }
 
-        public int? IndustryCode { get; set; }
+        [CanBeNull] public string IndustryCode { get; set; }
 
         public bool IsFarm { get; set; }
     }
