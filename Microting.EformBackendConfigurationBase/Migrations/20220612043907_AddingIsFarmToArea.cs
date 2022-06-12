@@ -13,14 +13,14 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 table: "AreaVersions",
                 type: "tinyint(1)",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: true);
 
             migrationBuilder.AddColumn<bool>(
                 name: "IsFarm",
                 table: "Areas",
                 type: "tinyint(1)",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

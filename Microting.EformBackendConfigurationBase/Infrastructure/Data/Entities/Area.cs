@@ -45,6 +45,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public virtual List<AreaProperty> AreaProperties { get; set; }
             = new();
 
-        public bool IsFarm { get; set; }
+        public bool IsFarm { get; set; } = true;
     }
 }

@@ -34,6 +34,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public int AreaId { get; set; }
 
-        public bool IsFarm { get; set; }
+        public bool IsFarm { get; set; } = true;
     }
 }
