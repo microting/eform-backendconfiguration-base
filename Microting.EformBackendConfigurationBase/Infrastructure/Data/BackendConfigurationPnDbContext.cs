@@ -95,6 +95,10 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<ChemicalProductPropertyVersion> ChemicalProductPropertyVersions { get; set; }
         public DbSet<PoolHour> PoolHours { get; set; }
         public DbSet<PoolHourVersion> PoolHourVersions { get; set; }
+        public DbSet<PoolAccident> PoolAccidents { get; set; }
+        public DbSet<PoolAccidentVersion> PoolAccidentVersions { get; set; }
+        public DbSet<PoolHourResult> PoolHourResults { get; set; }
+        public DbSet<PoolHourResultVersion> PoolHourResultVersions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
