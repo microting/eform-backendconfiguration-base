@@ -10,7 +10,7 @@ public class PoolHourVersion : BaseEntity
     public DayOfWeekEnum DayOfWeek { get; set; }
     public int Index { get; set; }
     public string Name { get; set; }
-    public int ItemsPlanningId { get; set; }
+    public int? ItemsPlanningId { get; set; }
     [ForeignKey("PoolHour")]
     public int PoolHourId { get; set; }
     public bool IsActive { get; set; }

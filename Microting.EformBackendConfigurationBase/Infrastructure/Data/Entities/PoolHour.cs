@@ -10,6 +10,6 @@ public class PoolHour : PnBase
     public DayOfWeekEnum DayOfWeek { get; set; }
     public int Index { get; set; }
     public string Name { get; set; }
-    public int ItemsPlanningId { get; set; }
+    public int? ItemsPlanningId { get; set; }
     public bool IsActive { get; set; }
 }
