@@ -81,5 +81,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         [CanBeNull] public string IndustryCode { get; set; }
 
         public bool IsFarm { get; set; }
+
+        public int? EntitySearchListPoolWorkers { get; set; }
     }
 }
