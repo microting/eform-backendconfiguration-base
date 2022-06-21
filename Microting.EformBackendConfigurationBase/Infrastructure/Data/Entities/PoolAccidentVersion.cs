@@ -17,4 +17,7 @@ public class PoolAccidentVersion : BaseEntity
     public int ContactedPersonId { get; set; }
     public int OwnPersonId { get; set; }
     public string Comment { get; set; }
+    public int FolderId { get; set; }
+    public int SdkCaseId { get; set; }
+    public int PlanningId { get; set; }
 }

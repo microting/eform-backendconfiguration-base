@@ -26,5 +26,6 @@ public class PoolHourResult : PnBase
     public double MeasuredTempDuringTheDay { get; set; }
     public string Comment { get; set; }
     public int DoneByUserId { get; set; }
+    public int FolderId { get; set; }
 
 }
