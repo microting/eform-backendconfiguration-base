@@ -99,6 +99,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<PoolAccidentVersion> PoolAccidentVersions { get; set; }
         public DbSet<PoolHourResult> PoolHourResults { get; set; }
         public DbSet<PoolHourResultVersion> PoolHourResultVersions { get; set; }
+        public DbSet<PoolHistorySite> PoolHistorySites { get; set; }
+        public DbSet<PoolHistorySiteVersion> PoolHistorySiteVersions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
