@@ -29,5 +29,6 @@ public class PoolHourResult : PnBase
     public int? DoneByUserId { get; set; }
     public int FolderId { get; set; }
     [CanBeNull] public string DoneByUserName { get; set; }
+    public DateTime DoneAt { get; set; }
 
 }
