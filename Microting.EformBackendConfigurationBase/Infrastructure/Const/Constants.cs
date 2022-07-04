@@ -218,15 +218,15 @@ public static class Constants
 
     public static Dictionary<int, string> GHSHazardPictogram = new()
     {
-        { 1, "GHS01ExplodingBomb" },
-        { 2, "GHS02Flame" },
-        { 3, "GHS03FlameOverCircle" },
-        { 4, "GHS04GasCylinder" },
-        { 5, "GHS05Corrosion" },
-        { 6, "GHS06SkullAndCrossbones" },
-        { 7, "GHS07ExclamationMark" },
-        { 8, "GHS08HealthHazard" },
-        { 9, "GHS09AquaticHazard" }
+        { 1, "GHS01ExplodingBomb" }, //
+        { 2, "GHS02Flame" }, //
+        { 3, "GHS03FlameOverCircle" }, //
+        { 4, "GHS04GasCylinder" }, //
+        { 5, "GHS05Corrosion" }, //
+        { 6, "GHS06SkullAndCrossbones" }, //
+        { 7, "GHS07ExclamationMark" }, //
+        { 8, "GHS08HealthHazard" }, //
+        { 9, "GHS09AquaticHazard" } //
     };
 
     public static Dictionary<int, string> HazardClass = new()

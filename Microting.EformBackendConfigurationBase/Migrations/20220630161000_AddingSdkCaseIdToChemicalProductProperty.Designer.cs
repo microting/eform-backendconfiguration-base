@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 
@@ -10,9 +11,10 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    partial class BackendConfigurationPnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220630161000_AddingSdkCaseIdToChemicalProductProperty")]
+    partial class AddingSdkCaseIdToChemicalProductProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1152,96 +1154,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ChemicalProductProperties");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalProductPropertySite", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("ChemicalId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PropertyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SdkCaseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SdkSiteId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ChemicalProductPropertieSites");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalProductPropertySiteVersion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("ChemicalId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PropertyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SdkCaseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SdkSiteId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ChemicalProductPropertyVersionSites");
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalProductPropertyVersion", b =>
