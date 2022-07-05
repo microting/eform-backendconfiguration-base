@@ -74,5 +74,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public bool IsFarm { get; set; }
 
         public int? EntitySearchListPoolWorkers { get; set; }
+
+        public int? EntitySelectListChemicalAreas { get; set; }
     }
 }
