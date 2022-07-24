@@ -9,4 +9,5 @@ public class ChemicalProductPropertyVersion :BaseEntity
     public int ProductId { get; set; }
     public int PropertyId { get; set; }
     public int SdkCaseId { get; set; }
+    public string Locations { get; set; }
 }
