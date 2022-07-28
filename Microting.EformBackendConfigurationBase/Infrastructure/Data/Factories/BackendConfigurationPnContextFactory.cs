@@ -37,7 +37,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Factories
             var optionsBuilder = new DbContextOptionsBuilder<BackendConfigurationPnDbContext>();
 
             optionsBuilder.UseMySql(args.Any() ? args[0] : defaultCs, new MariaDbServerVersion(
-                new Version(10, 4, 0)), mySqlOptionsAction: builder =>
+                ServerVersion.AutoDetect(args.Any() ? args[0] : defaultCs)), mySqlOptionsAction: builder =>
             {
                 builder.EnableRetryOnFailure();
             });
