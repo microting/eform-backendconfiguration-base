@@ -33,7 +33,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Factories
     {
         public BackendConfigurationPnDbContext CreateDbContext(string[] args)
         {
-            var defaultCs = "Server = localhost; port = 3306; Database = backend-configuration-pn; user = root; password = Qq1234567$;Convert Zero Datetime = true;";
+            var defaultCs = "Server = localhost; port = 3306; Database = backend-configuration-pn; user = root; password = secretpassword;Convert Zero Datetime = true;";
             var optionsBuilder = new DbContextOptionsBuilder<BackendConfigurationPnDbContext>();
 
             optionsBuilder.UseMySql(args.Any() ? args[0] : defaultCs, new MariaDbServerVersion(
