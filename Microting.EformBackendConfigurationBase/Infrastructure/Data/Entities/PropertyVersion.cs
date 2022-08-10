@@ -76,5 +76,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int? EntitySearchListPoolWorkers { get; set; }
 
         public int? EntitySelectListChemicalAreas { get; set; }
+
+        public string MainMailAddress { get; set; }
     }
 }
