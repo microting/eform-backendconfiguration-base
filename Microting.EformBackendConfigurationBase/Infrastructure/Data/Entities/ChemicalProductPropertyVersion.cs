@@ -1,3 +1,4 @@
+using System;
 using Microting.eFormApi.BasePn.Infrastructure.Database.Base;
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
@@ -12,4 +13,5 @@ public class ChemicalProductPropertyVersion :BaseEntity
     public string Locations { get; set; }
     public int LanguageId { get; set; }
     public int SdkSiteId { get; set; }
+    public DateTime? ExpireDate { get; set; }
 }
