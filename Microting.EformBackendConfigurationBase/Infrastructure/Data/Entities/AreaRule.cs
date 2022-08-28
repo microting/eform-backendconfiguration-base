@@ -78,5 +78,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
             = new();
 
         public virtual AreaRuleInitialField AreaRuleInitialField { get; set; }
+
+        public int SecondaryeFormId { get; set; }
+
+        public string SecondaryeFormName { get; set; }
     }
 }

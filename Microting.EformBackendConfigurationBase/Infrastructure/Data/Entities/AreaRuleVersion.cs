@@ -67,5 +67,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public bool? Notifications { get; set; }
 
         public bool NotificationsModifiable { get; set; }
+
+        public int SecondaryeFormId { get; set; }
+
+        public string SecondaryeFormName { get; set; }
     }
 }
