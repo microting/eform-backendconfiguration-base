@@ -536,4 +536,43 @@ public static class Constants
         { 3, "Industriel" },
         { 4, "Trænet professionel" }
     };
+
+    public static Dictionary<int, string> ProductType = new()
+    {
+        { 1, "PT01 Biocidmidler Desinfektionsmidler til hygiejne for mennesker" },
+        { 2, "PT02 Produkter til desinfektionsmidler og algedræbende midler, som ikke er beregnet til direkte anvendelse på mennesker eller dyr" },
+        { 3, "PT03 Desinfektionsmidler til veterinærhygiejne" },
+        { 4, "PT04 Desinfektionsmidler til ved fødevarer og foderstoffer" },
+        { 5, "PT05 Desinfektionsmidler til drikkevand" },
+        { 6, "PT06 Konserveringsmidler for produkter under opbevaring" },
+        { 7, "PT07 Konserveringsmidler til overfladefilm" },
+        { 8, "PT08 Træbeskyttelsesmidler" },
+        { 9, "PT09 Beskyttelsesmidler til fibermaterialer, læder, gummi og polymeriserede materialer" },
+        { 10, "PT10 Midler til beskyttelse af byggematerialer" },
+        { 11, "PT11 Konserveringsmidler til væske i køle- og processystemer" },
+        { 12, "PT12 Midler mod slim" },
+        { 13, "PT13 Konserveringsmidler til væsker, der anvendes ved metalbearbejdning" },
+        { 14, "PT14 Rodenticider" },
+        { 15, "PT15 Fuglebekæmpelsesmidler" },
+        { 16, "PT16 Molluscicider, vermicider og produkter til bekæmpelse af andre hvirvelløse dyr" },
+        { 17, "PT17 Fiskebekæmpelsesmidler" },
+        { 18, "PT18 Insekticider, acaricider og produkter til bekæmpelse af andre leddyr" },
+        { 19, "PT19 Afskræknings- og tiltrækningsmidler" },
+        { 20, "PT20 Produkter til bekæmpelse af andre hvirveldyr" },
+        { 21, "PT21 Antifoulingsmidler" },
+    };
+
+    public static Dictionary<int, string> ProductGroupBiocide = new()
+    {
+        { 10, "Afskrækningsmidler mod myg" },
+        { 2, "Algevækst" },
+        { 8, "Insekter, snegle, mider og lignende" },
+        { 4, "Kaniner, mus, rotter, muldvarpe, mosegrise mm." },
+        { 9, "Regnorme" },
+        { 7, "Skadedyr i tømmer og træværk" },
+        { 3, "Slimdannende organismer i papirmasse" },
+        { 6, "Tekstilskadedyr" },
+        { 1, "Træødelæggende svamp" },
+        { 5, "Utøj hos husdyr, herunder stuefugle" },
+    };
 }
