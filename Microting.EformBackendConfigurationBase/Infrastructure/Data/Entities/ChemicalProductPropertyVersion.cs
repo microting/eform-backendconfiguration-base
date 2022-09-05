@@ -14,4 +14,5 @@ public class ChemicalProductPropertyVersion :BaseEntity
     public int LanguageId { get; set; }
     public int SdkSiteId { get; set; }
     public DateTime? ExpireDate { get; set; }
+    public string LastFolderName { get; set; }
 }
