@@ -93,7 +93,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<PluginGroupPermissionVersion> PluginGroupPermissionVersions { get; set; }
         public DbSet<ChemicalProductProperty> ChemicalProductProperties { get; set; }
         public DbSet<ChemicalProductPropertyVersion> ChemicalProductPropertyVersions { get; set; }
-        
+
         public DbSet<ChemicalProductPropertySite> ChemicalProductPropertieSites { get; set; }
         public DbSet<ChemicalProductPropertySiteVersion> ChemicalProductPropertyVersionSites { get; set; }
         public DbSet<PoolHour> PoolHours { get; set; }
@@ -104,6 +104,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<PoolHourResultVersion> PoolHourResultVersions { get; set; }
         public DbSet<PoolHistorySite> PoolHistorySites { get; set; }
         public DbSet<PoolHistorySiteVersion> PoolHistorySiteVersions { get; set; }
+        public DbSet<Email> Emails { get; set; }
+        public DbSet<EmailVersion> EmailVersions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

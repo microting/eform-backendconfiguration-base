@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 
@@ -10,9 +11,10 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    partial class BackendConfigurationPnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221019143021_AddingEmail")]
+    partial class AddingEmail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1484,9 +1486,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DelayedUntil")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<string>("Error")
                         .HasColumnType("longtext");
 
@@ -1539,9 +1538,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("DelayedUntil")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Error")
