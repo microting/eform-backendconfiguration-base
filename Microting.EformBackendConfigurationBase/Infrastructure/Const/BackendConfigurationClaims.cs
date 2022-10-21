@@ -30,5 +30,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Const
         public const string CreateProperties = "properties_create";
         public const string GetProperties = "properties_get";
         public const string EditProperties = "property_edit";
+        public const string DeleteProperties = "property_delete";
+        public const string EnableTaskManagement = "task_management_enable";
+        public const string EnableDocumentManagement = "document_management_enable";
+        public const string EnableChemicalManagement = "chemical_management_enable";
+        public const string EnableTimeRegistration = "time_registration_enable";
+        public const string AssignProperties = "properties_assign";
     }
 }
