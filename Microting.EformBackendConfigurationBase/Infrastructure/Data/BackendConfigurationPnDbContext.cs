@@ -106,6 +106,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<PoolHistorySiteVersion> PoolHistorySiteVersions { get; set; }
         public DbSet<Email> Emails { get; set; }
         public DbSet<EmailVersion> EmailVersions { get; set; }
+        public DbSet<EmailAttachment> EmailAttachments { get; set; }
+        public DbSet<EmailAttachmentVersion> EmailAttachmentVersions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

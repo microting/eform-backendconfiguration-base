@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
@@ -14,5 +15,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public string Sent { get; set; }
         public DateTime SentAt { get; set; }
         public DateTime DelayedUntil { get; set; }
+
+        public virtual ICollection<EmailAttachment> EmailAttachments { get; set; }
     }
 }
