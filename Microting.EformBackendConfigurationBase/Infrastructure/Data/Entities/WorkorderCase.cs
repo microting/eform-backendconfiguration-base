@@ -60,4 +60,6 @@ public class WorkorderCase : PnBase
     public string LastAssignedToName { get; set; }
 
     public bool LeadingCase { get; set; }
+
+    public string Priority { get; set; }
 }
