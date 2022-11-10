@@ -29,4 +29,6 @@ public enum CaseStatusesEnum
     NewTask = 0,
     Ongoing = 1,
     Completed = 2,
+    Ordered = 3,
+    Awaiting = 4,
 }
