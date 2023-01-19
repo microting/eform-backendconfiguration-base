@@ -1,7 +1,7 @@
-﻿/*
+/*
 The MIT License (MIT)
 
-Copyright (c) 2007 - 2022 Microting A/S
+Copyright (c) 2007 - 2023 Microting A/S
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,20 +22,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Const
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
-    public static class BackendConfigurationClaims
+	using System.ComponentModel.DataAnnotations;
+	using System.ComponentModel.DataAnnotations.Schema;
+
+	public class UploadedData : PnBase
     {
-        public const string AccessBackendConfigurationPlugin = "backend_configuration_plugin_access";
-        public const string CreateProperties = "properties_create";
-        public const string GetProperties = "properties_get";
-        public const string EditProperties = "property_edit";
-        public const string DeleteProperties = "property_delete";
-        public const string EnableTaskManagement = "task_management_enable";
-        public const string EnableDocumentManagement = "document_management_enable";
-        public const string EnableChemicalManagement = "chemical_management_enable";
-        public const string EnableFilesManagement = "files_management_enable";
-		public const string EnableTimeRegistration = "time_registration_enable";
-        public const string AssignProperties = "properties_assign";
+        [ForeignKey("File")]
+        public int FileId { get; set; }
+        
+        [StringLength(255)]
+        public string Checksum { get; set; }
+
+        [StringLength(255)]
+        public string Extension { get; set; }
+
+        [StringLength(255)]
+        public string UploaderType { get; set; }
+
+        [StringLength(255)]
+        public string FileLocation { get; set; }
+
+        [StringLength(255)]
+        public string FileName { get; set; }
     }
 }

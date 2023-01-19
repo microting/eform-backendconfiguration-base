@@ -85,8 +85,41 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<WorkorderCaseImage> WorkorderCaseImages { get; set; }
         public DbSet<WorkorderCaseImageVersion> WorkorderCaseImageVersions { get; set; }
 
-        // common tables
-        public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
+        public DbSet<ChemicalProductPropertySite> ChemicalProductPropertieSites { get; set; }
+        public DbSet<ChemicalProductPropertySiteVersion> ChemicalProductPropertyVersionSites { get; set; }
+
+        public DbSet<PoolHour> PoolHours { get; set; }
+        public DbSet<PoolHourVersion> PoolHourVersions { get; set; }
+
+        public DbSet<PoolAccident> PoolAccidents { get; set; }
+        public DbSet<PoolAccidentVersion> PoolAccidentVersions { get; set; }
+
+        public DbSet<PoolHourResult> PoolHourResults { get; set; }
+        public DbSet<PoolHourResultVersion> PoolHourResultVersions { get; set; }
+
+        public DbSet<PoolHistorySite> PoolHistorySites { get; set; }
+        public DbSet<PoolHistorySiteVersion> PoolHistorySiteVersions { get; set; }
+
+        public DbSet<Email> Emails { get; set; }
+        public DbSet<EmailVersion> EmailVersions { get; set; }
+
+        public DbSet<EmailAttachment> EmailAttachments { get; set; }
+        public DbSet<EmailAttachmentVersion> EmailAttachmentVersions { get; set; }
+
+        public DbSet<File> Files { get; set; }
+        public DbSet<FileVersion> FileVersions { get; set; }
+
+        public DbSet<FileTag> FileTags { get; set; }
+        public DbSet<FileTagVersion> FileTagVersions { get; set; }
+
+        public DbSet<FileTags> FilesTags { get; set; }
+        public DbSet<FileTagsVersion> FilesTagsVersions { get; set; }
+
+        public DbSet<UploadedData> UploadedDatas { get; set; }
+        public DbSet<UploadedDataVersion> UploadedDataVersions { get; set; }
+
+		// common tables
+		public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
         public DbSet<PluginConfigurationValueVersion> PluginConfigurationValueVersions { get; set; }
         public DbSet<PluginPermission> PluginPermissions { get; set; }
         public DbSet<PluginGroupPermission> PluginGroupPermissions { get; set; }
@@ -94,20 +127,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<ChemicalProductProperty> ChemicalProductProperties { get; set; }
         public DbSet<ChemicalProductPropertyVersion> ChemicalProductPropertyVersions { get; set; }
 
-        public DbSet<ChemicalProductPropertySite> ChemicalProductPropertieSites { get; set; }
-        public DbSet<ChemicalProductPropertySiteVersion> ChemicalProductPropertyVersionSites { get; set; }
-        public DbSet<PoolHour> PoolHours { get; set; }
-        public DbSet<PoolHourVersion> PoolHourVersions { get; set; }
-        public DbSet<PoolAccident> PoolAccidents { get; set; }
-        public DbSet<PoolAccidentVersion> PoolAccidentVersions { get; set; }
-        public DbSet<PoolHourResult> PoolHourResults { get; set; }
-        public DbSet<PoolHourResultVersion> PoolHourResultVersions { get; set; }
-        public DbSet<PoolHistorySite> PoolHistorySites { get; set; }
-        public DbSet<PoolHistorySiteVersion> PoolHistorySiteVersions { get; set; }
-        public DbSet<Email> Emails { get; set; }
-        public DbSet<EmailVersion> EmailVersions { get; set; }
-        public DbSet<EmailAttachment> EmailAttachments { get; set; }
-        public DbSet<EmailAttachmentVersion> EmailAttachmentVersions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
