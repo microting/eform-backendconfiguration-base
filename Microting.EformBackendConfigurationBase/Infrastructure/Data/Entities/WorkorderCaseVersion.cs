@@ -51,4 +51,12 @@ public class WorkorderCaseVersion : PnBase
     public string Description { get; set; }
 
     public DateTime CaseInitiated { get; set; }
+
+    public string LastUpdatedByName { get; set; }
+
+    public string LastAssignedToName { get; set; }
+
+    public bool LeadingCase { get; set; }
+
+    public string Priority { get; set; }
 }

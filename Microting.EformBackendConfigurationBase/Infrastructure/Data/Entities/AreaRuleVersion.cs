@@ -57,5 +57,19 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public bool IsDefault { get; set; }
 
         public int RepeatEvery { get; set; }
+
+        public int? RepeatType { get; set; }
+
+        public bool? ComplianceEnabled { get; set; }
+
+        public bool ComplianceModifiable { get; set; }
+
+        public bool? Notifications { get; set; }
+
+        public bool NotificationsModifiable { get; set; }
+
+        public int SecondaryeFormId { get; set; }
+
+        public string SecondaryeFormName { get; set; }
     }
 }

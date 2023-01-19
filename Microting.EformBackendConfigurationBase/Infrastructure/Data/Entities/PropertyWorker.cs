@@ -39,5 +39,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
             = new();
 
         public int? EntityItemId { get; set; }
+
+        public bool? TaskManagementEnabled { get; set; } = true;
     }
 }

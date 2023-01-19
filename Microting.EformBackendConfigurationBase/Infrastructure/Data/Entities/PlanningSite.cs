@@ -31,5 +31,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int SiteId { get; set; }
 
         public virtual AreaRulePlanning AreaRulePlanning { get; set; }
+
+        public int? AreaRuleId { get; set; }
+
+        public int? AreaId { get; set; }
+
+        public int Status { get; set; } = 0;
     }
 }

@@ -1,20 +1,69 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microting.eForm" Version="5.5.3" />
-    <PackageReference Include="Microting.eFormApi.BasePn" Version="3.1.43" />
+    <PackageReference Include="Microting.eForm" Version="7.0.13" />
+    <PackageReference Include="Microting.eFormApi.BasePn" Version="7.0.11" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Infrastructure\Extensions\Seed\CodeFirstLists\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\icon.png">
+      <Pack>true</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Resources\GHSHazardPictogram\GHS01ExplodingBomb.jpg" />
+    <EmbeddedResource Include="Resources\GHSHazardPictogram\GHS01ExplodingBomb.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Remove="Resources\GHSHazardPictogram\GHS02Flame.jpg" />
+    <EmbeddedResource Include="Resources\GHSHazardPictogram\GHS02Flame.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Remove="Resources\GHSHazardPictogram\GHS03FlameOverCircle.jpg" />
+    <EmbeddedResource Include="Resources\GHSHazardPictogram\GHS03FlameOverCircle.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Remove="Resources\GHSHazardPictogram\GHS04GasCylinder.jpg" />
+    <EmbeddedResource Include="Resources\GHSHazardPictogram\GHS04GasCylinder.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Remove="Resources\GHSHazardPictogram\GHS05Corrosion.jpg" />
+    <EmbeddedResource Include="Resources\GHSHazardPictogram\GHS05Corrosion.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Remove="Resources\GHSHazardPictogram\GHS06SkullAndCrossbones.jpg" />
+    <EmbeddedResource Include="Resources\GHSHazardPictogram\GHS06SkullAndCrossbones.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Remove="Resources\GHSHazardPictogram\GHS07ExclamationMark.jpg" />
+    <EmbeddedResource Include="Resources\GHSHazardPictogram\GHS07ExclamationMark.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Remove="Resources\GHSHazardPictogram\GHS08HealthHazard.jpg" />
+    <EmbeddedResource Include="Resources\GHSHazardPictogram\GHS08HealthHazard.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Remove="Resources\GHSHazardPictogram\GHS09AquaticHazard.jpg" />
+    <EmbeddedResource Include="Resources\GHSHazardPictogram\GHS09AquaticHazard.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Remove="Resources\GHSHazardPictogram\dummy.pdf" />
+    <EmbeddedResource Include="Resources\GHSHazardPictogram\dummy.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

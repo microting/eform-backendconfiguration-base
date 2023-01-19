@@ -91,6 +91,23 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<PluginPermission> PluginPermissions { get; set; }
         public DbSet<PluginGroupPermission> PluginGroupPermissions { get; set; }
         public DbSet<PluginGroupPermissionVersion> PluginGroupPermissionVersions { get; set; }
+        public DbSet<ChemicalProductProperty> ChemicalProductProperties { get; set; }
+        public DbSet<ChemicalProductPropertyVersion> ChemicalProductPropertyVersions { get; set; }
+
+        public DbSet<ChemicalProductPropertySite> ChemicalProductPropertieSites { get; set; }
+        public DbSet<ChemicalProductPropertySiteVersion> ChemicalProductPropertyVersionSites { get; set; }
+        public DbSet<PoolHour> PoolHours { get; set; }
+        public DbSet<PoolHourVersion> PoolHourVersions { get; set; }
+        public DbSet<PoolAccident> PoolAccidents { get; set; }
+        public DbSet<PoolAccidentVersion> PoolAccidentVersions { get; set; }
+        public DbSet<PoolHourResult> PoolHourResults { get; set; }
+        public DbSet<PoolHourResultVersion> PoolHourResultVersions { get; set; }
+        public DbSet<PoolHistorySite> PoolHistorySites { get; set; }
+        public DbSet<PoolHistorySiteVersion> PoolHistorySiteVersions { get; set; }
+        public DbSet<Email> Emails { get; set; }
+        public DbSet<EmailVersion> EmailVersions { get; set; }
+        public DbSet<EmailAttachment> EmailAttachments { get; set; }
+        public DbSet<EmailAttachmentVersion> EmailAttachmentVersions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
