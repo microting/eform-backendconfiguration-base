@@ -1505,7 +1505,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PropertyId");
+                    b.HasIndex("PropertyId")
+                        .IsUnique();
 
                     b.ToTable("Files");
                 });
@@ -3391,8 +3392,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.File", b =>
                 {
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Property", "Property")
-                        .WithMany()
-                        .HasForeignKey("PropertyId")
+                        .WithOne("File")
+                        .HasForeignKey("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.File", "PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -3544,6 +3545,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Property", b =>
                 {
                     b.Navigation("AreaProperties");
+
+                    b.Navigation("File");
 
                     b.Navigation("PropertyWorkers");
 

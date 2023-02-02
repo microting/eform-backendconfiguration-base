@@ -239,7 +239,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Files_PropertyId",
                 table: "Files",
-                column: "PropertyId");
+                column: "PropertyId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_FilesTags_FileId",

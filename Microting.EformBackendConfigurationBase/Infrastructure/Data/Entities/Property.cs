@@ -87,5 +87,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int? EntitySelectListChemicalAreas { get; set; }
 
         public string MainMailAddress { get; set; }
+
+        public virtual File File { get; set; }
     }
 }
