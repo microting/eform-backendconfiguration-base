@@ -11,7 +11,7 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    [Migration("20230202181609_AddFiles")]
+    [Migration("20230202183330_AddFiles")]
     partial class AddFiles
     {
         /// <inheritdoc />
@@ -509,6 +509,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("UpdatedByUserId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("UseStartDateAsStartOfPeriod")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int>("Version")
                         .HasColumnType("int");
 
@@ -594,6 +597,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int>("UpdatedByUserId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("UseStartDateAsStartOfPeriod")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("Version")
                         .HasColumnType("int");
@@ -1508,8 +1514,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PropertyId")
-                        .IsUnique();
+                    b.HasIndex("PropertyId");
 
                     b.ToTable("Files");
                 });
@@ -1760,6 +1765,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("AreaRuleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AreaRulePlanningsId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -3395,8 +3403,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.File", b =>
                 {
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Property", "Property")
-                        .WithOne("File")
-                        .HasForeignKey("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.File", "PropertyId")
+                        .WithMany("Files")
+                        .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -3549,7 +3557,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                 {
                     b.Navigation("AreaProperties");
 
-                    b.Navigation("File");
+                    b.Navigation("Files");
 
                     b.Navigation("PropertyWorkers");
 

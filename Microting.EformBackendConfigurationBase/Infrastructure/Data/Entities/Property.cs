@@ -88,6 +88,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public string MainMailAddress { get; set; }
 
-        public virtual File File { get; set; }
+        public virtual List<File> Files { get; set; } = new();
     }
 }
