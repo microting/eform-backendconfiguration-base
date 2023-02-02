@@ -64,5 +64,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public int AreaId { get; set; }
 
         public bool ComplianceEnabled { get; set; }
+
+        public bool UseStartDateAsStartOfPeriod { get; set; }
     }
 }

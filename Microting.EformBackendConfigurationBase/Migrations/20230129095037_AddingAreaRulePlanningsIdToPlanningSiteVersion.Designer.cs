@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 
@@ -10,9 +11,11 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    partial class BackendConfigurationPnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230129095037_AddingAreaRulePlanningsIdToPlanningSiteVersion")]
+    partial class AddingAreaRulePlanningsIdToPlanningSiteVersion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -506,9 +509,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("UpdatedByUserId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("UseStartDateAsStartOfPeriod")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<int>("Version")
                         .HasColumnType("int");
 
@@ -594,9 +594,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int>("UpdatedByUserId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("UseStartDateAsStartOfPeriod")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("Version")
                         .HasColumnType("int");
@@ -1476,234 +1473,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EmailVersions");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.File", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("PropertyId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PropertyId")
-                        .IsUnique();
-
-                    b.ToTable("Files");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileTag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("varchar(250)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FileTags");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileTagVersion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FileTagId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FileTagVersions");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileTags", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FileId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FileTagId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FileId");
-
-                    b.HasIndex("FileTagId");
-
-                    b.ToTable("FilesTags");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileTagsVersion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FileId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FileTagId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FileTagsId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FilesTagsVersions");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileVersion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FileId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("PropertyId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FileVersions");
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PlanningSite", b =>
@@ -2758,118 +2527,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.ToTable("ProperyAreaFolderVersions");
                 });
 
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.UploadedData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Checksum")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Extension")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("FileId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FileLocation")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("FileName")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UploaderType")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FileId")
-                        .IsUnique();
-
-                    b.ToTable("UploadedDatas");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.UploadedDataVersion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Checksum")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Extension")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("FileId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FileLocation")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("FileName")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UploadedDataId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UploaderType")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkflowState")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UploadedDataVersions");
-                });
-
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.WorkorderCase", b =>
                 {
                     b.Property<int>("Id")
@@ -3398,36 +3055,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.File", b =>
-                {
-                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Property", "Property")
-                        .WithOne("File")
-                        .HasForeignKey("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.File", "PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Property");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileTags", b =>
-                {
-                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.File", "File")
-                        .WithMany("FileTags")
-                        .HasForeignKey("FileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileTag", "FileTag")
-                        .WithMany()
-                        .HasForeignKey("FileTagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("File");
-
-                    b.Navigation("FileTag");
-                });
-
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PlanningSite", b =>
                 {
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulePlanning", "AreaRulePlanning")
@@ -3470,15 +3097,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .IsRequired();
 
                     b.Navigation("AreaProperty");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.UploadedData", b =>
-                {
-                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.File", null)
-                        .WithOne("UploadedData")
-                        .HasForeignKey("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.UploadedData", "FileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.WorkorderCase", b =>
@@ -3544,18 +3162,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Navigation("EmailAttachments");
                 });
 
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.File", b =>
-                {
-                    b.Navigation("FileTags");
-
-                    b.Navigation("UploadedData");
-                });
-
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Property", b =>
                 {
                     b.Navigation("AreaProperties");
-
-                    b.Navigation("File");
 
                     b.Navigation("PropertyWorkers");
 
