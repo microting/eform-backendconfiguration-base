@@ -1,7 +1,7 @@
 ﻿/*
 The MIT License (MIT)
 
-Copyright (c) 2007 - 2022 Microting A/S
+Copyright (c) 2007 - 2023 Microting A/S
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,20 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Const
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+
+using System.ComponentModel.DataAnnotations.Schema;
+
+public class FileTagsVersion: PnBase
 {
-    public static class BackendConfigurationClaims
-    {
-        public const string AccessBackendConfigurationPlugin = "backend_configuration_plugin_access";
-        public const string CreateProperties = "properties_create";
-        public const string GetProperties = "properties_get";
-        public const string EditProperties = "property_edit";
-        public const string DeleteProperties = "property_delete";
-        public const string EnableTaskManagement = "task_management_enable";
-        public const string EnableDocumentManagement = "document_management_enable";
-        public const string EnableChemicalManagement = "chemical_management_enable";
-        public const string EnableFilesManagement = "files_management_enable";
-		public const string EnableTimeRegistration = "time_registration_enable";
-        public const string AssignProperties = "properties_assign";
-    }
+	public int FileTagId { get; set; }
+
+	public int FileId { get; set; }
+
+	[ForeignKey("FileTagsId")]
+	public int FileTagsId { get; set; }
 }
