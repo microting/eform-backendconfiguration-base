@@ -30,8 +30,6 @@ public class FileVersion: PnBase
 {
 	public string FileName { get; set; }
 
-	public int PropertyId { get; set; }
-
 	[ForeignKey("File")]
 	public int FileId { get; set; }
 }

@@ -24,17 +24,11 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
-using System.Collections.Generic;
-
-public class File : PnBase
+public class PropertyFileVersion: PnBase
 {
-	public string FileName { get; set; }
+	public int PropertyFileId { get; set; }
 
-	public virtual List<PropertyFile> PropertyFiles { get; set; }
-		= new ();
+	public int PropertyId { get; set; }
 
-	public virtual UploadedData UploadedData { get; set; }
-
-	public virtual List<FileTags> FileTags { get; set; }
-		= new List<FileTags>();
+	public int FileId { get; set; }
 }
