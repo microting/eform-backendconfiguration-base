@@ -118,6 +118,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<UploadedData> UploadedDatas { get; set; }
         public DbSet<UploadedDataVersion> UploadedDataVersions { get; set; }
 
+        public DbSet<PropertyFile> PropertyFiles { get; set; }
+        public DbSet<PropertyFileVersion> PropertyFileVersions { get; set; }
+
 		// common tables
 		public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
         public DbSet<PluginConfigurationValueVersion> PluginConfigurationValueVersions { get; set; }
@@ -182,7 +185,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
                 .HasForeignKey(x => x.PropertyWorkerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.SeedLatest();
+			modelBuilder.SeedLatest();
         }
     }
 }
