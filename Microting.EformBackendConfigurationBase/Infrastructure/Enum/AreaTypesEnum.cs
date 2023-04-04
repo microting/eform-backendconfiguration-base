@@ -35,6 +35,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Enum
         Type7,
         Type8,
         Type9,
-        Type10,
+        Type10
     }
 }

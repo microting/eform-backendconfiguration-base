@@ -30,5 +30,5 @@ public enum CaseStatusesEnum
     Ongoing = 1,
     Completed = 2,
     Ordered = 3,
-    Awaiting = 4,
+    Awaiting = 4
 }
