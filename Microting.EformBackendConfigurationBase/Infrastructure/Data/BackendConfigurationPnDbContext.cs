@@ -28,7 +28,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
     using eFormApi.BasePn.Infrastructure.Database.Entities;
     using Entities;
     using Microsoft.EntityFrameworkCore;
-    using Microting.EformBackendConfigurationBase.Infrastructure.Extensions.Seed;
+    using Extensions.Seed;
 
     public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     {
@@ -120,6 +120,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
 
         public DbSet<PropertyFile> PropertyFiles { get; set; }
         public DbSet<PropertyFileVersion> PropertyFileVersions { get; set; }
+
+        public DbSet<TaskTrackerColumn> TaskTrackerColumns { get; set; }
+        public DbSet<TaskTrackerColumnVersion> TaskTrackerColumnVersions { get; set; }
 
 		// common tables
 		public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
