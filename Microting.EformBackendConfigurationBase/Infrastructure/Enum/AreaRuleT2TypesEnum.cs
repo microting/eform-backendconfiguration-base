@@ -27,6 +27,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Enum
     public enum AreaRuleT2TypesEnum
     {
         Open = 1,
-        Closed = 2,
+        Closed = 2
     }
 }

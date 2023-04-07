@@ -360,7 +360,7 @@ public static class Constants
         { 2, "Meget giftig (Tx)" },
         { 3, "Ætsende (C)" },
         { 4, "Sundhedsskadelig (Xn)" },
-        { 5, "Lokalirriterende (Xi)" },
+        { 5, "Lokalirriterende (Xi)" }
     };
 
     public static Dictionary<int, string> PestControlType = new()
@@ -497,7 +497,7 @@ public static class Constants
     {
         { 1, "Fare" },
         { 2, "Advarsel" },
-        { 3, "Forsigtig" },
+        { 3, "Forsigtig" }
     };
 
     public static Dictionary<int, string> SpecialUseType = new()
@@ -559,7 +559,7 @@ public static class Constants
         { 18, "PT18 Insekticider, acaricider og produkter til bekæmpelse af andre leddyr" },
         { 19, "PT19 Afskræknings- og tiltrækningsmidler" },
         { 20, "PT20 Produkter til bekæmpelse af andre hvirveldyr" },
-        { 21, "PT21 Antifoulingsmidler" },
+        { 21, "PT21 Antifoulingsmidler" }
     };
 
     public static Dictionary<int, string> ProductGroupBiocide = new()
@@ -573,6 +573,6 @@ public static class Constants
         { 3, "Slimdannende organismer i papirmasse" },
         { 6, "Tekstilskadedyr" },
         { 1, "Træødelæggende svamp" },
-        { 5, "Utøj hos husdyr, herunder stuefugle" },
+        { 5, "Utøj hos husdyr, herunder stuefugle" }
     };
 }

@@ -27,6 +27,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Enum
     public enum AreaRuleT2AlarmsEnum
     {
         Yes = 1,
-        No = 2,
+        No = 2
     }
 }
