@@ -138,6 +138,10 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Compliance>()
+                .HasIndex(e => new { e.PlanningId, e.Deadline })
+                .IsUnique();
+
             modelBuilder.Entity<AreaRuleTranslation>().HasOne(x => x.AreaRule)
                 .WithMany(x => x.AreaRuleTranslations)
                 .HasForeignKey(x => x.AreaRuleId)
