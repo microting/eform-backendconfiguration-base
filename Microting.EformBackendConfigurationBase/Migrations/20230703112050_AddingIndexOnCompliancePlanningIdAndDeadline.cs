@@ -14,15 +14,15 @@ namespace Microting.EformBackendConfigurationBase.Migrations
         {
 
             migrationBuilder.Sql(@"DELETE FROM Compliances
-            WHERE Id IN (
-                SELECT duplicate.Id
-                FROM (
-                    SELECT MIN(Id) AS Id
-                    FROM Compliances
-                    GROUP BY PlanningId, Deadline
-                    HAVING COUNT(*) > 1
-                ) AS duplicate
-            )");
+WHERE Id IN (
+    SELECT duplicate.Id
+    FROM (
+        SELECT Id,
+            ROW_NUMBER() OVER (PARTITION BY PlanningId, Deadline ORDER BY CreatedAt) AS row_num
+        FROM Compliances
+        WHERE PlanningId IS NOT NULL AND Deadline IS NOT NULL
+    ) AS duplicate
+    WHERE duplicate.row_num > 1);");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlanningId_Deadline",
