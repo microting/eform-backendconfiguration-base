@@ -22,19 +22,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using JetBrains.Annotations;
+
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
     public class PlanningSite: PnBase
     {
         public int AreaRulePlanningsId { get; set; }
 
-        public int SiteId { get; set; }
-
         public virtual AreaRulePlanning AreaRulePlanning { get; set; }
+
+        public int SiteId { get; set; }
 
         public int? AreaRuleId { get; set; }
 
+        [CanBeNull] public virtual AreaRule AreaRule { get; set; }
+
         public int? AreaId { get; set; }
+
+        [CanBeNull] public virtual Area Area { get; set; }
 
         public int Status { get; set; } = 0;
     }

@@ -7,6 +7,7 @@ public class PoolAccident : PnBase
 {
     [ForeignKey("AreaRule")]
     public int AreaRuleId { get; set; }
+    public virtual AreaRule AreaRule { get; set; }
     public DateTime Date { get; set; }
     public TimeOnly Time { get; set; }
     public bool SolidFaeces { get; set; }

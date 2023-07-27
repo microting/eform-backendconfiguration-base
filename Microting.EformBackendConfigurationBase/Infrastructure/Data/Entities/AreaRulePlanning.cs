@@ -56,6 +56,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public int ItemPlanningId { get; set; }
 
+        /// <summary>Gets or sets the item planning tag identifier.
+        /// Need for reports</summary>
+        /// <value>The item planning tag identifier.</value>
+        public int? ItemPlanningTagId { get; set; }
+
         public int FolderId { get; set; }
 
         public bool HoursAndEnergyEnabled { get; set; }
@@ -65,7 +70,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public int PropertyId { get; set; }
 
+        public virtual Property Property { get; set; }
+
         public int AreaId { get; set; }
+
+        public virtual Area Area { get; set; }
 
         public bool ComplianceEnabled { get; set; }
 

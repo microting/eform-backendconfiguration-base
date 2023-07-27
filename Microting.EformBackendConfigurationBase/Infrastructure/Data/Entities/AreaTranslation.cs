@@ -7,6 +7,8 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         [ForeignKey("AreaId")]
         public int AreaId { get; set; }
 
+        public virtual Area Area { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }
