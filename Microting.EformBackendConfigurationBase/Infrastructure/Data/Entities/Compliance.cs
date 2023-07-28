@@ -6,11 +6,9 @@ public class Compliance : PnBase
 {
     public string ItemName { get; set; }
     public int AreaId { get; set; }
-    public virtual Area Area { get; set; }
     public string AreaName { get; set; }
     public int PlanningId { get; set; }
     public int PropertyId { get; set; }
-    public virtual Property Property { get; set; }
     public DateTime Deadline { get; set; }
     public DateTime StartDate { get; set; }
     public int MicrotingSdkCaseId { get; set; }
