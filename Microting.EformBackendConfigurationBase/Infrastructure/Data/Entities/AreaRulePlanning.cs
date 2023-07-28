@@ -70,11 +70,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public int PropertyId { get; set; }
 
-        public virtual Property Property { get; set; }
-
         public int AreaId { get; set; }
-
-        public virtual Area Area { get; set; }
 
         public bool ComplianceEnabled { get; set; }
 

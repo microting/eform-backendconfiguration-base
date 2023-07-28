@@ -1,4 +1,4 @@
-﻿/*
+/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2022 Microting A/S
@@ -22,8 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using JetBrains.Annotations;
-
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 {
     public class PlanningSite: PnBase
@@ -36,11 +34,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public int? AreaRuleId { get; set; }
 
-        [CanBeNull] public virtual AreaRule AreaRule { get; set; }
-
         public int? AreaId { get; set; }
-
-        [CanBeNull] public virtual Area Area { get; set; }
 
         public int Status { get; set; } = 0;
     }

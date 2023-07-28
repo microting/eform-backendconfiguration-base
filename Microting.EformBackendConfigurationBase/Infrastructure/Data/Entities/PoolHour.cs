@@ -7,7 +7,6 @@ public class PoolHour : PnBase
 {
     [ForeignKey("AreaRule")]
     public int AreaRuleId { get; set; }
-    public virtual AreaRule AreaRule { get; set; }
     public DayOfWeekEnum DayOfWeek { get; set; }
     public int Index { get; set; }
     public string Name { get; set; }

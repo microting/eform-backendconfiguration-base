@@ -31,8 +31,6 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
     {
         [ForeignKey("File")]
         public int FileId { get; set; }
-
-        public virtual File File { get; set; }
         
         [StringLength(255)]
         public string Checksum { get; set; }
