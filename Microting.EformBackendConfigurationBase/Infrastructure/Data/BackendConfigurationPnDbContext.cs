@@ -124,8 +124,11 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
         public DbSet<TaskTrackerColumn> TaskTrackerColumns { get; set; }
         public DbSet<TaskTrackerColumnVersion> TaskTrackerColumnVersions { get; set; }
 
-		// common tables
-		public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
+        public DbSet<AreaRulePlanningTag> AreaRulePlanningTags { get; set; }
+        public DbSet<AreaRulePlanningTagVersion> AreaRulePlanningTagVersion { get; set; }
+
+        // common tables
+        public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
         public DbSet<PluginConfigurationValueVersion> PluginConfigurationValueVersions { get; set; }
         public DbSet<PluginPermission> PluginPermissions { get; set; }
         public DbSet<PluginGroupPermission> PluginGroupPermissions { get; set; }
@@ -192,7 +195,12 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data
                 .HasForeignKey(x => x.PropertyWorkerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-			modelBuilder.SeedLatest();
+            modelBuilder.Entity<AreaRulePlanningTag>().HasOne(x => x.AreaRulePlanning)
+                .WithMany(x => x.AreaRulePlanningTags)
+                .HasForeignKey(x => x.AreaRulePlanningId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.SeedLatest();
         }
     }
 }

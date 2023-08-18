@@ -65,8 +65,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
 
         public bool HoursAndEnergyEnabled { get; set; }
 
-        public virtual List<PlanningSite> PlanningSites { get; set; }
-            = new();
+        public virtual List<PlanningSite> PlanningSites { get; set; } = new();
 
         public int PropertyId { get; set; }
 
@@ -75,5 +74,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
         public bool ComplianceEnabled { get; set; }
 
         public bool UseStartDateAsStartOfPeriod { get; set; }
+
+        public virtual List<AreaRulePlanningTag> AreaRulePlanningTags { get; set; } = new();
     }
 }
