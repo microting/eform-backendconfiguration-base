@@ -22,22 +22,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+
+public class PlanningSiteVersion: PnBase
 {
-    public class PlanningSiteVersion: PnBase
-    {
-        public int PlanningSiteId { get; set; }
+    public int PlanningSiteId { get; set; }
 
-        public int PlanningId { get; set; }
+    public int PlanningId { get; set; }
 
-        public int SiteId { get; set; }
+    public int SiteId { get; set; }
 
-        public int? AreaRuleId { get; set; }
+    public int? AreaRuleId { get; set; }
 
-        public int? AreaId { get; set; }
+    public int? AreaId { get; set; }
 
-        public int Status { get; set; } = 0;
+    public int Status { get; set; } = 0;
 
-        public int AreaRulePlanningsId { get; set; }
-    }
+    public int AreaRulePlanningsId { get; set; }
 }

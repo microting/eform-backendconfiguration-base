@@ -22,15 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+
+public class ProperyAreaFolder: PnBase
 {
+    public int ProperyAreaAsignmentId { get; set; }
 
-    public class ProperyAreaFolder: PnBase
-    {
-        public int ProperyAreaAsignmentId { get; set; }
-
-        public int FolderId { get; set; }
+    public int FolderId { get; set; }
         
-        public virtual AreaProperty AreaProperty { get; set; }
-    }
+    public virtual AreaProperty AreaProperty { get; set; }
 }

@@ -22,14 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+
+public class PropertySelectedLanguage: PnBase
 {
-    public class PropertySelectedLanguage: PnBase
-    {
-        public int PropertyId { get; set; }
+    public int PropertyId { get; set; }
 
-        public int LanguageId { get; set; }
+    public int LanguageId { get; set; }
 
-        public virtual Property Property { get; set; }
-    }
+    public virtual Property Property { get; set; }
 }

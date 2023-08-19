@@ -22,18 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+
+public class PropertyWorkerVersion : PnBase
 {
-    public class PropertyWorkerVersion : PnBase
-    {
-        public int PropertyId { get; set; }
+    public int PropertyId { get; set; }
 
-        public int WorkerId { get; set; }
+    public int WorkerId { get; set; }
 
-        public int PropertyWorkerId { get; set; }
+    public int PropertyWorkerId { get; set; }
 
-        public int? EntityItemId { get; set; }
+    public int? EntityItemId { get; set; }
 
-        public bool? TaskManagementEnabled { get; set; }
-    }
+    public bool? TaskManagementEnabled { get; set; }
 }

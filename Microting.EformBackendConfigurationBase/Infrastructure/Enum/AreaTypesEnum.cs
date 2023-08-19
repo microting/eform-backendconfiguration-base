@@ -22,19 +22,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Enum
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Enum;
+
+public enum AreaTypesEnum
 {
-    public enum AreaTypesEnum
-    {
-        Type1 = 1,
-        Type2,
-        Type3,
-        Type4,
-        Type5,
-        Type6,
-        Type7,
-        Type8,
-        Type9,
-        Type10
-    }
+    Type1 = 1,
+    Type2,
+    Type3,
+    Type4,
+    Type5,
+    Type6,
+    Type7,
+    Type8,
+    Type9,
+    Type10
 }

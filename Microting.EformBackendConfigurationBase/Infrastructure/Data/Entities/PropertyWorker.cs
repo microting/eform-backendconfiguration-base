@@ -22,24 +22,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
+public class PropertyWorker : PnBase
 {
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
+    public int PropertyId { get; set; }
 
-    public class PropertyWorker : PnBase
-    {
-        public int PropertyId { get; set; }
+    public virtual Property Property { get; set; }
 
-        public virtual Property Property { get; set; }
+    public int WorkerId { get; set; }
 
-        public int WorkerId { get; set; }
+    public virtual List<WorkorderCase> WorkorderCases { get; set; }
+        = new();
 
-        public virtual List<WorkorderCase> WorkorderCases { get; set; }
-            = new();
+    public int? EntityItemId { get; set; }
 
-        public int? EntityItemId { get; set; }
-
-        public bool? TaskManagementEnabled { get; set; } = true;
-    }
+    public bool? TaskManagementEnabled { get; set; } = true;
 }

@@ -22,11 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Enum
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Enum;
+
+public enum AreaRuleT2AlarmsEnum
 {
-    public enum AreaRuleT2AlarmsEnum
-    {
-        Yes = 1,
-        No = 2
-    }
+    Yes = 1,
+    No = 2
 }

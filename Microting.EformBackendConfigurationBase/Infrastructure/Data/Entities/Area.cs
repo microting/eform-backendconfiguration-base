@@ -22,31 +22,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+
+using System.Collections.Generic;
+using Enum;
+
+public class Area : PnBase
 {
-    using System.Collections.Generic;
-    using Enum;
+    public AreaTypesEnum Type { get; set; }
 
-    public class Area : PnBase
-    {
-        public AreaTypesEnum Type { get; set; }
+    public int ItemPlanningTagId { get; set; }
 
-        public int ItemPlanningTagId { get; set; }
+    public virtual List<AreaRule> AreaRules { get; set; }
+        = new();
 
-        public virtual List<AreaRule> AreaRules { get; set; }
-            = new();
+    public virtual List<AreaTranslation> AreaTranslations { get; set; }
+        = new();
 
-        public virtual List<AreaTranslation> AreaTranslations { get; set; }
-            = new();
+    public virtual AreaInitialField AreaInitialField { get; set; }
+        = new();
 
-        public virtual AreaInitialField AreaInitialField { get; set; }
-            = new();
+    public virtual List<AreaProperty> AreaProperties { get; set; }
+        = new();
 
-        public virtual List<AreaProperty> AreaProperties { get; set; }
-            = new();
+    public bool IsFarm { get; set; } = true;
 
-        public bool IsFarm { get; set; } = true;
-
-        public bool IsDisabled { get; set; } = false;
-    }
+    public bool IsDisabled { get; set; } = false;
 }

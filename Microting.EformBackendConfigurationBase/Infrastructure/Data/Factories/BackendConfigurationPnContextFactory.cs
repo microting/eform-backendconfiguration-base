@@ -22,29 +22,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Factories
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Factories;
+
+using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+
+public class BackendConfigurationPnContextFactory : IDesignTimeDbContextFactory<BackendConfigurationPnDbContext>
 {
-    using System;
-    using System.Linq;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Design;
-
-    public class BackendConfigurationPnContextFactory : IDesignTimeDbContextFactory<BackendConfigurationPnDbContext>
+    public BackendConfigurationPnDbContext CreateDbContext(string[] args)
     {
-        public BackendConfigurationPnDbContext CreateDbContext(string[] args)
+        var defaultCs = "Server = localhost; port = 3306; Database = backend-configuration-pn; user = root; password = secretpassword;Convert Zero Datetime = true;";
+        var optionsBuilder = new DbContextOptionsBuilder<BackendConfigurationPnDbContext>();
+
+        optionsBuilder.UseMySql(args.Any() ? args[0] : defaultCs, new MariaDbServerVersion(
+            ServerVersion.AutoDetect(args.Any() ? args[0] : defaultCs)), mySqlOptionsAction: builder =>
         {
-            var defaultCs = "Server = localhost; port = 3306; Database = backend-configuration-pn; user = root; password = secretpassword;Convert Zero Datetime = true;";
-            var optionsBuilder = new DbContextOptionsBuilder<BackendConfigurationPnDbContext>();
+            builder.EnableRetryOnFailure();
+        });
+        //optionsBuilder.UseLazyLoadingProxies(true);
 
-            optionsBuilder.UseMySql(args.Any() ? args[0] : defaultCs, new MariaDbServerVersion(
-                ServerVersion.AutoDetect(args.Any() ? args[0] : defaultCs)), mySqlOptionsAction: builder =>
-            {
-                builder.EnableRetryOnFailure();
-            });
-            //optionsBuilder.UseLazyLoadingProxies(true);
-
-            return new BackendConfigurationPnDbContext(optionsBuilder.Options);
-            // dotnet ef migrations add InitialCreate --project Microting.EformBackendConfigurationBase --startup-project DBMigrator
-        }
+        return new BackendConfigurationPnDbContext(optionsBuilder.Options);
+        // dotnet ef migrations add InitialCreate --project Microting.EformBackendConfigurationBase --startup-project DBMigrator
     }
 }

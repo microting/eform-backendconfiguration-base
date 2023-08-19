@@ -22,20 +22,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Const
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Const;
+
+public static class BackendConfigurationClaims
 {
-    public static class BackendConfigurationClaims
-    {
-        public const string AccessBackendConfigurationPlugin = "backend_configuration_plugin_access";
-        public const string CreateProperties = "properties_create";
-        public const string GetProperties = "properties_get";
-        public const string EditProperties = "property_edit";
-        public const string DeleteProperties = "property_delete";
-        public const string EnableTaskManagement = "task_management_enable";
-        public const string EnableDocumentManagement = "document_management_enable";
-        public const string EnableChemicalManagement = "chemical_management_enable";
-        public const string EnableFilesManagement = "files_management_enable";
-		public const string EnableTimeRegistration = "time_registration_enable";
-        public const string AssignProperties = "properties_assign";
-    }
+    public const string AccessBackendConfigurationPlugin = "backend_configuration_plugin_access";
+    public const string CreateProperties = "properties_create";
+    public const string GetProperties = "properties_get";
+    public const string EditProperties = "property_edit";
+    public const string DeleteProperties = "property_delete";
+    public const string EnableTaskManagement = "task_management_enable";
+    public const string EnableDocumentManagement = "document_management_enable";
+    public const string EnableChemicalManagement = "chemical_management_enable";
+    public const string EnableFilesManagement = "files_management_enable";
+    public const string EnableTimeRegistration = "time_registration_enable";
+    public const string AssignProperties = "properties_assign";
 }

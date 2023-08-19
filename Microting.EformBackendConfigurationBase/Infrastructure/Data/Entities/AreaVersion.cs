@@ -22,20 +22,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+
+using Enum;
+
+public class AreaVersion : PnBase
 {
-    using Enum;
+    public AreaTypesEnum Type { get; set; }
 
-    public class AreaVersion : PnBase
-    {
-        public AreaTypesEnum Type { get; set; }
+    public int ItemPlanningTagId { get; set; }
 
-        public int ItemPlanningTagId { get; set; }
+    public int AreaId { get; set; }
 
-        public int AreaId { get; set; }
+    public bool IsFarm { get; set; } = true;
 
-        public bool IsFarm { get; set; } = true;
-
-        public bool IsDisabled { get; set; } = false;
-    }
+    public bool IsDisabled { get; set; } = false;
 }

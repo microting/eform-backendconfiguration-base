@@ -22,136 +22,135 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Tests
+namespace Microting.EformBackendConfigurationBase.Tests;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Infrastructure.Data;
+using Infrastructure.Data.Factories;
+using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
+
+[TestFixture]
+public abstract class DbTestFixture
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using Infrastructure.Data;
-    using Infrastructure.Data.Factories;
-    using Microsoft.EntityFrameworkCore;
-    using NUnit.Framework;
+    protected BackendConfigurationPnDbContext DbContext;
+    private string _connectionString;
+    private string _path;
+    private const string DatabaseName = "backend-configuration-pn-tests";
 
-    [TestFixture]
-    public abstract class DbTestFixture
+
+
+    private void GetContext(string connectionStr)
     {
-        protected BackendConfigurationPnDbContext DbContext;
-        private string _connectionString;
-        private string _path;
-        private const string DatabaseName = "backend-configuration-pn-tests";
+        var contextFactory = new BackendConfigurationPnContextFactory();
+        DbContext = contextFactory.CreateDbContext(new[] {connectionStr});
 
+        DbContext.Database.Migrate();
+        DbContext.Database.EnsureCreated();
+    }
 
+    [SetUp]
+    public void Setup()
+    {
 
-        private void GetContext(string connectionStr)
-        {
-            var contextFactory = new BackendConfigurationPnContextFactory();
-            DbContext = contextFactory.CreateDbContext(new[] {connectionStr});
+        _connectionString =
+            @$"Server = localhost; port = 3306; Database = {DatabaseName}; user = root; password = secretpassword; Convert Zero Datetime = true;";
 
-            DbContext.Database.Migrate();
-            DbContext.Database.EnsureCreated();
-        }
+        GetContext(_connectionString);
 
-        [SetUp]
-        public void Setup()
-        {
+        DbContext.Database.SetCommandTimeout(300);
 
-            _connectionString =
-                @$"Server = localhost; port = 3306; Database = {DatabaseName}; user = root; password = secretpassword; Convert Zero Datetime = true;";
-
-            GetContext(_connectionString);
-
-            DbContext.Database.SetCommandTimeout(300);
-
-            try
-            {
-                ClearDb();
-            }
-            catch
-            {
-                DbContext.Database.Migrate();
-            }
-
-            DoSetup();
-        }
-
-        [TearDown]
-        public void TearDown()
+        try
         {
             ClearDb();
-
-            ClearFile();
-
-            DbContext.Dispose();
+        }
+        catch
+        {
+            DbContext.Database.Migrate();
         }
 
-        private void ClearDb()
+        DoSetup();
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        ClearDb();
+
+        ClearFile();
+
+        DbContext.Dispose();
+    }
+
+    private void ClearDb()
+    {
+        var modelNames = new List<string>
         {
-            var modelNames = new List<string>
-            {
-                "PropertyWorkers",
-                "PropertyWorkerVersions",
-                "Properties",
-                "PropertieVersions",
-                "Areas",
-                "AreaVersions",
-                "AreaRules",
-                "AreaRuleVersions",
-                "AreaProperties",
-                "AreaPropertyVersions",
-                "AreaRuleTranslations",
-                "AreaRuleTranslationVersions"
-            };
+            "PropertyWorkers",
+            "PropertyWorkerVersions",
+            "Properties",
+            "PropertieVersions",
+            "Areas",
+            "AreaVersions",
+            "AreaRules",
+            "AreaRuleVersions",
+            "AreaProperties",
+            "AreaPropertyVersions",
+            "AreaRuleTranslations",
+            "AreaRuleTranslationVersions"
+        };
 
-            var firstRunNotDone = true;
+        var firstRunNotDone = true;
 
-            foreach (var modelName in modelNames)
-            {
-                try
-                {
-                    if (firstRunNotDone)
-                    {
-                        DbContext.Database.ExecuteSqlRaw(
-                            $"SET FOREIGN_KEY_CHECKS = 0;TRUNCATE `{DatabaseName}`.`{modelName}`");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (ex.Message == $"Unknown database '{DatabaseName}'")
-                    {
-                        firstRunNotDone = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                }
-            }
-        }
-
-        private void ClearFile()
+        foreach (var modelName in modelNames)
         {
-            _path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
-            _path = Path.GetDirectoryName(_path)?.Replace(@"file:\", "");
-
-            var picturePath = _path + @"\output\dataFolder\picture\Deleted";
-
-            var diPic = new DirectoryInfo(picturePath);
-
             try
             {
-                foreach (var file in diPic.GetFiles())
+                if (firstRunNotDone)
                 {
-                    file.Delete();
+                    DbContext.Database.ExecuteSqlRaw(
+                        $"SET FOREIGN_KEY_CHECKS = 0;TRUNCATE `{DatabaseName}`.`{modelName}`");
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // ignored
+                if (ex.Message == $"Unknown database '{DatabaseName}'")
+                {
+                    firstRunNotDone = false;
+                }
+                else
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
+    }
 
-        protected virtual void DoSetup()
+    private void ClearFile()
+    {
+        _path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+        _path = Path.GetDirectoryName(_path)?.Replace(@"file:\", "");
+
+        var picturePath = _path + @"\output\dataFolder\picture\Deleted";
+
+        var diPic = new DirectoryInfo(picturePath);
+
+        try
         {
+            foreach (var file in diPic.GetFiles())
+            {
+                file.Delete();
+            }
         }
+        catch
+        {
+            // ignored
+        }
+    }
+
+    protected virtual void DoSetup()
+    {
     }
 }

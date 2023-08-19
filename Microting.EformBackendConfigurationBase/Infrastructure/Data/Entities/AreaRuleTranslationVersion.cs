@@ -22,16 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+
+public class AreaRuleTranslationVersion: PnBase
 {
-    public class AreaRuleTranslationVersion: PnBase
-    {
-        public int AreaRuleTranslationId { get; set; }
+    public int AreaRuleTranslationId { get; set; }
 
-        public string Name { get; set; }
+    public string Name { get; set; }
 
-        public int LanguageId { get; set; }
+    public int LanguageId { get; set; }
 
-        public int AreaRuleId { get; set; }
-    }
+    public int AreaRuleId { get; set; }
 }

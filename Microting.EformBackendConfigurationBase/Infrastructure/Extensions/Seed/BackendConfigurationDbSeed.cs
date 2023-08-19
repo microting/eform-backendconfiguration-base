@@ -22,15 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Extensions.Seed
-{
-    using Microsoft.EntityFrameworkCore;
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Extensions.Seed;
 
-    public static class BackendConfigurationDbSeed
+using Microsoft.EntityFrameworkCore;
+
+public static class BackendConfigurationDbSeed
+{
+    public static ModelBuilder SeedLatest(this ModelBuilder modelBuilder)
     {
-        public static ModelBuilder SeedLatest(this ModelBuilder modelBuilder)
-        {
-            return modelBuilder;
-        }
+        return modelBuilder;
     }
 }

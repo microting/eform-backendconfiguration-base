@@ -22,28 +22,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
+public class AreaProperty : PnBase
 {
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
+    public int PropertyId { get; set; }
 
-    public class AreaProperty : PnBase
-    {
-        public int PropertyId { get; set; }
+    [ForeignKey("PropertyId")]
+    public virtual Property Property { get; set; }
 
-        [ForeignKey("PropertyId")]
-        public virtual Property Property { get; set; }
+    public int AreaId { get; set; }
 
-        public int AreaId { get; set; }
+    [ForeignKey("AreaId")]
+    public virtual Area Area { get; set; }
 
-        [ForeignKey("AreaId")]
-        public virtual Area Area { get; set; }
+    public bool Checked { get; set; }
 
-        public bool Checked { get; set; }
+    public int GroupMicrotingUuid { get; set; }
 
-        public int GroupMicrotingUuid { get; set; }
-
-        public virtual List<ProperyAreaFolder> ProperyAreaFolders { get; set; }
-            = new ();
-    }
+    public virtual List<ProperyAreaFolder> ProperyAreaFolders { get; set; }
+        = new ();
 }

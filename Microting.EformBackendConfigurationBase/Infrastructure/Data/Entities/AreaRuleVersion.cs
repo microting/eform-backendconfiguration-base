@@ -22,54 +22,55 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+
+using Enum;
+
+public class AreaRuleVersion : PnBase
 {
-    using Enum;
+    public int AreaRuleId { get; set; }
 
-    public class AreaRuleVersion : PnBase
-    {
-        public int AreaRuleId { get; set; }
+    public int AreaId { get; set; }
 
-        public int AreaId { get; set; }
+    public int? EformId { get; set; }
 
-        public int? EformId { get; set; }
+    public string EformName { get; set; }
 
-        public string EformName { get; set; }
+    public int FolderId { get; set; }
 
-        public int FolderId { get; set; }
+    public string FolderName { get; set; }
 
-        public string FolderName { get; set; }
+    public AreaRuleT2AlarmsEnum? Alarm { get; set; }
 
-        public AreaRuleT2AlarmsEnum? Alarm { get; set; }
+    public AreaRuleT2TypesEnum? Type { get; set; }
 
-        public AreaRuleT2TypesEnum? Type { get; set; }
+    public bool? ChecklistStable { get; set; }
 
-        public bool? ChecklistStable { get; set; }
+    public bool? TailBite { get; set; }
 
-        public bool? TailBite { get; set; }
+    public int DayOfWeek { get; set; }
 
-        public int DayOfWeek { get; set; }
+    public int GroupItemId { get; set; }
 
-        public int GroupItemId { get; set; }
+    public int PropertyId { get; set; }
 
-        public int PropertyId { get; set; }
+    public bool IsDefault { get; set; }
 
-        public bool IsDefault { get; set; }
+    public int RepeatEvery { get; set; }
 
-        public int RepeatEvery { get; set; }
+    public int? RepeatType { get; set; }
 
-        public int? RepeatType { get; set; }
+    public bool? ComplianceEnabled { get; set; }
 
-        public bool? ComplianceEnabled { get; set; }
+    public bool ComplianceModifiable { get; set; }
 
-        public bool ComplianceModifiable { get; set; }
+    public bool? Notifications { get; set; }
 
-        public bool? Notifications { get; set; }
+    public bool NotificationsModifiable { get; set; }
 
-        public bool NotificationsModifiable { get; set; }
+    public int SecondaryeFormId { get; set; }
 
-        public int SecondaryeFormId { get; set; }
+    public string SecondaryeFormName { get; set; }
 
-        public string SecondaryeFormName { get; set; }
-    }
+    public bool CreatedInGuide { get; set; }
 }

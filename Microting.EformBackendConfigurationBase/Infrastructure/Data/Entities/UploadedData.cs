@@ -22,29 +22,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+public class UploadedData : PnBase
 {
-	using System.ComponentModel.DataAnnotations;
-	using System.ComponentModel.DataAnnotations.Schema;
-
-	public class UploadedData : PnBase
-    {
-        [ForeignKey("File")]
-        public int FileId { get; set; }
+	[ForeignKey("File")]
+	public int FileId { get; set; }
         
-        [StringLength(255)]
-        public string Checksum { get; set; }
+	[StringLength(255)]
+	public string Checksum { get; set; }
 
-        [StringLength(255)]
-        public string Extension { get; set; }
+	[StringLength(255)]
+	public string Extension { get; set; }
 
-        [StringLength(255)]
-        public string UploaderType { get; set; }
+	[StringLength(255)]
+	public string UploaderType { get; set; }
 
-        [StringLength(255)]
-        public string FileLocation { get; set; }
+	[StringLength(255)]
+	public string FileLocation { get; set; }
 
-        [StringLength(255)]
-        public string FileName { get; set; }
-    }
+	[StringLength(255)]
+	public string FileName { get; set; }
 }

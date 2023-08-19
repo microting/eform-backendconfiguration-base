@@ -22,32 +22,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities
+namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using eFormApi.BasePn.Infrastructure.Database.Base;
+
+public class UploadedDataVersion : BaseEntity
 {
-	using System.ComponentModel.DataAnnotations;
-	using System.ComponentModel.DataAnnotations.Schema;
-	using eFormApi.BasePn.Infrastructure.Database.Base;
-
-	public class UploadedDataVersion : BaseEntity
-    {
-        public int FileId { get; set; }
+	public int FileId { get; set; }
         
-        [StringLength(255)]
-        public string Checksum { get; set; }
+	[StringLength(255)]
+	public string Checksum { get; set; }
 
-        [StringLength(255)]
-        public string Extension { get; set; }
+	[StringLength(255)]
+	public string Extension { get; set; }
 
-        [StringLength(255)]
-        public string UploaderType { get; set; }
+	[StringLength(255)]
+	public string UploaderType { get; set; }
 
-        [StringLength(255)]
-        public string FileLocation { get; set; }
+	[StringLength(255)]
+	public string FileLocation { get; set; }
 
-        [StringLength(255)]
-        public string FileName { get; set; }
+	[StringLength(255)]
+	public string FileName { get; set; }
 
-        [ForeignKey("UploadedData")]
-        public int UploadedDataId { get; set; }
-    }
+	[ForeignKey("UploadedData")]
+	public int UploadedDataId { get; set; }
 }
