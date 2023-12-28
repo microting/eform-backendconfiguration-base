@@ -59,4 +59,10 @@ public class WorkorderCaseVersion : PnBase
     public bool LeadingCase { get; set; }
 
     public string Priority { get; set; }
+
+    public int? CreatedBySdkSiteId { get; set; }
+
+    public int? UpdatedBySdkSiteId { get; set; }
+
+    public int? AssignedToSdkSiteId { get; set; }
 }
