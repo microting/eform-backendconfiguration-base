@@ -69,7 +69,7 @@ public class PropertyVersion : PnBase
 
     public DateTime? ChemicalLastUpdatedAt { get; set; }
 
-    [CanBeNull] public string IndustryCode { get; set; }
+    public string? IndustryCode { get; set; }
 
     public bool IsFarm { get; set; }
 

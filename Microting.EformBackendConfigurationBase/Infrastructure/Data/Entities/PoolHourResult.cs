@@ -18,17 +18,17 @@ public class PoolHourResult : PnBase
     public double? ReadFreeChlorine { get; set; }
     public double? ReadTemperature { get; set; }
     public double? NumberOfGuestsAtClosing { get; set; }
-    [CanBeNull] public string Clarity { get; set; }
+    public string? Clarity { get; set; }
     public double? MeasuredFreeChlorine { get; set; }
     public double? MeasuredTotalChlorine { get; set; }
     public double? MeasuredBoundChlorine { get; set; }
     public double? MeasuredPh { get; set; }
-    [CanBeNull] public string AcknowledgmentOfPulseRateAtOpening { get; set; }
+    public string? AcknowledgmentOfPulseRateAtOpening { get; set; }
     public double? MeasuredTempDuringTheDay { get; set; }
-    [CanBeNull] public string Comment { get; set; }
+    public string? Comment { get; set; }
     public int? DoneByUserId { get; set; }
     public int FolderId { get; set; }
-    [CanBeNull] public string DoneByUserName { get; set; }
+    public string? DoneByUserName { get; set; }
     public DateTime DoneAt { get; set; }
 
 }
