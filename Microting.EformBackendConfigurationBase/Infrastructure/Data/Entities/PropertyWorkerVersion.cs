@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
 public class PropertyWorkerVersion : PnBase
@@ -35,4 +37,7 @@ public class PropertyWorkerVersion : PnBase
     public int? EntityItemId { get; set; }
 
     public bool? TaskManagementEnabled { get; set; }
+
+    [StringLength(50)]
+    public string PinCode { get; set; }
 }
