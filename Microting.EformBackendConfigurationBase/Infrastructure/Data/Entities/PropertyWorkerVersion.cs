@@ -40,4 +40,7 @@ public class PropertyWorkerVersion : PnBase
 
     [StringLength(50)]
     public string PinCode { get; set; }
+
+    [StringLength(50)]
+    public string EmployeeNo { get; set; }
 }
