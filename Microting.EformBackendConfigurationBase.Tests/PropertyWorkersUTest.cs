@@ -69,23 +69,23 @@ public class PropertyWorkersUTest : DbTestFixture
         var propertyWorkersListVersions = DbContext.PropertyWorkerVersions.AsNoTracking().ToList();
 
         // Assert
-        Assert.AreEqual(1, propertyWorkersList.Count);
-        Assert.AreEqual(1, propertyWorkersListVersions.Count);
-        Assert.AreEqual(propertyWorkers.CreatedByUserId, propertyWorkersList[0].CreatedByUserId);
-        Assert.AreEqual(propertyWorkers.UpdatedByUserId, propertyWorkersList[0].UpdatedByUserId);
-        Assert.AreEqual(propertyWorkers.WorkerId, propertyWorkersList[0].WorkerId);
-        Assert.AreEqual(propertyWorkers.PropertyId, propertyWorkersList[0].PropertyId);
-        Assert.AreEqual(Constants.WorkflowStates.Created, propertyWorkersList[0].WorkflowState);
-        Assert.AreEqual(propertyWorkers.Id, propertyWorkersList[0].Id);
-        Assert.AreEqual(1, propertyWorkersList[0].Version);
+        Assert.That(propertyWorkersList.Count, Is.EqualTo(1));
+        Assert.That(propertyWorkersListVersions.Count, Is.EqualTo(1));
+        Assert.That(propertyWorkersList[0].CreatedByUserId, Is.EqualTo(propertyWorkers.CreatedByUserId));
+        Assert.That(propertyWorkersList[0].UpdatedByUserId, Is.EqualTo(propertyWorkers.UpdatedByUserId));
+        Assert.That(propertyWorkersList[0].WorkerId, Is.EqualTo(propertyWorkers.WorkerId));
+        Assert.That(propertyWorkersList[0].PropertyId, Is.EqualTo(propertyWorkers.PropertyId));
+        Assert.That(propertyWorkersList[0].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Created));
+        Assert.That(propertyWorkersList[0].Id, Is.EqualTo(propertyWorkers.Id));
+        Assert.That(propertyWorkersList[0].Version, Is.EqualTo(1));
 
         // versions
-        Assert.AreEqual(propertyWorkers.CreatedByUserId, propertyWorkersListVersions[0].CreatedByUserId);
-        Assert.AreEqual(propertyWorkers.UpdatedByUserId, propertyWorkersListVersions[0].UpdatedByUserId);
-        Assert.AreEqual(propertyWorkers.WorkerId, propertyWorkersListVersions[0].WorkerId);
-        Assert.AreEqual(propertyWorkers.PropertyId, propertyWorkersListVersions[0].PropertyId);
-        Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[0].PropertyWorkerId);
-        Assert.AreEqual(1, propertyWorkersListVersions[0].Version);
+        Assert.That(propertyWorkersListVersions[0].CreatedByUserId, Is.EqualTo(propertyWorkers.CreatedByUserId));
+        Assert.That(propertyWorkersListVersions[0].UpdatedByUserId, Is.EqualTo(propertyWorkers.UpdatedByUserId));
+        Assert.That(propertyWorkersListVersions[0].WorkerId, Is.EqualTo(propertyWorkers.WorkerId));
+        Assert.That(propertyWorkersListVersions[0].PropertyId, Is.EqualTo(propertyWorkers.PropertyId));
+        Assert.That(propertyWorkersListVersions[0].PropertyWorkerId, Is.EqualTo(propertyWorkers.Id));
+        Assert.That(propertyWorkersListVersions[0].Version, Is.EqualTo(1));
     }
 
     [Test]
@@ -135,32 +135,32 @@ public class PropertyWorkersUTest : DbTestFixture
         var propertyWorkersListVersions = DbContext.PropertyWorkerVersions.AsNoTracking().ToList();
 
         // Assert
-        Assert.AreEqual(1, propertyWorkersList.Count);
-        Assert.AreEqual(2, propertyWorkersListVersions.Count);
-        Assert.AreEqual(propertyWorkers.WorkerId, propertyWorkersList[0].WorkerId);
-        Assert.AreEqual(propertyWorkers.PropertyId, propertyWorkersList[0].PropertyId);
-        Assert.AreEqual(propertyWorkers.CreatedByUserId, propertyWorkersList[0].CreatedByUserId);
-        Assert.AreEqual(propertyWorkers.UpdatedByUserId, propertyWorkersList[0].UpdatedByUserId);
-        Assert.AreEqual(Constants.WorkflowStates.Created, propertyWorkersList[0].WorkflowState);
-        Assert.AreEqual(propertyWorkers.Id, propertyWorkersList[0].Id);
-        Assert.AreEqual(2, propertyWorkersList[0].Version);
+        Assert.That(propertyWorkersList.Count, Is.EqualTo(1));
+        Assert.That(propertyWorkersListVersions.Count, Is.EqualTo(2));
+        Assert.That(propertyWorkersList[0].WorkerId, Is.EqualTo(propertyWorkers.WorkerId));
+        Assert.That(propertyWorkersList[0].PropertyId, Is.EqualTo(propertyWorkers.PropertyId));
+        Assert.That(propertyWorkersList[0].CreatedByUserId, Is.EqualTo(propertyWorkers.CreatedByUserId));
+        Assert.That(propertyWorkersList[0].UpdatedByUserId, Is.EqualTo(propertyWorkers.UpdatedByUserId));
+        Assert.That(propertyWorkersList[0].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Created));
+        Assert.That(propertyWorkersList[0].Id, Is.EqualTo(propertyWorkers.Id));
+        Assert.That(propertyWorkersList[0].Version, Is.EqualTo(2));
 
         // versions
-        Assert.AreEqual(propertyWorkerOld.WorkerId, propertyWorkersListVersions[0].WorkerId);
-        Assert.AreEqual(propertyWorkerOld.PropertyId, propertyWorkersListVersions[0].PropertyId);
-        Assert.AreEqual(propertyWorkerOld.CreatedByUserId, propertyWorkersListVersions[0].CreatedByUserId);
-        Assert.AreEqual(propertyWorkerOld.UpdatedByUserId, propertyWorkersListVersions[0].UpdatedByUserId);
-        Assert.AreEqual(Constants.WorkflowStates.Created, propertyWorkersListVersions[0].WorkflowState);
-        Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[0].PropertyWorkerId);
-        Assert.AreEqual(1, propertyWorkersListVersions[0].Version);
+        Assert.That(propertyWorkersListVersions[0].WorkerId, Is.EqualTo(propertyWorkerOld.WorkerId));
+        Assert.That(propertyWorkersListVersions[0].PropertyId, Is.EqualTo(propertyWorkerOld.PropertyId));
+        Assert.That(propertyWorkersListVersions[0].CreatedByUserId, Is.EqualTo(propertyWorkerOld.CreatedByUserId));
+        Assert.That(propertyWorkersListVersions[0].UpdatedByUserId, Is.EqualTo(propertyWorkerOld.UpdatedByUserId));
+        Assert.That(propertyWorkersListVersions[0].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Created));
+        Assert.That(propertyWorkersListVersions[0].PropertyWorkerId, Is.EqualTo(propertyWorkers.Id));
+        Assert.That(propertyWorkersListVersions[0].Version, Is.EqualTo(1));
 
-        Assert.AreEqual(propertyWorkers.WorkerId, propertyWorkersListVersions[1].WorkerId);
-        Assert.AreEqual(propertyWorkers.PropertyId, propertyWorkersListVersions[1].PropertyId);
-        Assert.AreEqual(propertyWorkers.CreatedByUserId, propertyWorkersListVersions[1].CreatedByUserId);
-        Assert.AreEqual(propertyWorkers.UpdatedByUserId, propertyWorkersListVersions[1].UpdatedByUserId);
-        Assert.AreEqual(Constants.WorkflowStates.Created, propertyWorkersListVersions[1].WorkflowState);
-        Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[1].PropertyWorkerId);
-        Assert.AreEqual(2, propertyWorkersListVersions[1].Version);
+        Assert.That(propertyWorkersListVersions[1].WorkerId, Is.EqualTo(propertyWorkers.WorkerId));
+        Assert.That(propertyWorkersListVersions[1].PropertyId, Is.EqualTo(propertyWorkers.PropertyId));
+        Assert.That(propertyWorkersListVersions[1].CreatedByUserId, Is.EqualTo(propertyWorkers.CreatedByUserId));
+        Assert.That(propertyWorkersListVersions[1].UpdatedByUserId, Is.EqualTo(propertyWorkers.UpdatedByUserId));
+        Assert.That(propertyWorkersListVersions[1].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Created));
+        Assert.That(propertyWorkersListVersions[1].PropertyWorkerId, Is.EqualTo(propertyWorkers.Id));
+        Assert.That(propertyWorkersListVersions[1].Version, Is.EqualTo(2));
     }
 
     [Test]
@@ -194,31 +194,31 @@ public class PropertyWorkersUTest : DbTestFixture
         var propertyWorkersListVersions = DbContext.PropertyWorkerVersions.AsNoTracking().ToList();
 
         // Assert
-        Assert.AreEqual(1, propertyWorkersList.Count);
-        Assert.AreEqual(2, propertyWorkersListVersions.Count);
-        Assert.AreEqual(propertyWorkers.WorkerId, propertyWorkersList[0].WorkerId);
-        Assert.AreEqual(propertyWorkers.PropertyId, propertyWorkersList[0].PropertyId);
-        Assert.AreEqual(propertyWorkers.CreatedByUserId, propertyWorkersList[0].CreatedByUserId);
-        Assert.AreEqual(propertyWorkers.UpdatedByUserId, propertyWorkersList[0].UpdatedByUserId);
-        Assert.AreEqual(Constants.WorkflowStates.Removed, propertyWorkersList[0].WorkflowState);
-        Assert.AreEqual(propertyWorkers.Id, propertyWorkersList[0].Id);
-        Assert.AreEqual(2, propertyWorkersList[0].Version);
+        Assert.That(propertyWorkersList.Count, Is.EqualTo(1));
+        Assert.That(propertyWorkersListVersions.Count, Is.EqualTo(2));
+        Assert.That(propertyWorkersList[0].WorkerId, Is.EqualTo(propertyWorkers.WorkerId));
+        Assert.That(propertyWorkersList[0].PropertyId, Is.EqualTo(propertyWorkers.PropertyId));
+        Assert.That(propertyWorkersList[0].CreatedByUserId, Is.EqualTo(propertyWorkers.CreatedByUserId));
+        Assert.That(propertyWorkersList[0].UpdatedByUserId, Is.EqualTo(propertyWorkers.UpdatedByUserId));
+        Assert.That(propertyWorkersList[0].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Removed));
+        Assert.That(propertyWorkersList[0].Id, Is.EqualTo(propertyWorkers.Id));
+        Assert.That(propertyWorkersList[0].Version, Is.EqualTo(2));
 
         // versions
-        Assert.AreEqual(propertyWorkers.WorkerId, propertyWorkersListVersions[0].WorkerId);
-        Assert.AreEqual(propertyWorkers.PropertyId, propertyWorkersListVersions[0].PropertyId);
-        Assert.AreEqual(propertyWorkers.CreatedByUserId, propertyWorkersListVersions[0].CreatedByUserId);
-        Assert.AreEqual(propertyWorkers.UpdatedByUserId, propertyWorkersListVersions[0].UpdatedByUserId);
-        Assert.AreEqual(Constants.WorkflowStates.Created, propertyWorkersListVersions[0].WorkflowState);
-        Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[0].PropertyWorkerId);
-        Assert.AreEqual(1, propertyWorkersListVersions[0].Version);
+        Assert.That(propertyWorkersListVersions[0].WorkerId, Is.EqualTo(propertyWorkers.WorkerId));
+        Assert.That(propertyWorkersListVersions[0].PropertyId, Is.EqualTo(propertyWorkers.PropertyId));
+        Assert.That(propertyWorkersListVersions[0].CreatedByUserId, Is.EqualTo(propertyWorkers.CreatedByUserId));
+        Assert.That(propertyWorkersListVersions[0].UpdatedByUserId, Is.EqualTo(propertyWorkers.UpdatedByUserId));
+        Assert.That(propertyWorkersListVersions[0].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Created));
+        Assert.That(propertyWorkersListVersions[0].PropertyWorkerId, Is.EqualTo(propertyWorkers.Id));
+        Assert.That(propertyWorkersListVersions[0].Version, Is.EqualTo(1));
 
-        Assert.AreEqual(propertyWorkers.WorkerId, propertyWorkersListVersions[1].WorkerId);
-        Assert.AreEqual(propertyWorkers.PropertyId, propertyWorkersListVersions[1].PropertyId);
-        Assert.AreEqual(propertyWorkers.CreatedByUserId, propertyWorkersListVersions[1].CreatedByUserId);
-        Assert.AreEqual(propertyWorkers.UpdatedByUserId, propertyWorkersListVersions[1].UpdatedByUserId);
-        Assert.AreEqual(Constants.WorkflowStates.Removed, propertyWorkersListVersions[1].WorkflowState);
-        Assert.AreEqual(propertyWorkers.Id, propertyWorkersListVersions[1].PropertyWorkerId);
-        Assert.AreEqual(2, propertyWorkersListVersions[1].Version);
+        Assert.That(propertyWorkersListVersions[1].WorkerId, Is.EqualTo(propertyWorkers.WorkerId));
+        Assert.That(propertyWorkersListVersions[1].PropertyId, Is.EqualTo(propertyWorkers.PropertyId));
+        Assert.That(propertyWorkersListVersions[1].CreatedByUserId, Is.EqualTo(propertyWorkers.CreatedByUserId));
+        Assert.That(propertyWorkersListVersions[1].UpdatedByUserId, Is.EqualTo(propertyWorkers.UpdatedByUserId));
+        Assert.That(propertyWorkersListVersions[1].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Removed));
+        Assert.That(propertyWorkersListVersions[1].PropertyWorkerId, Is.EqualTo(propertyWorkers.Id));
+        Assert.That(propertyWorkersListVersions[1].Version, Is.EqualTo(2));
     }
 }

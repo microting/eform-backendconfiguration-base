@@ -56,23 +56,23 @@ public class PropertiesUTest : DbTestFixture
         var propertiesListVersions = DbContext.PropertieVersions.AsNoTracking().ToList();
 
         // Assert
-        Assert.AreEqual(1, propertiesList.Count);
-        Assert.AreEqual(1, propertiesListVersions.Count);
-        Assert.AreEqual(properties.Address, propertiesList[0].Address);
-        Assert.AreEqual(properties.CHR, propertiesList[0].CHR);
-        Assert.AreEqual(properties.Name, propertiesList[0].Name);
-        Assert.AreEqual(properties.CreatedByUserId, propertiesList[0].CreatedByUserId);
-        Assert.AreEqual(properties.UpdatedByUserId, propertiesList[0].UpdatedByUserId);
-        Assert.AreEqual(Constants.WorkflowStates.Created, propertiesList[0].WorkflowState);
-        Assert.AreEqual(1, propertiesList[0].Version);
+        Assert.That(propertiesList.Count, Is.EqualTo(1));
+        Assert.That(propertiesListVersions.Count, Is.EqualTo(1));
+        Assert.That(propertiesList[0].Address, Is.EqualTo(properties.Address));
+        Assert.That(propertiesList[0].CHR, Is.EqualTo(properties.CHR));
+        Assert.That(propertiesList[0].Name, Is.EqualTo(properties.Name));
+        Assert.That(propertiesList[0].CreatedByUserId, Is.EqualTo(properties.CreatedByUserId));
+        Assert.That(propertiesList[0].UpdatedByUserId, Is.EqualTo(properties.UpdatedByUserId));
+        Assert.That(propertiesList[0].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Created));
+        Assert.That(propertiesList[0].Version, Is.EqualTo(1));
 
-        Assert.AreEqual(properties.Address, propertiesListVersions[0].Address);
-        Assert.AreEqual(properties.CHR, propertiesListVersions[0].CHR);
-        Assert.AreEqual(properties.Name, propertiesListVersions[0].Name);
-        Assert.AreEqual(properties.CreatedByUserId, propertiesListVersions[0].CreatedByUserId);
-        Assert.AreEqual(properties.UpdatedByUserId, propertiesListVersions[0].UpdatedByUserId);
-        Assert.AreEqual(Constants.WorkflowStates.Created, propertiesListVersions[0].WorkflowState);
-        Assert.AreEqual(1, propertiesListVersions[0].Version);
+        Assert.That(propertiesListVersions[0].Address, Is.EqualTo(properties.Address));
+        Assert.That(propertiesListVersions[0].CHR, Is.EqualTo(properties.CHR));
+        Assert.That(propertiesListVersions[0].Name, Is.EqualTo(properties.Name));
+        Assert.That(propertiesListVersions[0].CreatedByUserId, Is.EqualTo(properties.CreatedByUserId));
+        Assert.That(propertiesListVersions[0].UpdatedByUserId, Is.EqualTo(properties.UpdatedByUserId));
+        Assert.That(propertiesListVersions[0].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Created));
+        Assert.That(propertiesListVersions[0].Version, Is.EqualTo(1));
     }
 
     [Test]
@@ -102,34 +102,34 @@ public class PropertiesUTest : DbTestFixture
         var propertiesListVersions = DbContext.PropertieVersions.AsNoTracking().ToList();
 
         // Assert
-        Assert.AreEqual(1, propertiesList.Count);
-        Assert.AreEqual(2, propertiesListVersions.Count);
-        Assert.AreEqual(properties.Address, propertiesList[0].Address);
-        Assert.AreEqual(properties.CHR, propertiesList[0].CHR);
-        Assert.AreEqual(properties.Name, propertiesList[0].Name);
-        Assert.AreEqual(properties.CreatedByUserId, propertiesList[0].CreatedByUserId);
-        Assert.AreEqual(properties.UpdatedByUserId, propertiesList[0].UpdatedByUserId);
-        Assert.AreEqual(Constants.WorkflowStates.Created, propertiesList[0].WorkflowState);
-        Assert.AreEqual(properties.Id, propertiesList[0].Id);
-        Assert.AreEqual(2, propertiesList[0].Version);
+        Assert.That(propertiesList.Count, Is.EqualTo(1));
+        Assert.That(propertiesListVersions.Count, Is.EqualTo(2));
+        Assert.That(propertiesList[0].Address, Is.EqualTo(properties.Address));
+        Assert.That(propertiesList[0].CHR, Is.EqualTo(properties.CHR));
+        Assert.That(propertiesList[0].Name, Is.EqualTo(properties.Name));
+        Assert.That(propertiesList[0].CreatedByUserId, Is.EqualTo(properties.CreatedByUserId));
+        Assert.That(propertiesList[0].UpdatedByUserId, Is.EqualTo(properties.UpdatedByUserId));
+        Assert.That(propertiesList[0].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Created));
+        Assert.That(propertiesList[0].Id, Is.EqualTo(properties.Id));
+        Assert.That(propertiesList[0].Version, Is.EqualTo(2));
 
-        Assert.AreEqual(propertiesOld.Address, propertiesListVersions[0].Address);
-        Assert.AreEqual(propertiesOld.CHR, propertiesListVersions[0].CHR);
-        Assert.AreEqual(propertiesOld.Name, propertiesListVersions[0].Name);
-        Assert.AreEqual(propertiesOld.CreatedByUserId, propertiesListVersions[0].CreatedByUserId);
-        Assert.AreEqual(propertiesOld.UpdatedByUserId, propertiesListVersions[0].UpdatedByUserId);
-        Assert.AreEqual(Constants.WorkflowStates.Created, propertiesListVersions[0].WorkflowState);
-        Assert.AreEqual(properties.Id, propertiesListVersions[0].PropertyId);
-        Assert.AreEqual(1, propertiesListVersions[0].Version);
+        Assert.That(propertiesListVersions[0].Address, Is.EqualTo(propertiesOld.Address));
+        Assert.That(propertiesListVersions[0].CHR, Is.EqualTo(propertiesOld.CHR));
+        Assert.That(propertiesListVersions[0].Name, Is.EqualTo(propertiesOld.Name));
+        Assert.That(propertiesListVersions[0].CreatedByUserId, Is.EqualTo(propertiesOld.CreatedByUserId));
+        Assert.That(propertiesListVersions[0].UpdatedByUserId, Is.EqualTo(propertiesOld.UpdatedByUserId));
+        Assert.That(propertiesListVersions[0].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Created));
+        Assert.That(propertiesListVersions[0].PropertyId, Is.EqualTo(properties.Id));
+        Assert.That(propertiesListVersions[0].Version, Is.EqualTo(1));
 
-        Assert.AreEqual(properties.Address, propertiesListVersions[1].Address);
-        Assert.AreEqual(properties.CHR, propertiesListVersions[1].CHR);
-        Assert.AreEqual(properties.Name, propertiesListVersions[1].Name);
-        Assert.AreEqual(properties.CreatedByUserId, propertiesListVersions[1].CreatedByUserId);
-        Assert.AreEqual(properties.UpdatedByUserId, propertiesListVersions[1].UpdatedByUserId);
-        Assert.AreEqual(Constants.WorkflowStates.Created, propertiesListVersions[1].WorkflowState);
-        Assert.AreEqual(properties.Id, propertiesListVersions[0].PropertyId);
-        Assert.AreEqual(2, propertiesListVersions[1].Version);
+        Assert.That(propertiesListVersions[1].Address, Is.EqualTo(properties.Address));
+        Assert.That(propertiesListVersions[1].CHR, Is.EqualTo(properties.CHR));
+        Assert.That(propertiesListVersions[1].Name, Is.EqualTo(properties.Name));
+        Assert.That(propertiesListVersions[1].CreatedByUserId, Is.EqualTo(properties.CreatedByUserId));
+        Assert.That(propertiesListVersions[1].UpdatedByUserId, Is.EqualTo(properties.UpdatedByUserId));
+        Assert.That(propertiesListVersions[1].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Created));
+        Assert.That(propertiesListVersions[0].PropertyId, Is.EqualTo(properties.Id));
+        Assert.That(propertiesListVersions[1].Version, Is.EqualTo(2));
     }
 
     [Test]
@@ -154,31 +154,31 @@ public class PropertiesUTest : DbTestFixture
         var propertiesListVersions = DbContext.PropertieVersions.AsNoTracking().ToList();
 
         // Assert
-        Assert.AreEqual(1, propertiesList.Count);
-        Assert.AreEqual(2, propertiesListVersions.Count);
-        Assert.AreEqual(properties.Address, propertiesList[0].Address);
-        Assert.AreEqual(properties.CHR, propertiesList[0].CHR);
-        Assert.AreEqual(properties.Name, propertiesList[0].Name);
-        Assert.AreEqual(properties.CreatedByUserId, propertiesList[0].CreatedByUserId);
-        Assert.AreEqual(properties.UpdatedByUserId, propertiesList[0].UpdatedByUserId);
-        Assert.AreEqual(Constants.WorkflowStates.Removed, propertiesList[0].WorkflowState);
-        Assert.AreEqual(properties.Id, propertiesList[0].Id);
-        Assert.AreEqual(2, propertiesList[0].Version);
+        Assert.That(propertiesList.Count, Is.EqualTo(1));
+        Assert.That(propertiesListVersions.Count, Is.EqualTo(2));
+        Assert.That(propertiesList[0].Address, Is.EqualTo(properties.Address));
+        Assert.That(propertiesList[0].CHR, Is.EqualTo(properties.CHR));
+        Assert.That(propertiesList[0].Name, Is.EqualTo(properties.Name));
+        Assert.That(propertiesList[0].CreatedByUserId, Is.EqualTo(properties.CreatedByUserId));
+        Assert.That(propertiesList[0].UpdatedByUserId, Is.EqualTo(properties.UpdatedByUserId));
+        Assert.That(propertiesList[0].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Removed));
+        Assert.That(propertiesList[0].Id, Is.EqualTo(properties.Id));
+        Assert.That(propertiesList[0].Version, Is.EqualTo(2));
 
-        Assert.AreEqual(properties.Address, propertiesListVersions[0].Address);
-        Assert.AreEqual(properties.CHR, propertiesListVersions[0].CHR);
-        Assert.AreEqual(properties.Name, propertiesListVersions[0].Name);
-        Assert.AreEqual(properties.CreatedByUserId, propertiesListVersions[0].CreatedByUserId);
-        Assert.AreEqual(properties.UpdatedByUserId, propertiesListVersions[0].UpdatedByUserId);
-        Assert.AreEqual(Constants.WorkflowStates.Created, propertiesListVersions[0].WorkflowState);
-        Assert.AreEqual(1, propertiesListVersions[0].Version);
+        Assert.That(propertiesListVersions[0].Address, Is.EqualTo(properties.Address));
+        Assert.That(propertiesListVersions[0].CHR, Is.EqualTo(properties.CHR));
+        Assert.That(propertiesListVersions[0].Name, Is.EqualTo(properties.Name));
+        Assert.That(propertiesListVersions[0].CreatedByUserId, Is.EqualTo(properties.CreatedByUserId));
+        Assert.That(propertiesListVersions[0].UpdatedByUserId, Is.EqualTo(properties.UpdatedByUserId));
+        Assert.That(propertiesListVersions[0].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Created));
+        Assert.That(propertiesListVersions[0].Version, Is.EqualTo(1));
 
-        Assert.AreEqual(properties.Address, propertiesListVersions[1].Address);
-        Assert.AreEqual(properties.CHR, propertiesListVersions[1].CHR);
-        Assert.AreEqual(properties.Name, propertiesListVersions[1].Name);
-        Assert.AreEqual(properties.CreatedByUserId, propertiesListVersions[1].CreatedByUserId);
-        Assert.AreEqual(properties.UpdatedByUserId, propertiesListVersions[1].UpdatedByUserId);
-        Assert.AreEqual(Constants.WorkflowStates.Removed, propertiesListVersions[1].WorkflowState);
-        Assert.AreEqual(2, propertiesListVersions[1].Version);
+        Assert.That(propertiesListVersions[1].Address, Is.EqualTo(properties.Address));
+        Assert.That(propertiesListVersions[1].CHR, Is.EqualTo(properties.CHR));
+        Assert.That(propertiesListVersions[1].Name, Is.EqualTo(properties.Name));
+        Assert.That(propertiesListVersions[1].CreatedByUserId, Is.EqualTo(properties.CreatedByUserId));
+        Assert.That(propertiesListVersions[1].UpdatedByUserId, Is.EqualTo(properties.UpdatedByUserId));
+        Assert.That(propertiesListVersions[1].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Removed));
+        Assert.That(propertiesListVersions[1].Version, Is.EqualTo(2));
     }
 }
