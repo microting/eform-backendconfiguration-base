@@ -15,4 +15,5 @@ public class Compliance : PnBase
     public int MicrotingSdkeFormId { get; set; }
     public int PlanningCaseSiteId { get; set; }
     public int CheckListSiteId { get; set; }
+    public bool MovedToExpiredFolder { get; set; }
 }
