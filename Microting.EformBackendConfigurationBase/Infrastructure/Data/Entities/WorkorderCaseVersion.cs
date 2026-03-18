@@ -32,6 +32,8 @@ public class WorkorderCaseVersion : PnBase
 {
     public int WorkorderCaseId { get; set; }
 
+    public Guid? GroupId { get; set; }
+
     public int PropertyWorkerId { get; set; }
 
     public int CaseId { get; set; }

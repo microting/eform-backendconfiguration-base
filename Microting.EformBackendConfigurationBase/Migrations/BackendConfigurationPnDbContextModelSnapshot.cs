@@ -3299,6 +3299,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int?>("EntityItemIdForArea")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("GroupId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("LastAssignedToName")
                         .HasColumnType("longtext");
 
@@ -3464,6 +3467,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int?>("EntityItemIdForArea")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("GroupId")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("LastAssignedToName")
                         .HasColumnType("longtext");
