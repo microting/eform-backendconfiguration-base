@@ -30,6 +30,8 @@ using Enum;
 
 public class WorkorderCase : PnBase
 {
+    public Guid? GroupId { get; set; }
+
     public int PropertyWorkerId { get; set; }
 
     public virtual PropertyWorker PropertyWorker { get; set; }

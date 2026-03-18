@@ -10,8 +10,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microting.eForm" Version="10.0.16" />
-    <PackageReference Include="Microting.eFormApi.BasePn" Version="10.0.16" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,6 +62,10 @@
     <EmbeddedResource Include="Resources\GHSHazardPictogram\dummy.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\eform-sdk\eFormCore\Microting.eForm.csproj" />
+    <ProjectReference Include="..\..\eFormApi.BasePn\eFormApi.BasePn\eFormApi.BasePn.csproj" />
   </ItemGroup>
 
 </Project>
