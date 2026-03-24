@@ -127,6 +127,8 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     public DbSet<AreaRulePlanningTag> AreaRulePlanningTags { get; set; }
     public DbSet<AreaRulePlanningTagVersion> AreaRulePlanningTagVersion { get; set; }
 
+    public DbSet<CalendarConfiguration> CalendarConfigurations { get; set; }
+
     // common tables
     public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
     public DbSet<PluginConfigurationValueVersion> PluginConfigurationValueVersions { get; set; }
