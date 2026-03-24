@@ -129,6 +129,8 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
 
     public DbSet<CalendarConfiguration> CalendarConfigurations { get; set; }
 
+    public DbSet<CalendarBoard> CalendarBoards { get; set; }
+
     // common tables
     public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
     public DbSet<PluginConfigurationValueVersion> PluginConfigurationValueVersions { get; set; }
