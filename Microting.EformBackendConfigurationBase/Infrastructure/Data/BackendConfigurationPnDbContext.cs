@@ -131,6 +131,10 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
 
     public DbSet<CalendarBoard> CalendarBoards { get; set; }
 
+    public DbSet<CalendarOccurrenceException> CalendarOccurrenceExceptions { get; set; }
+
+    public DbSet<CalendarOccurrenceExceptionSite> CalendarOccurrenceExceptionSites { get; set; }
+
     // common tables
     public DbSet<PluginConfigurationValue> PluginConfigurationValues { get; set; }
     public DbSet<PluginConfigurationValueVersion> PluginConfigurationValueVersions { get; set; }
@@ -147,6 +151,10 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
 
         modelBuilder.Entity<Compliance>()
             .HasIndex(e => new { e.PlanningId, e.Deadline })
+            .IsUnique();
+
+        modelBuilder.Entity<CalendarOccurrenceException>()
+            .HasIndex(e => new { e.AreaRulePlanningId, e.OriginalDate })
             .IsUnique();
 
         modelBuilder.Entity<AreaRuleTranslation>().HasOne(x => x.AreaRule)
