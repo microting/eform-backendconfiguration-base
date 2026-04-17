@@ -64,8 +64,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\eform-sdk\eFormCore\Microting.eForm.csproj" />
-    <ProjectReference Include="..\..\eFormApi.BasePn\eFormApi.BasePn\eFormApi.BasePn.csproj" />
+    <PackageReference Include="Microting.eForm" Version="10.0.17" />
+    <PackageReference Include="Microting.eFormApi.BasePn" Version="10.0.18" />
   </ItemGroup>
 
 </Project>
