@@ -107,6 +107,15 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int?>("RepeatType")
                         .HasColumnType("int");
 
+                    b.Property<int?>("RepeatEndMode")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RepeatOccurrences")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("RepeatUntilDate")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int?>("Type")
                         .HasColumnType("int");
 
@@ -174,6 +183,15 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int?>("RepeatType")
                         .HasColumnType("int");
+
+                    b.Property<int?>("RepeatEndMode")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RepeatOccurrences")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("RepeatUntilDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("Type")
                         .HasColumnType("int");
@@ -435,6 +453,15 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int?>("RepeatType")
                         .HasColumnType("int");
+
+                    b.Property<int?>("RepeatEndMode")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RepeatOccurrences")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("RepeatUntilDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("Type")
                         .HasColumnType("int");
