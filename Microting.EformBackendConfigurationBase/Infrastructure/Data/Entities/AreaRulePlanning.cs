@@ -42,6 +42,12 @@ public class AreaRulePlanning: PnBase
 
     public int? RepeatType { get; set; }
 
+    public int? RepeatEndMode { get; set; }
+
+    public int? RepeatOccurrences { get; set; }
+
+    public DateTime? RepeatUntilDate { get; set; }
+
     public bool Status { get; set; }
 
     public bool SendNotifications { get; set; }
