@@ -26,6 +26,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Enum;
 
 public class AreaRulePlanning: PnBase
@@ -47,6 +48,14 @@ public class AreaRulePlanning: PnBase
     public int? RepeatOccurrences { get; set; }
 
     public DateTime? RepeatUntilDate { get; set; }
+
+    /// <summary>
+    /// CSV of JS-style weekday indices (0=Sun ... 6=Sat) for multi-day weekly
+    /// repeat rules. Null for non-multi-day rules. Max length 13 fits the
+    /// longest valid CSV "0,1,2,3,4,5,6".
+    /// </summary>
+    [StringLength(13)]
+    public string? RepeatWeekdaysCsv { get; set; }
 
     public bool Status { get; set; }
 

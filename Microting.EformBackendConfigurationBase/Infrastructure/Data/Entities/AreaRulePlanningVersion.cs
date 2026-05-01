@@ -25,6 +25,7 @@ SOFTWARE.
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
 using System;
+using System.ComponentModel.DataAnnotations;
 using Enum;
 
 public class AreaRulePlanningVersion : PnBase
@@ -48,6 +49,9 @@ public class AreaRulePlanningVersion : PnBase
     public int? RepeatOccurrences { get; set; }
 
     public DateTime? RepeatUntilDate { get; set; }
+
+    [StringLength(13)]
+    public string? RepeatWeekdaysCsv { get; set; }
 
     public bool Status { get; set; }
 
