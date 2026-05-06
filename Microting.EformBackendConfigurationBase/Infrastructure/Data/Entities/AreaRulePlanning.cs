@@ -91,4 +91,7 @@ public class AreaRulePlanning: PnBase
     public bool UseStartDateAsStartOfPeriod { get; set; }
 
     public virtual List<AreaRulePlanningTag> AreaRulePlanningTags { get; set; } = new();
+
+    public virtual ICollection<AreaRulePlanningFile> AreaRulePlanningFiles { get; set; }
+        = new List<AreaRulePlanningFile>();
 }

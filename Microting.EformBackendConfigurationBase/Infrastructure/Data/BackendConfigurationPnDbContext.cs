@@ -127,6 +127,9 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     public DbSet<AreaRulePlanningTag> AreaRulePlanningTags { get; set; }
     public DbSet<AreaRulePlanningTagVersion> AreaRulePlanningTagVersion { get; set; }
 
+    public DbSet<AreaRulePlanningFile> AreaRulePlanningFiles { get; set; }
+    public DbSet<AreaRulePlanningFileVersion> AreaRulePlanningFileVersions { get; set; }
+
     public DbSet<CalendarConfiguration> CalendarConfigurations { get; set; }
 
     public DbSet<CalendarBoard> CalendarBoards { get; set; }
@@ -209,6 +212,11 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
 
         modelBuilder.Entity<AreaRulePlanningTag>().HasOne(x => x.AreaRulePlanning)
             .WithMany(x => x.AreaRulePlanningTags)
+            .HasForeignKey(x => x.AreaRulePlanningId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<AreaRulePlanningFile>().HasOne(x => x.AreaRulePlanning)
+            .WithMany(x => x.AreaRulePlanningFiles)
             .HasForeignKey(x => x.AreaRulePlanningId)
             .OnDelete(DeleteBehavior.Restrict);
 
