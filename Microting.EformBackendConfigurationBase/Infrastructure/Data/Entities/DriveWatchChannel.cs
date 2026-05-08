@@ -27,29 +27,20 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-public class AreaRulePlanningFile : PnBase
+public class DriveWatchChannel : PnBase
 {
-    public int AreaRulePlanningId { get; set; }
+    public int GoogleOAuthTokenId { get; set; }
 
-    public virtual AreaRulePlanning AreaRulePlanning { get; set; }
-
-    /// <summary>FK to SDK UploadedData.Id (cross-DB reference, no FK constraint enforced).</summary>
-    public int UploadedDataId { get; set; }
-
-    [StringLength(255)]
-    public string OriginalFileName { get; set; } = "";
-
-    [StringLength(50)]
-    public string MimeType { get; set; } = "";
-
-    public long SizeBytes { get; set; }
+    public virtual GoogleOAuthToken GoogleOAuthToken { get; set; }
 
     [StringLength(64)]
-    public string? DriveFileId { get; set; }
+    public string ChannelId { get; set; } = "";
 
-    public DateTime? DriveModifiedTime { get; set; }
+    [StringLength(64)]
+    public string ResourceId { get; set; } = "";
 
-    public int? GoogleOAuthTokenId { get; set; }
+    [StringLength(2048)]
+    public string SignedToken { get; set; } = "";
 
-    public virtual GoogleOAuthToken? GoogleOAuthToken { get; set; }
+    public DateTime ExpiresAt { get; set; }
 }

@@ -130,6 +130,12 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     public DbSet<AreaRulePlanningFile> AreaRulePlanningFiles { get; set; }
     public DbSet<AreaRulePlanningFileVersion> AreaRulePlanningFileVersions { get; set; }
 
+    public DbSet<GoogleOAuthToken> GoogleOAuthTokens { get; set; }
+    public DbSet<GoogleOAuthTokenVersion> GoogleOAuthTokenVersions { get; set; }
+
+    public DbSet<DriveWatchChannel> DriveWatchChannels { get; set; }
+    public DbSet<DriveWatchChannelVersion> DriveWatchChannelVersions { get; set; }
+
     public DbSet<CalendarConfiguration> CalendarConfigurations { get; set; }
 
     public DbSet<CalendarBoard> CalendarBoards { get; set; }
@@ -218,6 +224,16 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
         modelBuilder.Entity<AreaRulePlanningFile>().HasOne(x => x.AreaRulePlanning)
             .WithMany(x => x.AreaRulePlanningFiles)
             .HasForeignKey(x => x.AreaRulePlanningId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<AreaRulePlanningFile>().HasOne(x => x.GoogleOAuthToken)
+            .WithMany(x => x.AreaRulePlanningFiles)
+            .HasForeignKey(x => x.GoogleOAuthTokenId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<DriveWatchChannel>().HasOne(x => x.GoogleOAuthToken)
+            .WithMany(x => x.DriveWatchChannels)
+            .HasForeignKey(x => x.GoogleOAuthTokenId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.SeedLatest();

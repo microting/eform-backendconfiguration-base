@@ -24,6 +24,7 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
+using System;
 using System.ComponentModel.DataAnnotations;
 
 public class AreaRulePlanningFileVersion : PnBase
@@ -41,4 +42,11 @@ public class AreaRulePlanningFileVersion : PnBase
     public string MimeType { get; set; } = "";
 
     public long SizeBytes { get; set; }
+
+    [StringLength(64)]
+    public string? DriveFileId { get; set; }
+
+    public DateTime? DriveModifiedTime { get; set; }
+
+    public int? GoogleOAuthTokenId { get; set; }
 }
