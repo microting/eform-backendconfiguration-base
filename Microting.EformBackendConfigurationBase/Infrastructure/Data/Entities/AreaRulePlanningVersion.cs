@@ -53,6 +53,8 @@ public class AreaRulePlanningVersion : PnBase
     [StringLength(13)]
     public string? RepeatWeekdaysCsv { get; set; }
 
+    public int? RepeatOrdinalWeek { get; set; }
+
     public bool Status { get; set; }
 
     public bool SendNotifications { get; set; }
