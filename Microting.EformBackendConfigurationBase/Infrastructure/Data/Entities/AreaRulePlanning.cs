@@ -57,6 +57,14 @@ public class AreaRulePlanning: PnBase
     [StringLength(13)]
     public string? RepeatWeekdaysCsv { get; set; }
 
+    /// <summary>
+    /// Ordinal position within a month for "Nth weekday of month" monthly
+    /// rules (e.g. 3 = "3rd Tuesday of every month"). Used together with
+    /// DayOfWeek when RepeatType == Month. Null for legacy day-of-month
+    /// rules; valid values are 1..5.
+    /// </summary>
+    public int? RepeatOrdinalWeek { get; set; }
+
     public bool Status { get; set; }
 
     public bool SendNotifications { get; set; }
