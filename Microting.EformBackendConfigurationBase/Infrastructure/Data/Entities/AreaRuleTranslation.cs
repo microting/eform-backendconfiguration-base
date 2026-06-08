@@ -32,6 +32,8 @@ public class AreaRuleTranslation : PnBase
     [StringLength(250)]
     public string Name { get; set; }
 
+    public string Description { get; set; }
+
     public int LanguageId { get; set; }
 
     public int AreaRuleId { get; set; }
