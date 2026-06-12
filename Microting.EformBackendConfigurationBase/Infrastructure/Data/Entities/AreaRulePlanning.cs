@@ -100,6 +100,8 @@ public class AreaRulePlanning: PnBase
 
     public virtual List<AreaRulePlanningTag> AreaRulePlanningTags { get; set; } = new();
 
+    public virtual List<AreaRulePlanningWorkerTag> AreaRulePlanningWorkerTags { get; set; } = new();
+
     public virtual ICollection<AreaRulePlanningFile> AreaRulePlanningFiles { get; set; }
         = new List<AreaRulePlanningFile>();
 }
