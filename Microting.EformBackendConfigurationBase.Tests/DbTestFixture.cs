@@ -105,7 +105,17 @@ public abstract class DbTestFixture
             "AdhocTags",
             "AdhocTagVersions",
             "AdhocTasks",
-            "AdhocTaskVersions"
+            "AdhocTaskVersions",
+            "AdhocTaskAssignments",
+            "AdhocTaskAssignmentVersions",
+            "AdhocTaskAssignmentLogs",
+            "AdhocTaskAssignmentLogVersions",
+            "AdhocTaskComments",
+            "AdhocTaskCommentVersions",
+            "AdhocTaskPhotos",
+            "AdhocTaskPhotoVersions",
+            "AdhocTaskTags",
+            "AdhocTaskTagVersions"
         };
 
         var firstRunNotDone = true;
