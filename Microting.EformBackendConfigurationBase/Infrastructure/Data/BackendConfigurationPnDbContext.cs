@@ -161,6 +161,9 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     public DbSet<AdhocTag> AdhocTags { get; set; }
     public DbSet<AdhocTagVersion> AdhocTagVersions { get; set; }
 
+    public DbSet<AdhocTaskEntity> AdhocTasks { get; set; }
+    public DbSet<AdhocTaskEntityVersion> AdhocTaskVersions { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

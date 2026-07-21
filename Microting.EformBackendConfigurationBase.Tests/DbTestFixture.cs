@@ -103,7 +103,9 @@ public abstract class DbTestFixture
             "AdhocAreas",
             "AdhocAreaVersions",
             "AdhocTags",
-            "AdhocTagVersions"
+            "AdhocTagVersions",
+            "AdhocTasks",
+            "AdhocTaskVersions"
         };
 
         var firstRunNotDone = true;
