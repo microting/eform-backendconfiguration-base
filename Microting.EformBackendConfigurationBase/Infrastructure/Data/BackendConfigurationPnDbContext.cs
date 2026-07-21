@@ -156,6 +156,11 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     public DbSet<ChemicalProductProperty> ChemicalProductProperties { get; set; }
     public DbSet<ChemicalProductPropertyVersion> ChemicalProductPropertyVersions { get; set; }
 
+    public DbSet<AdhocArea> AdhocAreas { get; set; }
+    public DbSet<AdhocAreaVersion> AdhocAreaVersions { get; set; }
+    public DbSet<AdhocTag> AdhocTags { get; set; }
+    public DbSet<AdhocTagVersion> AdhocTagVersions { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

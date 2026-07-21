@@ -99,7 +99,11 @@ public abstract class DbTestFixture
             "AreaProperties",
             "AreaPropertyVersions",
             "AreaRuleTranslations",
-            "AreaRuleTranslationVersions"
+            "AreaRuleTranslationVersions",
+            "AdhocAreas",
+            "AdhocAreaVersions",
+            "AdhocTags",
+            "AdhocTagVersions"
         };
 
         var firstRunNotDone = true;
