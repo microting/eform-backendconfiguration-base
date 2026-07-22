@@ -156,6 +156,29 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     public DbSet<ChemicalProductProperty> ChemicalProductProperties { get; set; }
     public DbSet<ChemicalProductPropertyVersion> ChemicalProductPropertyVersions { get; set; }
 
+    public DbSet<AdhocArea> AdhocAreas { get; set; }
+    public DbSet<AdhocAreaVersion> AdhocAreaVersions { get; set; }
+    public DbSet<AdhocTag> AdhocTags { get; set; }
+    public DbSet<AdhocTagVersion> AdhocTagVersions { get; set; }
+
+    public DbSet<AdhocTaskEntity> AdhocTasks { get; set; }
+    public DbSet<AdhocTaskEntityVersion> AdhocTaskVersions { get; set; }
+
+    public DbSet<AdhocTaskAssignment> AdhocTaskAssignments { get; set; }
+    public DbSet<AdhocTaskAssignmentVersion> AdhocTaskAssignmentVersions { get; set; }
+
+    public DbSet<AdhocTaskAssignmentLog> AdhocTaskAssignmentLogs { get; set; }
+    public DbSet<AdhocTaskAssignmentLogVersion> AdhocTaskAssignmentLogVersions { get; set; }
+
+    public DbSet<AdhocTaskComment> AdhocTaskComments { get; set; }
+    public DbSet<AdhocTaskCommentVersion> AdhocTaskCommentVersions { get; set; }
+
+    public DbSet<AdhocTaskPhoto> AdhocTaskPhotos { get; set; }
+    public DbSet<AdhocTaskPhotoVersion> AdhocTaskPhotoVersions { get; set; }
+
+    public DbSet<AdhocTaskTag> AdhocTaskTags { get; set; }
+    public DbSet<AdhocTaskTagVersion> AdhocTaskTagVersions { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
