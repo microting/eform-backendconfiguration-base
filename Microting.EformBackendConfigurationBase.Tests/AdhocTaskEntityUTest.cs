@@ -78,6 +78,8 @@ public class AdhocTaskEntityUTest : DbTestFixture
         var deadline = new DateTime(2026, 7, 10, 12, 0, 0, DateTimeKind.Utc);
         var completedAt = new DateTime(2026, 7, 5, 8, 0, 0, DateTimeKind.Utc);
         var archivedAt = new DateTime(2026, 7, 6, 9, 0, 0, DateTimeKind.Utc);
+        var lastVisibleReminderSentAt = new DateTime(2026, 7, 2, 8, 0, 0, DateTimeKind.Utc);
+        var lastDeadlineReminderSentAt = new DateTime(2026, 7, 9, 8, 0, 0, DateTimeKind.Utc);
 
         var adhocTaskEntity = new AdhocTaskEntity
         {
@@ -100,6 +102,8 @@ public class AdhocTaskEntityUTest : DbTestFixture
             CompletedAt = completedAt,
             Archived = true,
             ArchivedAt = archivedAt,
+            LastVisibleReminderSentAt = lastVisibleReminderSentAt,
+            LastDeadlineReminderSentAt = lastDeadlineReminderSentAt,
             CreatedByUserId = 1,
             UpdatedByUserId = 1,
         };
@@ -130,6 +134,8 @@ public class AdhocTaskEntityUTest : DbTestFixture
         Assert.That(actual.CompletedAt, Is.EqualTo(expected.CompletedAt));
         Assert.That(actual.Archived, Is.EqualTo(expected.Archived));
         Assert.That(actual.ArchivedAt, Is.EqualTo(expected.ArchivedAt));
+        Assert.That(actual.LastVisibleReminderSentAt, Is.EqualTo(expected.LastVisibleReminderSentAt));
+        Assert.That(actual.LastDeadlineReminderSentAt, Is.EqualTo(expected.LastDeadlineReminderSentAt));
     }
 
     private static void AssertMatchesVersion(AdhocTaskEntity expected, AdhocTaskEntityVersion actual)
@@ -154,6 +160,8 @@ public class AdhocTaskEntityUTest : DbTestFixture
         Assert.That(actual.CompletedAt, Is.EqualTo(expected.CompletedAt));
         Assert.That(actual.Archived, Is.EqualTo(expected.Archived));
         Assert.That(actual.ArchivedAt, Is.EqualTo(expected.ArchivedAt));
+        Assert.That(actual.LastVisibleReminderSentAt, Is.EqualTo(expected.LastVisibleReminderSentAt));
+        Assert.That(actual.LastDeadlineReminderSentAt, Is.EqualTo(expected.LastDeadlineReminderSentAt));
     }
 
     [Test]
@@ -206,6 +214,8 @@ public class AdhocTaskEntityUTest : DbTestFixture
             CompletedAt = null,
             Archived = false,
             ArchivedAt = null,
+            LastVisibleReminderSentAt = null,
+            LastDeadlineReminderSentAt = null,
             CreatedByUserId = 1,
             UpdatedByUserId = 1,
         };
@@ -221,11 +231,15 @@ public class AdhocTaskEntityUTest : DbTestFixture
         Assert.That(taskList[0].CompletedByWorkerId, Is.Null);
         Assert.That(taskList[0].VisibleReminderTimeMinutes, Is.EqualTo(480));
         Assert.That(taskList[0].DeadlineReminderTimeMinutes, Is.EqualTo(480));
+        Assert.That(taskList[0].LastVisibleReminderSentAt, Is.Null);
+        Assert.That(taskList[0].LastDeadlineReminderSentAt, Is.Null);
 
         Assert.That(versionList[0].AreaId, Is.Null);
         Assert.That(versionList[0].CompletedByWorkerId, Is.Null);
         Assert.That(versionList[0].VisibleReminderTimeMinutes, Is.EqualTo(480));
         Assert.That(versionList[0].DeadlineReminderTimeMinutes, Is.EqualTo(480));
+        Assert.That(versionList[0].LastVisibleReminderSentAt, Is.Null);
+        Assert.That(versionList[0].LastDeadlineReminderSentAt, Is.Null);
     }
 
     [Test]
@@ -260,6 +274,8 @@ public class AdhocTaskEntityUTest : DbTestFixture
         adhocTaskEntity.CompletedAt = null;
         adhocTaskEntity.Archived = false;
         adhocTaskEntity.ArchivedAt = null;
+        adhocTaskEntity.LastVisibleReminderSentAt = new DateTime(2026, 8, 2, 8, 0, 0, DateTimeKind.Utc);
+        adhocTaskEntity.LastDeadlineReminderSentAt = new DateTime(2026, 8, 9, 8, 0, 0, DateTimeKind.Utc);
         adhocTaskEntity.UpdatedByUserId = 2;
 
         await adhocTaskEntity.Update(DbContext);
@@ -296,6 +312,8 @@ public class AdhocTaskEntityUTest : DbTestFixture
         Assert.That(versionList[0].CompletedAt, Is.EqualTo(beforeUpdate.CompletedAt));
         Assert.That(versionList[0].Archived, Is.EqualTo(beforeUpdate.Archived));
         Assert.That(versionList[0].ArchivedAt, Is.EqualTo(beforeUpdate.ArchivedAt));
+        Assert.That(versionList[0].LastVisibleReminderSentAt, Is.EqualTo(beforeUpdate.LastVisibleReminderSentAt));
+        Assert.That(versionList[0].LastDeadlineReminderSentAt, Is.EqualTo(beforeUpdate.LastDeadlineReminderSentAt));
 
         // Post-mutation snapshot matches every new value
         Assert.That(versionList[1].AdhocTaskEntityId, Is.EqualTo(adhocTaskEntity.Id));

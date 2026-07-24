@@ -115,7 +115,9 @@ public abstract class DbTestFixture
             "AdhocTaskPhotos",
             "AdhocTaskPhotoVersions",
             "AdhocTaskTags",
-            "AdhocTaskTagVersions"
+            "AdhocTaskTagVersions",
+            "DeviceTokens",
+            "DeviceTokenVersions"
         };
 
         var firstRunNotDone = true;

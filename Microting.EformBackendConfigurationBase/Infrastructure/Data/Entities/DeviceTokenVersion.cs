@@ -24,51 +24,13 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
-using System;
-
-public class AdhocTaskEntityVersion : PnBase
+public class DeviceTokenVersion : PnBase
 {
-    public int AdhocTaskEntityId { get; set; }
+    public int DeviceTokenId { get; set; }
 
-    public string Title { get; set; }
+    public int WorkerId { get; set; }
 
-    public string Description { get; set; }
+    public string FcmToken { get; set; }
 
-    public bool Urgent { get; set; }
-
-    public int PropertyId { get; set; }
-
-    public int? AreaId { get; set; }
-
-    public DateTime? VisibleFrom { get; set; }
-
-    public DateTime? Deadline { get; set; }
-
-    public bool VisibleReminder { get; set; }
-
-    public bool DeadlineReminder { get; set; }
-
-    public int DeadlineReminderRepeat { get; set; }
-
-    public int VisibleReminderTimeMinutes { get; set; } = 480;
-
-    public int DeadlineReminderTimeMinutes { get; set; } = 480;
-
-    public int ExecutionRule { get; set; }
-
-    public int CreatedByWorkerId { get; set; }
-
-    public bool Completed { get; set; }
-
-    public int? CompletedByWorkerId { get; set; }
-
-    public DateTime? CompletedAt { get; set; }
-
-    public bool Archived { get; set; }
-
-    public DateTime? ArchivedAt { get; set; }
-
-    public DateTime? LastVisibleReminderSentAt { get; set; }
-
-    public DateTime? LastDeadlineReminderSentAt { get; set; }
+    public string Platform { get; set; }
 }
