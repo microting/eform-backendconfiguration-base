@@ -179,6 +179,9 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     public DbSet<AdhocTaskTag> AdhocTaskTags { get; set; }
     public DbSet<AdhocTaskTagVersion> AdhocTaskTagVersions { get; set; }
 
+    public DbSet<DeviceToken> DeviceTokens { get; set; }
+    public DbSet<DeviceTokenVersion> DeviceTokenVersions { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -190,6 +193,13 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
 
         modelBuilder.Entity<CalendarOccurrenceException>()
             .HasIndex(e => new { e.AreaRulePlanningId, e.OriginalDate })
+            .IsUnique();
+
+        modelBuilder.Entity<DeviceToken>()
+            .HasIndex(e => e.WorkerId);
+
+        modelBuilder.Entity<DeviceToken>()
+            .HasIndex(e => new { e.WorkerId, e.FcmToken })
             .IsUnique();
 
         modelBuilder.Entity<AreaRuleTranslation>().HasOne(x => x.AreaRule)

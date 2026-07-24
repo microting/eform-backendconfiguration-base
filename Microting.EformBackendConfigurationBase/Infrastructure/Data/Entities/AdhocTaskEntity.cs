@@ -80,4 +80,9 @@ public class AdhocTaskEntity : PnBase
     public bool Archived { get; set; }
 
     public DateTime? ArchivedAt { get; set; }
+
+    // Idempotency markers for reminder push delivery
+    public DateTime? LastVisibleReminderSentAt { get; set; }
+
+    public DateTime? LastDeadlineReminderSentAt { get; set; }
 }
