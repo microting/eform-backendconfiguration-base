@@ -198,6 +198,12 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
         modelBuilder.Entity<DeviceToken>()
             .HasIndex(e => e.WorkerId);
 
+        // NOTE: this unique index has no WorkflowState filter, and
+        // PnBase.Delete() only soft-deletes (WorkflowState=Removed keeps the
+        // row). Consumers MUST upsert: query (WorkerId, FcmToken) INCLUDING
+        // soft-deleted rows and call Update() (flipping WorkflowState back to
+        // Created) when a row exists - calling Create() again would throw
+        // DbUpdateException on re-register after logout.
         modelBuilder.Entity<DeviceToken>()
             .HasIndex(e => new { e.WorkerId, e.FcmToken })
             .IsUnique();

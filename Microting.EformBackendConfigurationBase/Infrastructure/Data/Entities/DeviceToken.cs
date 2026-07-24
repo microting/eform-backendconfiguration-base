@@ -27,6 +27,12 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 using System.ComponentModel.DataAnnotations;
 
 // WorkerId = SDK site id of the worker owning the device.
+//
+// (WorkerId, FcmToken) is unique WITHOUT a WorkflowState filter, and
+// PnBase.Delete() only soft-deletes. Consumers MUST upsert: look up
+// (WorkerId, FcmToken) including soft-deleted rows and Update() the existing
+// row (setting WorkflowState back to Created) instead of Create()ing a new
+// one, otherwise re-registering a previously removed token throws.
 public class DeviceToken : PnBase
 {
     public int WorkerId { get; set; }
