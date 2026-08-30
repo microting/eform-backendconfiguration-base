@@ -33,6 +33,8 @@ using System.ComponentModel.DataAnnotations;
 // The unique index has no WorkflowState filter and PnBase.Delete() only
 // soft-deletes, so consumers MUST upsert on (AppId, InstallationId)
 // including soft-deleted rows and flip WorkflowState back to Created.
+// Create()ing over a soft-deleted install throws DbUpdateException instead -
+// which is exactly the re-register-after-logout path.
 public class DeviceToken : PnBase
 {
     // [Required] is load-bearing: this project does not enable nullable

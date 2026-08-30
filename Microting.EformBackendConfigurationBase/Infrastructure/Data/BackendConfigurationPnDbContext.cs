@@ -195,8 +195,9 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
             .HasIndex(e => new { e.AreaRulePlanningId, e.OriginalDate })
             .IsUnique();
 
-        // Identity: one row per app install.
-        // No WorkflowState filter (see DeviceToken's doc comment) - consumers upsert.
+        // Identity: one row per app install. Not filtered on WorkflowState
+        // (no HasFilter), so it also constrains soft-deleted rows - consumers
+        // must upsert rather than Create(). See DeviceToken's doc comment.
         modelBuilder.Entity<DeviceToken>()
             .HasIndex(e => new { e.AppId, e.InstallationId })
             .IsUnique();
