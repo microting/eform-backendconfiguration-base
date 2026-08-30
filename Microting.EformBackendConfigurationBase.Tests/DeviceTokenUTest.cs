@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+
 namespace Microting.EformBackendConfigurationBase.Tests;
 
 using System;
@@ -43,8 +44,10 @@ public class DeviceTokenUTest : DbTestFixture
         // Arrange
         var deviceToken = new DeviceToken
         {
-            WorkerId = 42,
+            AppId = "adhoc",
+            InstallationId = "install-create",
             FcmToken = GetRandomStr(),
+            SdkSiteId = 42,
             Platform = "android",
             CreatedByUserId = 1,
             UpdatedByUserId = 1,
@@ -59,14 +62,18 @@ public class DeviceTokenUTest : DbTestFixture
         // Assert
         Assert.That(deviceTokenList.Count, Is.EqualTo(1));
         Assert.That(deviceTokenVersionList.Count, Is.EqualTo(1));
-        Assert.That(deviceTokenList[0].WorkerId, Is.EqualTo(42));
+        Assert.That(deviceTokenList[0].AppId, Is.EqualTo("adhoc"));
+        Assert.That(deviceTokenList[0].InstallationId, Is.EqualTo("install-create"));
+        Assert.That(deviceTokenList[0].SdkSiteId, Is.EqualTo(42));
         Assert.That(deviceTokenList[0].FcmToken, Is.EqualTo(deviceToken.FcmToken));
         Assert.That(deviceTokenList[0].Platform, Is.EqualTo("android"));
         Assert.That(deviceTokenList[0].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Created));
         Assert.That(deviceTokenList[0].Version, Is.EqualTo(1));
 
         Assert.That(deviceTokenVersionList[0].DeviceTokenId, Is.EqualTo(deviceToken.Id));
-        Assert.That(deviceTokenVersionList[0].WorkerId, Is.EqualTo(42));
+        Assert.That(deviceTokenVersionList[0].AppId, Is.EqualTo("adhoc"));
+        Assert.That(deviceTokenVersionList[0].InstallationId, Is.EqualTo("install-create"));
+        Assert.That(deviceTokenVersionList[0].SdkSiteId, Is.EqualTo(42));
         Assert.That(deviceTokenVersionList[0].FcmToken, Is.EqualTo(deviceToken.FcmToken));
         Assert.That(deviceTokenVersionList[0].Platform, Is.EqualTo("android"));
         Assert.That(deviceTokenVersionList[0].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Created));
@@ -79,8 +86,10 @@ public class DeviceTokenUTest : DbTestFixture
         // Arrange
         var deviceToken = new DeviceToken
         {
-            WorkerId = 42,
+            AppId = "adhoc",
+            InstallationId = "install-update",
             FcmToken = GetRandomStr(),
+            SdkSiteId = 42,
             Platform = "android",
             CreatedByUserId = 1,
             UpdatedByUserId = 1,
@@ -89,9 +98,11 @@ public class DeviceTokenUTest : DbTestFixture
         await deviceToken.Create(DbContext);
         var deviceTokenOld = DbContext.DeviceTokens.AsNoTracking().First();
 
-        // Act - flip every column to a new value
-        deviceToken.WorkerId = 43;
+        // Act - flip every mutable column. AppId/InstallationId are the row's
+        // identity and deliberately stay put: a rotated token and a new owner
+        // must land on the same row.
         deviceToken.FcmToken = GetRandomStr();
+        deviceToken.SdkSiteId = 43;
         deviceToken.Platform = "ios";
         deviceToken.UpdatedByUserId = 2;
 
@@ -104,7 +115,9 @@ public class DeviceTokenUTest : DbTestFixture
         Assert.That(deviceTokenList.Count, Is.EqualTo(1));
         Assert.That(deviceTokenVersionList.Count, Is.EqualTo(2));
         Assert.That(deviceTokenList[0].Id, Is.EqualTo(deviceToken.Id));
-        Assert.That(deviceTokenList[0].WorkerId, Is.EqualTo(43));
+        Assert.That(deviceTokenList[0].AppId, Is.EqualTo("adhoc"));
+        Assert.That(deviceTokenList[0].InstallationId, Is.EqualTo("install-update"));
+        Assert.That(deviceTokenList[0].SdkSiteId, Is.EqualTo(43));
         Assert.That(deviceTokenList[0].FcmToken, Is.EqualTo(deviceToken.FcmToken));
         Assert.That(deviceTokenList[0].Platform, Is.EqualTo("ios"));
         Assert.That(deviceTokenList[0].UpdatedByUserId, Is.EqualTo(2));
@@ -112,30 +125,40 @@ public class DeviceTokenUTest : DbTestFixture
 
         // Pre-mutation snapshot preserved at the old values
         Assert.That(deviceTokenVersionList[0].DeviceTokenId, Is.EqualTo(deviceToken.Id));
-        Assert.That(deviceTokenVersionList[0].WorkerId, Is.EqualTo(deviceTokenOld.WorkerId));
+        Assert.That(deviceTokenVersionList[0].AppId, Is.EqualTo("adhoc"));
+        Assert.That(deviceTokenVersionList[0].InstallationId, Is.EqualTo("install-update"));
+        Assert.That(deviceTokenVersionList[0].SdkSiteId, Is.EqualTo(deviceTokenOld.SdkSiteId));
         Assert.That(deviceTokenVersionList[0].FcmToken, Is.EqualTo(deviceTokenOld.FcmToken));
         Assert.That(deviceTokenVersionList[0].Platform, Is.EqualTo(deviceTokenOld.Platform));
         Assert.That(deviceTokenVersionList[0].Version, Is.EqualTo(1));
 
         // Post-mutation snapshot matches every new value
         Assert.That(deviceTokenVersionList[1].DeviceTokenId, Is.EqualTo(deviceToken.Id));
-        Assert.That(deviceTokenVersionList[1].WorkerId, Is.EqualTo(43));
+        Assert.That(deviceTokenVersionList[1].AppId, Is.EqualTo("adhoc"));
+        Assert.That(deviceTokenVersionList[1].InstallationId, Is.EqualTo("install-update"));
+        Assert.That(deviceTokenVersionList[1].SdkSiteId, Is.EqualTo(43));
         Assert.That(deviceTokenVersionList[1].FcmToken, Is.EqualTo(deviceToken.FcmToken));
         Assert.That(deviceTokenVersionList[1].Platform, Is.EqualTo("ios"));
         Assert.That(deviceTokenVersionList[1].Version, Is.EqualTo(2));
     }
 
     [Test]
-    public async Task DeviceToken_Create_SameTokenDifferentWorkers_DoesSave()
+    public async Task DeviceToken_Create_SameTokenDifferentInstalls_DoesSave()
     {
-        // Arrange - the (WorkerId, FcmToken) index is unique, but the same
-        // token may appear for different workers (shared device).
+        // Was DeviceToken_Create_SameTokenDifferentWorkers_DoesSave. The old
+        // key was (WorkerId, FcmToken); this pinned that FcmToken alone is not
+        // an identity, so the same token string may sit on more than one row.
+        // That still holds under the new key - IX_DeviceTokens_FcmToken is a
+        // lookup index, NOT unique - so the case survives, re-expressed
+        // against installs instead of workers.
         var fcmToken = GetRandomStr();
 
         var deviceTokenOne = new DeviceToken
         {
-            WorkerId = 1,
+            AppId = "adhoc",
+            InstallationId = "install-shared-token-1",
             FcmToken = fcmToken,
+            SdkSiteId = 1,
             Platform = "android",
             CreatedByUserId = 1,
             UpdatedByUserId = 1,
@@ -143,8 +166,10 @@ public class DeviceTokenUTest : DbTestFixture
 
         var deviceTokenTwo = new DeviceToken
         {
-            WorkerId = 2,
+            AppId = "adhoc",
+            InstallationId = "install-shared-token-2",
             FcmToken = fcmToken,
+            SdkSiteId = 2,
             Platform = "android",
             CreatedByUserId = 1,
             UpdatedByUserId = 1,
@@ -159,15 +184,19 @@ public class DeviceTokenUTest : DbTestFixture
     }
 
     [Test]
-    public async Task DeviceToken_Create_DuplicateWorkerAndToken_Throws()
+    public async Task DeviceToken_Create_DuplicateAppAndInstallation_Throws()
     {
-        // Arrange
-        var fcmToken = GetRandomStr();
-
+        // Was DeviceToken_Create_DuplicateWorkerAndToken_Throws. The old test
+        // proved the unique key is enforced by the database and not merely by
+        // convention in the consumer. Same guarantee, new key: the two rows
+        // below differ in FcmToken AND SdkSiteId, so only (AppId,
+        // InstallationId) can be what rejects them.
         var deviceTokenOne = new DeviceToken
         {
-            WorkerId = 1,
-            FcmToken = fcmToken,
+            AppId = "adhoc",
+            InstallationId = "install-dup",
+            FcmToken = GetRandomStr(),
+            SdkSiteId = 1,
             Platform = "android",
             CreatedByUserId = 1,
             UpdatedByUserId = 1,
@@ -175,8 +204,10 @@ public class DeviceTokenUTest : DbTestFixture
 
         var deviceTokenTwo = new DeviceToken
         {
-            WorkerId = 1,
-            FcmToken = fcmToken,
+            AppId = "adhoc",
+            InstallationId = "install-dup",
+            FcmToken = GetRandomStr(),
+            SdkSiteId = 2,
             Platform = "android",
             CreatedByUserId = 1,
             UpdatedByUserId = 1,
@@ -194,8 +225,10 @@ public class DeviceTokenUTest : DbTestFixture
         // Arrange
         var deviceToken = new DeviceToken
         {
-            WorkerId = 42,
+            AppId = "adhoc",
+            InstallationId = "install-delete",
             FcmToken = GetRandomStr(),
+            SdkSiteId = 42,
             Platform = "android",
             CreatedByUserId = 1,
             UpdatedByUserId = 1,
@@ -223,5 +256,61 @@ public class DeviceTokenUTest : DbTestFixture
         Assert.That(deviceTokenVersionList[1].DeviceTokenId, Is.EqualTo(deviceToken.Id));
         Assert.That(deviceTokenVersionList[1].WorkflowState, Is.EqualTo(Constants.WorkflowStates.Removed));
         Assert.That(deviceTokenVersionList[1].Version, Is.EqualTo(2));
+    }
+
+    [Test]
+    public async Task DeviceToken_SameInstall_NewToken_UpdatesInPlace()
+    {
+        var token = new DeviceToken
+        {
+            AppId = "adhoc",
+            InstallationId = "install-1",
+            FcmToken = "tok-old",
+            SdkSiteId = 100,
+            Platform = "android",
+        };
+        await token.Create(DbContext);
+
+        token.FcmToken = "tok-new";
+        await token.Update(DbContext);
+
+        var rows = DbContext.DeviceTokens.AsNoTracking().ToList();
+        Assert.That(rows, Has.Count.EqualTo(1));
+        Assert.That(rows[0].FcmToken, Is.EqualTo("tok-new"));
+        Assert.That(rows[0].InstallationId, Is.EqualTo("install-1"));
+    }
+
+    [Test]
+    public async Task DeviceToken_SameInstall_DifferentApp_IsASeparateRow()
+    {
+        await new DeviceToken
+        {
+            AppId = "adhoc", InstallationId = "shared-install",
+            FcmToken = "tok-a", SdkSiteId = 101, Platform = "android",
+        }.Create(DbContext);
+
+        await new DeviceToken
+        {
+            AppId = "eform", InstallationId = "shared-install",
+            FcmToken = "tok-b", SdkSiteId = 101, Platform = "android",
+        }.Create(DbContext);
+
+        Assert.That(DbContext.DeviceTokens.AsNoTracking().Count(), Is.EqualTo(2));
+    }
+
+    [Test]
+    public async Task DeviceToken_VersionRow_CarriesNewColumns()
+    {
+        var token = new DeviceToken
+        {
+            AppId = "adhoc", InstallationId = "install-v",
+            FcmToken = "tok-v", SdkSiteId = 102, Platform = "ios",
+        };
+        await token.Create(DbContext);
+
+        var version = DbContext.DeviceTokenVersions.AsNoTracking().Single();
+        Assert.That(version.AppId, Is.EqualTo("adhoc"));
+        Assert.That(version.InstallationId, Is.EqualTo("install-v"));
+        Assert.That(version.SdkSiteId, Is.EqualTo(102));
     }
 }
