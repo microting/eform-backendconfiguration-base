@@ -28,9 +28,13 @@ public class DeviceTokenVersion : PnBase
 {
     public int DeviceTokenId { get; set; }
 
-    public int WorkerId { get; set; }
+    public string AppId { get; set; }
+
+    public string InstallationId { get; set; }
 
     public string FcmToken { get; set; }
+
+    public int SdkSiteId { get; set; }
 
     public string Platform { get; set; }
 }

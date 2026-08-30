@@ -195,18 +195,19 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
             .HasIndex(e => new { e.AreaRulePlanningId, e.OriginalDate })
             .IsUnique();
 
+        // Identity: one row per app install.
+        // No WorkflowState filter (see DeviceToken's doc comment) - consumers upsert.
         modelBuilder.Entity<DeviceToken>()
-            .HasIndex(e => e.WorkerId);
-
-        // NOTE: this unique index has no WorkflowState filter, and
-        // PnBase.Delete() only soft-deletes (WorkflowState=Removed keeps the
-        // row). Consumers MUST upsert: query (WorkerId, FcmToken) INCLUDING
-        // soft-deleted rows and call Update() (flipping WorkflowState back to
-        // Created) when a row exists - calling Create() again would throw
-        // DbUpdateException on re-register after logout.
-        modelBuilder.Entity<DeviceToken>()
-            .HasIndex(e => new { e.WorkerId, e.FcmToken })
+            .HasIndex(e => new { e.AppId, e.InstallationId })
             .IsUnique();
+
+        // Send-path query: tokens for one app and one site, still live.
+        modelBuilder.Entity<DeviceToken>()
+            .HasIndex(e => new { e.AppId, e.SdkSiteId, e.WorkflowState });
+
+        // Prune-by-token after an FCM permanent failure.
+        modelBuilder.Entity<DeviceToken>()
+            .HasIndex(e => e.FcmToken);
 
         modelBuilder.Entity<AreaRuleTranslation>().HasOne(x => x.AreaRule)
             .WithMany(x => x.AreaRuleTranslations)
