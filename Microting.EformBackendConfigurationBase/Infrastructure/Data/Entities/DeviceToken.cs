@@ -26,19 +26,34 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
 using System.ComponentModel.DataAnnotations;
 
-// WorkerId = SDK site id of the worker owning the device.
+// Identity is the app install, not the token: (AppId, InstallationId) is
+// unique. FcmToken is mutable (it rotates); SdkSiteId is a mutable owner
+// reassigned when a different user logs in on the same device.
 //
-// (WorkerId, FcmToken) is unique WITHOUT a WorkflowState filter, and
-// PnBase.Delete() only soft-deletes. Consumers MUST upsert: look up
-// (WorkerId, FcmToken) including soft-deleted rows and Update() the existing
-// row (setting WorkflowState back to Created) instead of Create()ing a new
-// one, otherwise re-registering a previously removed token throws.
+// The unique index has no WorkflowState filter and PnBase.Delete() only
+// soft-deletes, so consumers MUST upsert on (AppId, InstallationId)
+// including soft-deleted rows and flip WorkflowState back to Created.
+// Create()ing over a soft-deleted install throws DbUpdateException instead -
+// which is exactly the re-register-after-logout path.
 public class DeviceToken : PnBase
 {
-    public int WorkerId { get; set; }
+    // [Required] is load-bearing: this project does not enable nullable
+    // reference types, so EF would otherwise map these as NULL-able - and a
+    // MariaDB unique index permits unlimited rows whose indexed columns are
+    // NULL, silently defeating the (AppId, InstallationId) identity.
+    [Required]
+    [StringLength(32)]
+    public string AppId { get; set; }
+
+    [Required]
+    [StringLength(128)]
+    public string InstallationId { get; set; }
 
     [StringLength(512)]
     public string FcmToken { get; set; }
+
+    // SDK Site.Id of the worker owning the device.
+    public int SdkSiteId { get; set; }
 
     // e.g. "android" or "ios"
     [StringLength(50)]

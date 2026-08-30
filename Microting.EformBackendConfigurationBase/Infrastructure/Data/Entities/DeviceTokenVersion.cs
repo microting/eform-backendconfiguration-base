@@ -24,13 +24,21 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
+// PnBase.MapVersion copies DeviceToken into this type BY PROPERTY NAME via
+// reflection, and swallows the failure per property. A name that does not
+// match here is silently dropped from the snapshot, with nothing logged - so
+// these names must track DeviceToken's exactly.
 public class DeviceTokenVersion : PnBase
 {
     public int DeviceTokenId { get; set; }
 
-    public int WorkerId { get; set; }
+    public string AppId { get; set; }
+
+    public string InstallationId { get; set; }
 
     public string FcmToken { get; set; }
+
+    public int SdkSiteId { get; set; }
 
     public string Platform { get; set; }
 }
