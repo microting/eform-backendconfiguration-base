@@ -117,7 +117,19 @@ public abstract class DbTestFixture
             "AdhocTaskTags",
             "AdhocTaskTagVersions",
             "DeviceTokens",
-            "DeviceTokenVersions"
+            "DeviceTokenVersions",
+            "ChemicalAlertLogs",
+            "ChemicalAlertLogVersions",
+            "ChemicalStockEntries",
+            "ChemicalStockEntryVersions",
+            "ChemicalPlacements",
+            "ChemicalPlacementVersions",
+            "ChemicalLocations",
+            "ChemicalLocationVersions",
+            "ChemicalPropertySettings",
+            "ChemicalPropertySettingsVersions",
+            "ChemicalWorkerPermissions",
+            "ChemicalWorkerPermissionVersions"
         };
 
         var firstRunNotDone = true;

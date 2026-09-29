@@ -72,19 +72,11 @@ public class Property: PnBase
 
     public int? FolderIdForCompletedTasks { get; set; }
 
-    public int? EntitySearchListChemicals { get; set; }
-
-    public int? EntitySearchListChemicalRegNos { get; set; }
-
-    public DateTime? ChemicalLastUpdatedAt { get; set; }
-
     public string? IndustryCode { get; set; }
 
     public bool IsFarm { get; set; }
 
     public int? EntitySearchListPoolWorkers { get; set; }
-
-    public int? EntitySelectListChemicalAreas { get; set; }
 
     public string MainMailAddress { get; set; }
 

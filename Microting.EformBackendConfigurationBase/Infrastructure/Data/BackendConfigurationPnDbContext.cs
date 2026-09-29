@@ -85,9 +85,6 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     public DbSet<WorkorderCaseImage> WorkorderCaseImages { get; set; }
     public DbSet<WorkorderCaseImageVersion> WorkorderCaseImageVersions { get; set; }
 
-    public DbSet<ChemicalProductPropertySite> ChemicalProductPropertieSites { get; set; }
-    public DbSet<ChemicalProductPropertySiteVersion> ChemicalProductPropertyVersionSites { get; set; }
-
     public DbSet<PoolHour> PoolHours { get; set; }
     public DbSet<PoolHourVersion> PoolHourVersions { get; set; }
 
@@ -153,8 +150,6 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     public DbSet<PluginPermission> PluginPermissions { get; set; }
     public DbSet<PluginGroupPermission> PluginGroupPermissions { get; set; }
     public DbSet<PluginGroupPermissionVersion> PluginGroupPermissionVersions { get; set; }
-    public DbSet<ChemicalProductProperty> ChemicalProductProperties { get; set; }
-    public DbSet<ChemicalProductPropertyVersion> ChemicalProductPropertyVersions { get; set; }
 
     public DbSet<AdhocArea> AdhocAreas { get; set; }
     public DbSet<AdhocAreaVersion> AdhocAreaVersions { get; set; }
@@ -181,6 +176,19 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
 
     public DbSet<DeviceToken> DeviceTokens { get; set; }
     public DbSet<DeviceTokenVersion> DeviceTokenVersions { get; set; }
+
+    public DbSet<ChemicalLocation> ChemicalLocations { get; set; }
+    public DbSet<ChemicalLocationVersion> ChemicalLocationVersions { get; set; }
+    public DbSet<ChemicalPlacement> ChemicalPlacements { get; set; }
+    public DbSet<ChemicalPlacementVersion> ChemicalPlacementVersions { get; set; }
+    public DbSet<ChemicalStockEntry> ChemicalStockEntries { get; set; }
+    public DbSet<ChemicalStockEntryVersion> ChemicalStockEntryVersions { get; set; }
+    public DbSet<ChemicalPropertySettings> ChemicalPropertySettings { get; set; }
+    public DbSet<ChemicalPropertySettingsVersion> ChemicalPropertySettingsVersions { get; set; }
+    public DbSet<ChemicalWorkerPermission> ChemicalWorkerPermissions { get; set; }
+    public DbSet<ChemicalWorkerPermissionVersion> ChemicalWorkerPermissionVersions { get; set; }
+    public DbSet<ChemicalAlertLog> ChemicalAlertLogs { get; set; }
+    public DbSet<ChemicalAlertLogVersion> ChemicalAlertLogVersions { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -209,6 +217,38 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
         // Prune-by-token after an FCM permanent failure.
         modelBuilder.Entity<DeviceToken>()
             .HasIndex(e => e.FcmToken);
+
+        // flutter-chemistry inventory (spec §5.1).
+        modelBuilder.Entity<ChemicalLocation>()
+            .HasIndex(e => new { e.PropertyId, e.WorkflowState });
+
+        modelBuilder.Entity<ChemicalPlacement>()
+            .HasIndex(e => new { e.LocationId, e.RemovedAt });
+
+        modelBuilder.Entity<ChemicalPlacement>()
+            .HasIndex(e => e.ChemicalId);
+
+        modelBuilder.Entity<ChemicalStockEntry>().Property(e => e.Amount).HasPrecision(18, 3);
+        modelBuilder.Entity<ChemicalStockEntry>().Property(e => e.ContainerSize).HasPrecision(18, 3);
+        modelBuilder.Entity<ChemicalStockEntryVersion>().Property(e => e.Amount).HasPrecision(18, 3);
+        modelBuilder.Entity<ChemicalStockEntryVersion>().Property(e => e.ContainerSize).HasPrecision(18, 3);
+
+        // One settings row per property, soft-deleted rows included: upsert.
+        modelBuilder.Entity<ChemicalPropertySettings>()
+            .HasIndex(e => e.PropertyId)
+            .IsUnique();
+
+        // One permission row per (property, worker), soft-deleted rows included: upsert.
+        modelBuilder.Entity<ChemicalWorkerPermission>()
+            .HasIndex(e => new { e.PropertyId, e.WorkerId })
+            .IsUnique();
+
+        modelBuilder.Entity<ChemicalWorkerPermission>()
+            .HasIndex(e => e.WorkerId);
+
+        // Dedupe lookup for the alert jobs (not unique: the digest repeats weekly).
+        modelBuilder.Entity<ChemicalAlertLog>()
+            .HasIndex(e => new { e.PlacementId, e.Threshold, e.DeadlineKind, e.Channel });
 
         modelBuilder.Entity<AreaRuleTranslation>().HasOne(x => x.AreaRule)
             .WithMany(x => x.AreaRuleTranslations)
