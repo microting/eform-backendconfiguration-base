@@ -1,7 +1,7 @@
-﻿/*
+/*
 The MIT License (MIT)
 
-Copyright (c) 2007 - 2022 Microting A/S
+Copyright (c) 2007 - 2026 Microting A/S
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,52 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using JetBrains.Annotations;
-
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
-public class PropertyVersion : PnBase
+public class ChemicalWorkerPermissionVersion : PnBase
 {
+    public int ChemicalWorkerPermissionId { get; set; }
     public int PropertyId { get; set; }
-
-    public string Name { get; set; }
-
-    // ReSharper disable once InconsistentNaming
-    public string CHR { get; set; }
-
-    // ReSharper disable once InconsistentNaming
-    public string CVR { get; set; }
-
-    public string Address { get; set; }
-
-    public int? FolderId { get; set; }
-
-    public int ItemPlanningTagId { get; set; }
-
-    public int ComplianceStatus { get; set; }
-
-    public int ComplianceStatusThirty { get; set; }
-
-    public bool WorkorderEnable { get; set; }
-
-    public int? FolderIdForTasks { get; set; }
-
-    public int? EntitySelectListAreas { get; set; }
-
-    public int? EntitySelectListDeviceUsers { get; set; }
-
-    public int? FolderIdForNewTasks { get; set; }
-
-    public int? FolderIdForOngoingTasks { get; set; }
-
-    public int? FolderIdForCompletedTasks { get; set; }
-
-    public string? IndustryCode { get; set; }
-
-    public bool IsFarm { get; set; }
-
-    public int? EntitySearchListPoolWorkers { get; set; }
-
-    public string MainMailAddress { get; set; }
+    public int WorkerId { get; set; }
+    public bool View { get; set; }
+    public bool Register { get; set; }
+    public bool Remove { get; set; }
+    public bool Stock { get; set; }
+    public bool ManageLocations { get; set; }
+    public bool Admin { get; set; }
 }
