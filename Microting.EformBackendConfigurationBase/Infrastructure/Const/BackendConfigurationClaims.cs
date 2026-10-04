@@ -35,6 +35,8 @@ public static class BackendConfigurationClaims
     public const string EnableDocumentManagement = "document_management_enable";
     public const string EnableChemicalManagement = "chemical_management_enable";
     public const string EnableFilesManagement = "files_management_enable";
+    /// <summary>Managers who review and file documents from the inbound mail Indbakke.</summary>
+    public const string EnableInbox = "inbox_enable";
     public const string EnableTimeRegistration = "time_registration_enable";
     public const string AssignProperties = "properties_assign";
 }
