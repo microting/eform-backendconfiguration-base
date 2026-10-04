@@ -129,7 +129,15 @@ public abstract class DbTestFixture
             "ChemicalPropertySettings",
             "ChemicalPropertySettingsVersions",
             "ChemicalWorkerPermissions",
-            "ChemicalWorkerPermissionVersions"
+            "ChemicalWorkerPermissionVersions",
+            "InboxAddresses",
+            "InboxAddressVersions",
+            "InboxSenderRules",
+            "InboxSenderRuleVersions",
+            "InboxDocuments",
+            "InboxDocumentVersions",
+            "InboxSuggestions",
+            "InboxSuggestionVersions"
         };
 
         var firstRunNotDone = true;

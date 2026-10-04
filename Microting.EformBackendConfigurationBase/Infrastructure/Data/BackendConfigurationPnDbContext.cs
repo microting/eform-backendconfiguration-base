@@ -112,6 +112,15 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     public DbSet<FileTags> FilesTags { get; set; }
     public DbSet<FileTagsVersion> FilesTagsVersions { get; set; }
 
+    public DbSet<InboxAddress> InboxAddresses { get; set; }
+    public DbSet<InboxAddressVersion> InboxAddressVersions { get; set; }
+    public DbSet<InboxSenderRule> InboxSenderRules { get; set; }
+    public DbSet<InboxSenderRuleVersion> InboxSenderRuleVersions { get; set; }
+    public DbSet<InboxDocument> InboxDocuments { get; set; }
+    public DbSet<InboxDocumentVersion> InboxDocumentVersions { get; set; }
+    public DbSet<InboxSuggestion> InboxSuggestions { get; set; }
+    public DbSet<InboxSuggestionVersion> InboxSuggestionVersions { get; set; }
+
     public DbSet<UploadedData> UploadedDatas { get; set; }
     public DbSet<UploadedDataVersion> UploadedDataVersions { get; set; }
 
@@ -217,6 +226,24 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
         // Prune-by-token after an FCM permanent failure.
         modelBuilder.Entity<DeviceToken>()
             .HasIndex(e => e.FcmToken);
+
+        // A hub retry after a timeout must not create a second inbox row.
+        modelBuilder.Entity<InboxDocument>()
+            .HasIndex(e => e.HubDocumentId)
+            .IsUnique();
+
+        // Inbox list query: live documents by status.
+        modelBuilder.Entity<InboxDocument>()
+            .HasIndex(e => new { e.Status, e.WorkflowState });
+
+        modelBuilder.Entity<InboxAddress>()
+            .HasIndex(e => e.TokenHash)
+            .IsUnique();
+
+        modelBuilder.Entity<InboxSuggestion>()
+            .HasOne(x => x.InboxDocument)
+            .WithMany(x => x.Suggestions)
+            .HasForeignKey(x => x.InboxDocumentId);
 
         // flutter-chemistry inventory (spec §5.1).
         modelBuilder.Entity<ChemicalLocation>()
