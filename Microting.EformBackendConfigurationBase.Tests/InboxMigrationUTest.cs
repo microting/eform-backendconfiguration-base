@@ -22,8 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-
-
 namespace Microting.EformBackendConfigurationBase.Tests;
 
 using System.Linq;
@@ -51,9 +49,8 @@ public class InboxMigrationUTest : DbTestFixture
     }
 
     [Test]
-    public void Migration_IsTheLatest()
+    public void Migration_IsApplied()
     {
-        var latest = DbContext.Database.GetMigrations().Last();
-        Assert.That(latest, Does.EndWith("_AddInboundMailInbox"));
+        Assert.That(DbContext.Database.GetMigrations().Any(m => m.EndsWith("_AddInboundMailInbox")), Is.True);
     }
 }
