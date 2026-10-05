@@ -1,4 +1,4 @@
-﻿/*
+/*
 The MIT License (MIT)
 
 Copyright (c) 2007 - 2022 Microting A/S
@@ -22,27 +22,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel.DataAnnotations;
+namespace Microting.EformBackendConfigurationBase.Tests;
 
-namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
+using System;
+using System.Threading.Tasks;
+using Infrastructure.Data.Entities;
+using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
 
-public class PropertyWorkerVersion : PnBase
+[TestFixture]
+public class TailBiteOccupancyUTest : DbTestFixture
 {
-    public int PropertyId { get; set; }
-
-    public int WorkerId { get; set; }
-
-    public int PropertyWorkerId { get; set; }
-
-    public int? EntityItemId { get; set; }
-
-    public bool? TaskManagementEnabled { get; set; }
-
-    [StringLength(50)]
-    public string PinCode { get; set; }
-
-    [StringLength(50)]
-    public string EmployeeNo { get; set; }
-
-    public bool TailBiteManager { get; set; }
+    [Test]
+    public async Task Occupancy_StoresSourceAsInt()
+    {
+        var occ = new TailBiteOccupancy { LocationId = 1, PigCount = 360, Source = TailBiteOccupancySource.Manual, ValidFrom = new DateTime(2026, 9, 15, 0, 0, 0, DateTimeKind.Utc) };
+        await occ.Create(DbContext);
+        Assert.That((await DbContext.TailBiteOccupancies.AsNoTracking().SingleAsync()).Source, Is.EqualTo(TailBiteOccupancySource.Manual));
+    }
 }
