@@ -385,7 +385,7 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
         modelBuilder.Entity<TailBiteRegistration>().HasIndex(e => e.ClientUuid).IsUnique();
         modelBuilder.Entity<TailBiteRegistration>().HasIndex(e => e.LegacyCaseId).IsUnique();
         modelBuilder.Entity<TailBiteRegistration>().HasIndex(e => new { e.PropertyId, e.EffectiveAt });
-        modelBuilder.Entity<TailBiteRegistrationLocation>().HasIndex(e => e.RegistrationId);
+        modelBuilder.Entity<TailBiteRegistrationLocation>().HasIndex(e => new { e.RegistrationId, e.LocationId }).IsUnique();
         modelBuilder.Entity<TailBiteRegistrationLocation>().HasIndex(e => e.LocationId);
         modelBuilder.Entity<TailBiteRegistrationPhoto>().HasIndex(e => e.PhotoUuid).IsUnique();
         modelBuilder.Entity<TailBiteRegistrationPhoto>().HasIndex(e => e.RegistrationClientUuid);
@@ -403,6 +403,12 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
         modelBuilder.Entity<TailBiteOutbreakLink>().HasIndex(e => e.RegistrationLocationId);
         modelBuilder.Entity<TailBiteRiskAssessment>().HasIndex(e => e.OutbreakId).IsUnique();
         modelBuilder.Entity<TailBiteAssessmentAction>().HasIndex(e => e.AssessmentId);
+        modelBuilder.Entity<TailBiteRegistrationLocation>().HasOne<TailBiteRegistration>().WithMany().HasForeignKey(e => e.RegistrationId).OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<TailBiteRegistrationAction>().HasOne<TailBiteRegistration>().WithMany().HasForeignKey(e => e.RegistrationId).OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<TailBiteOutbreakLink>().HasOne<TailBiteOutbreak>().WithMany().HasForeignKey(e => e.OutbreakId).OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<TailBiteOutbreakLink>().HasOne<TailBiteRegistrationLocation>().WithMany().HasForeignKey(e => e.RegistrationLocationId).OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<TailBiteRiskAssessment>().HasOne<TailBiteOutbreak>().WithMany().HasForeignKey(e => e.OutbreakId).OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<TailBiteAssessmentAction>().HasOne<TailBiteRiskAssessment>().WithMany().HasForeignKey(e => e.AssessmentId).OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.SeedLatest();
     }

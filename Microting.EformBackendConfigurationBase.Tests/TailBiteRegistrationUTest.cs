@@ -68,4 +68,14 @@ public class TailBiteRegistrationUTest : DbTestFixture
         Assert.ThrowsAsync<DbUpdateException>(async () =>
             await new TailBiteRegistrationPhoto { PhotoUuid = p, PropertyId = 1, UploadedBySiteId = 7, RegistrationClientUuid = Guid.NewGuid(), SdkUploadedDataId = 2 }.Create(DbContext));
     }
+
+    [Test]
+    public async Task SameLocationTwiceInOneRegistration_Rejected()
+    {
+        var reg = NewReg(Guid.NewGuid());
+        await reg.Create(DbContext);
+        await new TailBiteRegistrationLocation { RegistrationId = reg.Id, LocationId = 5 }.Create(DbContext);
+        Assert.ThrowsAsync<DbUpdateException>(async () =>
+            await new TailBiteRegistrationLocation { RegistrationId = reg.Id, LocationId = 5 }.Create(DbContext));
+    }
 }
