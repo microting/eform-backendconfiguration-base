@@ -49,4 +49,6 @@ public class PropertyWorker : PnBase
 
     [StringLength(50)]
     public string EmployeeNo { get; set; }
+
+    public bool TailBiteManager { get; set; }
 }

@@ -1,7 +1,7 @@
-﻿/*
+/*
 The MIT License (MIT)
 
-Copyright (c) 2007 - 2022 Microting A/S
+Copyright (c) 2007 - 2023 Microting A/S
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,27 +22,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
-public class PropertyWorkerVersion : PnBase
+using System;
+using System.ComponentModel.DataAnnotations;
+
+public class TailBiteAssessmentActionVersion : PnBase
 {
-    public int PropertyId { get; set; }
-
-    public int WorkerId { get; set; }
-
-    public int PropertyWorkerId { get; set; }
-
-    public int? EntityItemId { get; set; }
-
-    public bool? TaskManagementEnabled { get; set; }
-
-    [StringLength(50)]
-    public string PinCode { get; set; }
-
-    [StringLength(50)]
-    public string EmployeeNo { get; set; }
-
-    public bool TailBiteManager { get; set; }
+    public int AssessmentId { get; set; }
+    public TailBiteFactor Factor { get; set; }
+    [StringLength(1000)] public string Description { get; set; }
+    public int ResponsibleSiteId { get; set; }
+    public DateTime FollowUpDate { get; set; }
+    public DateTime? DoneAt { get; set; }
+    public int? DoneBySiteId { get; set; }
+    public DateTime? WithdrawnAt { get; set; }
+    [StringLength(1000)] public string WithdrawnReason { get; set; }
+    public DateTime? LastReminderAt { get; set; }
+    public int TailBiteAssessmentActionId { get; set; }
 }

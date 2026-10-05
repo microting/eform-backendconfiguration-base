@@ -198,6 +198,32 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     public DbSet<ChemicalWorkerPermissionVersion> ChemicalWorkerPermissionVersions { get; set; }
     public DbSet<ChemicalAlertLog> ChemicalAlertLogs { get; set; }
     public DbSet<ChemicalAlertLogVersion> ChemicalAlertLogVersions { get; set; }
+    public DbSet<TailBiteProperty> TailBiteProperties { get; set; }
+    public DbSet<TailBitePropertyVersion> TailBitePropertyVersions { get; set; }
+    public DbSet<TailBiteLocation> TailBiteLocations { get; set; }
+    public DbSet<TailBiteLocationVersion> TailBiteLocationVersions { get; set; }
+    public DbSet<TailBiteOccupancy> TailBiteOccupancies { get; set; }
+    public DbSet<TailBiteOccupancyVersion> TailBiteOccupancyVersions { get; set; }
+    public DbSet<TailBiteRegistration> TailBiteRegistrations { get; set; }
+    public DbSet<TailBiteRegistrationVersion> TailBiteRegistrationVersions { get; set; }
+    public DbSet<TailBiteRegistrationLocation> TailBiteRegistrationLocations { get; set; }
+    public DbSet<TailBiteRegistrationLocationVersion> TailBiteRegistrationLocationVersions { get; set; }
+    public DbSet<TailBiteRegistrationPhoto> TailBiteRegistrationPhotos { get; set; }
+    public DbSet<TailBiteRegistrationPhotoVersion> TailBiteRegistrationPhotoVersions { get; set; }
+    public DbSet<TailBiteActionType> TailBiteActionTypes { get; set; }
+    public DbSet<TailBiteActionTypeVersion> TailBiteActionTypeVersions { get; set; }
+    public DbSet<TailBiteRegistrationAction> TailBiteRegistrationActions { get; set; }
+    public DbSet<TailBiteRegistrationActionVersion> TailBiteRegistrationActionVersions { get; set; }
+    public DbSet<TailBiteRule> TailBiteRules { get; set; }
+    public DbSet<TailBiteRuleVersion> TailBiteRuleVersions { get; set; }
+    public DbSet<TailBiteOutbreak> TailBiteOutbreaks { get; set; }
+    public DbSet<TailBiteOutbreakVersion> TailBiteOutbreakVersions { get; set; }
+    public DbSet<TailBiteOutbreakLink> TailBiteOutbreakLinks { get; set; }
+    public DbSet<TailBiteOutbreakLinkVersion> TailBiteOutbreakLinkVersions { get; set; }
+    public DbSet<TailBiteRiskAssessment> TailBiteRiskAssessments { get; set; }
+    public DbSet<TailBiteRiskAssessmentVersion> TailBiteRiskAssessmentVersions { get; set; }
+    public DbSet<TailBiteAssessmentAction> TailBiteAssessmentActions { get; set; }
+    public DbSet<TailBiteAssessmentActionVersion> TailBiteAssessmentActionVersions { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -351,6 +377,38 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
             .WithMany(x => x.DriveWatchChannels)
             .HasForeignKey(x => x.GoogleOAuthTokenId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<TailBiteProperty>().HasIndex(e => e.PropertyId).IsUnique();
+        modelBuilder.Entity<TailBiteLocation>().HasIndex(e => e.QrCode).IsUnique();
+        modelBuilder.Entity<TailBiteLocation>().HasIndex(e => new { e.PropertyId, e.ParentId });
+        modelBuilder.Entity<TailBiteOccupancy>().HasIndex(e => new { e.LocationId, e.ValidFrom });
+        modelBuilder.Entity<TailBiteRegistration>().HasIndex(e => e.ClientUuid).IsUnique();
+        modelBuilder.Entity<TailBiteRegistration>().HasIndex(e => e.LegacyCaseId).IsUnique();
+        modelBuilder.Entity<TailBiteRegistration>().HasIndex(e => new { e.PropertyId, e.EffectiveAt });
+        modelBuilder.Entity<TailBiteRegistrationLocation>().HasIndex(e => new { e.RegistrationId, e.LocationId }).IsUnique();
+        modelBuilder.Entity<TailBiteRegistrationLocation>().HasIndex(e => e.LocationId);
+        modelBuilder.Entity<TailBiteRegistrationPhoto>().HasIndex(e => e.PhotoUuid).IsUnique();
+        modelBuilder.Entity<TailBiteRegistrationPhoto>().HasIndex(e => e.RegistrationClientUuid);
+        modelBuilder.Entity<TailBiteActionType>().HasIndex(e => new { e.PropertyId, e.Code }).IsUnique();
+        modelBuilder.Entity<TailBiteRegistrationAction>().HasIndex(e => e.RegistrationId);
+        modelBuilder.Entity<TailBiteRule>().HasIndex(e => e.LocationId);
+        modelBuilder.Entity<TailBiteOutbreak>()
+            .Property<int?>("OpenKey")
+            .HasComputedColumnSql(
+                "CASE WHEN `ClosedAt` IS NULL AND COALESCE(`WorkflowState`, '') <> 'removed' THEN `LocationId` ELSE NULL END",
+                stored: true);
+        modelBuilder.Entity<TailBiteOutbreak>().HasIndex("OpenKey").IsUnique();
+        modelBuilder.Entity<TailBiteOutbreak>().HasIndex(e => new { e.PropertyId, e.ClosedAt });
+        modelBuilder.Entity<TailBiteOutbreakLink>().HasIndex(e => new { e.OutbreakId, e.RegistrationLocationId }).IsUnique();
+        modelBuilder.Entity<TailBiteOutbreakLink>().HasIndex(e => e.RegistrationLocationId);
+        modelBuilder.Entity<TailBiteRiskAssessment>().HasIndex(e => e.OutbreakId).IsUnique();
+        modelBuilder.Entity<TailBiteAssessmentAction>().HasIndex(e => e.AssessmentId);
+        modelBuilder.Entity<TailBiteRegistrationLocation>().HasOne<TailBiteRegistration>().WithMany().HasForeignKey(e => e.RegistrationId).OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<TailBiteRegistrationAction>().HasOne<TailBiteRegistration>().WithMany().HasForeignKey(e => e.RegistrationId).OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<TailBiteOutbreakLink>().HasOne<TailBiteOutbreak>().WithMany().HasForeignKey(e => e.OutbreakId).OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<TailBiteOutbreakLink>().HasOne<TailBiteRegistrationLocation>().WithMany().HasForeignKey(e => e.RegistrationLocationId).OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<TailBiteRiskAssessment>().HasOne<TailBiteOutbreak>().WithMany().HasForeignKey(e => e.OutbreakId).OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<TailBiteAssessmentAction>().HasOne<TailBiteRiskAssessment>().WithMany().HasForeignKey(e => e.AssessmentId).OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.SeedLatest();
     }

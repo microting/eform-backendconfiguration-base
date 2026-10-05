@@ -221,4 +221,18 @@ public class PropertyWorkersUTest : DbTestFixture
         Assert.That(propertyWorkersListVersions[1].PropertyWorkerId, Is.EqualTo(propertyWorkers.Id));
         Assert.That(propertyWorkersListVersions[1].Version, Is.EqualTo(2));
     }
+
+    [Test]
+    public async Task PropertyWorker_TailBiteManager_DefaultsFalse_AndIsVersioned()
+    {
+        var prop = new Property { Name = "Ejendom Test" };
+        await prop.Create(DbContext);
+        var pw = new PropertyWorker { PropertyId = prop.Id, WorkerId = 42 };
+        await pw.Create(DbContext);
+        Assert.That(pw.TailBiteManager, Is.False);
+        pw.TailBiteManager = true;
+        await pw.Update(DbContext);
+        var last = await DbContext.PropertyWorkerVersions.Where(v => v.PropertyWorkerId == pw.Id).OrderBy(v => v.Id).LastAsync();
+        Assert.That(last.TailBiteManager, Is.True);
+    }
 }

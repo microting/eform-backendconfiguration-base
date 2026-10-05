@@ -1,7 +1,7 @@
-﻿/*
+/*
 The MIT License (MIT)
 
-Copyright (c) 2007 - 2022 Microting A/S
+Copyright (c) 2007 - 2023 Microting A/S
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,27 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
-public class PropertyWorkerVersion : PnBase
+using System.ComponentModel.DataAnnotations;
+
+public class TailBiteActionTypeVersion : PnBase
 {
     public int PropertyId { get; set; }
-
-    public int WorkerId { get; set; }
-
-    public int PropertyWorkerId { get; set; }
-
-    public int? EntityItemId { get; set; }
-
-    public bool? TaskManagementEnabled { get; set; }
-
-    [StringLength(50)]
-    public string PinCode { get; set; }
-
-    [StringLength(50)]
-    public string EmployeeNo { get; set; }
-
-    public bool TailBiteManager { get; set; }
+    [StringLength(50)] public string Code { get; set; }
+    [StringLength(250)] public string Name { get; set; }
+    public int SortOrder { get; set; }
+    public int TailBiteActionTypeId { get; set; }
 }

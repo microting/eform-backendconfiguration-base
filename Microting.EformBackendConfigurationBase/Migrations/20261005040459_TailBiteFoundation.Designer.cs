@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Microting.EformBackendConfigurationBase.Infrastructure.Data;
 namespace Microting.EformBackendConfigurationBase.Migrations
 {
     [DbContext(typeof(BackendConfigurationPnDbContext))]
-    partial class BackendConfigurationPnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20261005040459_TailBiteFoundation")]
+    partial class TailBiteFoundation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -6498,8 +6501,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.HasIndex("RegistrationId", "LocationId")
-                        .IsUnique();
+                    b.HasIndex("RegistrationId");
 
                     b.ToTable("TailBiteRegistrationLocations");
                 });
@@ -8061,57 +8063,6 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .IsRequired();
 
                     b.Navigation("AreaProperty");
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteAssessmentAction", b =>
-                {
-                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRiskAssessment", null)
-                        .WithMany()
-                        .HasForeignKey("AssessmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteOutbreakLink", b =>
-                {
-                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteOutbreak", null)
-                        .WithMany()
-                        .HasForeignKey("OutbreakId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRegistrationLocation", null)
-                        .WithMany()
-                        .HasForeignKey("RegistrationLocationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRegistrationAction", b =>
-                {
-                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRegistration", null)
-                        .WithMany()
-                        .HasForeignKey("RegistrationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRegistrationLocation", b =>
-                {
-                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRegistration", null)
-                        .WithMany()
-                        .HasForeignKey("RegistrationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRiskAssessment", b =>
-                {
-                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteOutbreak", null)
-                        .WithMany()
-                        .HasForeignKey("OutbreakId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.UploadedData", b =>
