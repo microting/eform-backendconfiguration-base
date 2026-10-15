@@ -191,30 +191,31 @@ WHERE f.`IsDefault` = 1
             migrationBuilder.Sql(
                 "CREATE INDEX IF NOT EXISTS `IX_Files_FolderId` ON `Files` (`FolderId`);");
 
-            // 6. Rollout safety net: DEFAULT 0 on Files.FolderId (step 8) and this trigger.
+            // 6. Rollout safety net: DEFAULT 0 on Files.FolderId (step 8) and two triggers,
+            //    TR_Files_DefaultFolder and TR_FileVersions_DefaultFolder.
             //
             //    Why they exist: the service plugin runs Migrate() at startup and can pick up this
             //    base before the new API plugin ships. Old plugin code inserts Files without
             //    FolderId, or with 0, and would fail with ERROR 1364 (no default) or 1452 (FK).
             //    The new plugin always sends FolderId, so the EF model has no default: EF never
-            //    compares the DB default. Both can be removed in a later migration once all hosts
-            //    run the new plugin.
+            //    compares the DB default. The default and both triggers can be removed together
+            //    in a later migration once all hosts run the new plugin.
             //
-            //    What the trigger does: a row with FolderId NULL or 0 goes into the default
-            //    folder. A non-zero unknown id is left alone, so the FK still rejects it with
-            //    1452. CREATE OR REPLACE makes a re-run replace it, never duplicate it. The
-            //    single-statement body (IF ... END IF) is sent as one command, like the
-            //    BEGIN NOT ATOMIC blocks in step 4, so no DELIMITER is needed.
+            //    What the triggers do: a row with FolderId NULL or 0 goes into the default
+            //    folder. A non-zero unknown id is left alone, so the FK on Files still rejects it
+            //    with 1452. The FileVersions trigger is needed because an EF save with FolderId 0
+            //    keeps 0 on the tracked entity (the Files trigger's value is not read back), and
+            //    PnBase.Create copies that 0 into the version row. CREATE OR REPLACE makes a
+            //    re-run replace them, never duplicate them. The single-statement body
+            //    (IF ... END IF) is sent as one command, like the BEGIN NOT ATOMIC blocks in
+            //    step 4, so no DELIMITER is needed.
             //
-            //    Why it sits before the final sweep: from here on no new row can end up without
-            //    a folder. Rows inserted earlier are caught by the sweep, later ones by the trigger.
-            migrationBuilder.Sql(@"
-CREATE OR REPLACE TRIGGER `TR_Files_DefaultFolder` BEFORE INSERT ON `Files` FOR EACH ROW
-IF NEW.`FolderId` IS NULL OR NEW.`FolderId` = 0 THEN
-    SET NEW.`FolderId` = (SELECT `Id` FROM `ArchiveFolders`
-                          WHERE `IsDefault` = 1 AND `WorkflowState` <> 'removed'
-                          ORDER BY `Id` LIMIT 1);
-END IF", suppressTransaction: true);
+            //    Why they sit before the final sweep: from here on no new row can end up without
+            //    a folder. Rows inserted earlier are caught by the sweep, later ones by a trigger.
+            migrationBuilder.Sql(DefaultFolderTrigger("TR_Files_DefaultFolder", "Files"),
+                suppressTransaction: true);
+            migrationBuilder.Sql(DefaultFolderTrigger("TR_FileVersions_DefaultFolder", "FileVersions"),
+                suppressTransaction: true);
 
             // 7. Final sweep. A row that an old pod inserted after step 4 read MAX(Id), but before
             //    the trigger existed, still has FolderId NULL. This statement catches it. If Up
@@ -245,11 +246,21 @@ ALTER TABLE `Files`
     FOREIGN KEY IF NOT EXISTS (`FolderId`) REFERENCES `ArchiveFolders` (`Id`) ON DELETE RESTRICT;");
         }
 
+        private static string DefaultFolderTrigger(string name, string table) => $@"
+CREATE OR REPLACE TRIGGER `{name}` BEFORE INSERT ON `{table}` FOR EACH ROW
+IF NEW.`FolderId` IS NULL OR NEW.`FolderId` = 0 THEN
+    SET NEW.`FolderId` = (SELECT `Id` FROM `ArchiveFolders`
+                          WHERE `IsDefault` = 1 AND `WorkflowState` <> 'removed'
+                          ORDER BY `Id` LIMIT 1);
+END IF";
+
+        // v_from and v_max are BIGINT, so that v_from + MoveBatchSize cannot overflow INT on the
+        // last batch when ids come near 2,147,483,647.
         private static string MoveIntoDefaultFolder(string table) => $@"
 BEGIN NOT ATOMIC
     DECLARE v_default_folder_id INT;
-    DECLARE v_from INT DEFAULT 0;
-    DECLARE v_max INT;
+    DECLARE v_from BIGINT DEFAULT 0;
+    DECLARE v_max BIGINT;
     SELECT MIN(`Id`) INTO v_default_folder_id FROM `ArchiveFolders` WHERE `IsDefault` = 1;
     IF v_default_folder_id IS NULL THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'AddArchiveFolders: no default archive folder exists.';
@@ -269,8 +280,9 @@ END";
             // Lossy: folder placement, read access, document dates and date suggestions are dropped.
             // Unlike Up, Down is NOT re-runnable, on purpose (plain EF calls, as in
             // DeviceTokenIdentityModel). Rollbacks are attended and done once.
-            // The trigger reads ArchiveFolders, so it goes first.
+            // The triggers read ArchiveFolders, so they go first.
             migrationBuilder.Sql("DROP TRIGGER IF EXISTS `TR_Files_DefaultFolder`;");
+            migrationBuilder.Sql("DROP TRIGGER IF EXISTS `TR_FileVersions_DefaultFolder`;");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Files_ArchiveFolders_FolderId",

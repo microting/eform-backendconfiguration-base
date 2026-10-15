@@ -134,7 +134,7 @@ public class ArchiveFoldersMigrationUTest
 
         Assert.That(IsNullable("Files", "FolderId"), Is.EqualTo("NO"));
         Assert.That(ColumnAttribute("COLUMN_DEFAULT", "Files", "FolderId"), Is.EqualTo("0"));
-        Assert.That(TriggerCount(), Is.EqualTo(1));
+        AssertDefaultFolderTriggers(1);
         Assert.That(IsNullable("FileVersions", "FolderId"), Is.EqualTo("YES"));
         Assert.That(ForeignKeyCount("Files", "FolderId", "ArchiveFolders"), Is.EqualTo(1));
         Assert.That(ForeignKeyCount("FileVersions", "FolderId", "ArchiveFolders"), Is.EqualTo(0));
@@ -221,7 +221,7 @@ public class ArchiveFoldersMigrationUTest
         Assert.That(_dbContext.ArchiveFolderVersions.AsNoTracking().Count(), Is.EqualTo(1));
         Assert.That(_dbContext.Files.AsNoTracking().Single().FolderId, Is.EqualTo(DefaultFolderId()));
         Assert.That(ForeignKeyCount("Files", "FolderId", "ArchiveFolders"), Is.EqualTo(1));
-        Assert.That(TriggerCount(), Is.EqualTo(1));
+        AssertDefaultFolderTriggers(1);
     }
 
     [Test]
@@ -307,7 +307,7 @@ public class ArchiveFoldersMigrationUTest
             Assert.That(ColumnCount("FileVersions", column), Is.EqualTo(0), column);
         }
 
-        Assert.That(TriggerCount(), Is.EqualTo(0));
+        AssertDefaultFolderTriggers(0);
         Assert.That(ColumnCount("InboxSuggestions", "TargetDate"), Is.EqualTo(0));
         Assert.That(ColumnCount("InboxSuggestionVersions", "TargetDate"), Is.EqualTo(0));
         Assert.That(ScalarInt("SELECT COUNT(*) FROM `Files`"), Is.EqualTo(1));
@@ -323,11 +323,12 @@ public class ArchiveFoldersMigrationUTest
     private int DefaultFolderId() => _dbContext.ArchiveFolders.AsNoTracking().Single().Id;
 
     // Puts the database back in the state it has right after the batched move: no
-    // trigger, FolderId nullable without FK, a lost folder version row, and no history row.
+    // triggers, FolderId nullable without FK, a lost folder version row, and no history row.
     private void RewindToPartialState()
     {
         DeleteHistoryRow();
         _dbContext.Database.ExecuteSqlRaw("DROP TRIGGER IF EXISTS `TR_Files_DefaultFolder`");
+        _dbContext.Database.ExecuteSqlRaw("DROP TRIGGER IF EXISTS `TR_FileVersions_DefaultFolder`");
         _dbContext.Database.ExecuteSqlRaw(
             "ALTER TABLE `Files` DROP FOREIGN KEY `FK_Files_ArchiveFolders_FolderId`");
         _dbContext.Database.ExecuteSqlRaw("ALTER TABLE `Files` MODIFY COLUMN `FolderId` int NULL");
@@ -375,9 +376,15 @@ public class ArchiveFoldersMigrationUTest
     private static string ColumnFilter(string table, string column) =>
         "table_schema = DATABASE() AND table_name = '" + table + "' AND column_name = '" + column + "'";
 
-    private int TriggerCount() => ScalarInt(
+    private void AssertDefaultFolderTriggers(int expected)
+    {
+        Assert.That(TriggerCount("TR_Files_DefaultFolder", "Files"), Is.EqualTo(expected));
+        Assert.That(TriggerCount("TR_FileVersions_DefaultFolder", "FileVersions"), Is.EqualTo(expected));
+    }
+
+    private int TriggerCount(string triggerName, string table) => ScalarInt(
         "SELECT COUNT(*) FROM information_schema.TRIGGERS WHERE trigger_schema = DATABASE() " +
-        "AND trigger_name = 'TR_Files_DefaultFolder' AND event_object_table = 'Files'");
+        "AND trigger_name = '" + triggerName + "' AND event_object_table = '" + table + "'");
 
     private int IndexCount(string table, string indexName) => ScalarInt(
         "SELECT COUNT(DISTINCT index_name) FROM information_schema.STATISTICS WHERE table_schema = DATABASE() " +
