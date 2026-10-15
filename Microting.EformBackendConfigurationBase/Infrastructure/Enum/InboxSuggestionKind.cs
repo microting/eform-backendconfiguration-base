@@ -27,5 +27,7 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Enum;
 public enum InboxSuggestionKind
 {
     Property = 0,
-    Tag = 1
+    Tag = 1,
+    Folder = 2,
+    DocumentDate = 3
 }

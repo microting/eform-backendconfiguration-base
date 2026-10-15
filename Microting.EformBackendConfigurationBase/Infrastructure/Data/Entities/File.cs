@@ -24,7 +24,10 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using Enum;
 
 public class File : PnBase
 {
@@ -37,4 +40,19 @@ public class File : PnBase
 
 	public virtual List<FileTags> FileTags { get; set; }
 		= new List<FileTags>();
+
+	/// <summary>Required: every archive document lies in exactly one ArchiveFolder.</summary>
+	public int FolderId { get; set; }
+
+	public virtual ArchiveFolder Folder { get; set; }
+
+	[Column(TypeName = "date")]
+	public DateTime? DocumentDate { get; set; }
+
+	public DocumentDateState DocumentDateState { get; set; }
+
+	/// <summary>True: ReadTags decide who reads the file, not the folder's.</summary>
+	public bool OwnAccess { get; set; }
+
+	public virtual List<FileReadTag> ReadTags { get; set; } = new();
 }
