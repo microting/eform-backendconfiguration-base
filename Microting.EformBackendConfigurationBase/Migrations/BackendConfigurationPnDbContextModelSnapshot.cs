@@ -811,6 +811,178 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.ToTable("AdhocTaskTagVersions");
                 });
 
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("ArchiveFolders");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolderReadTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArchiveFolderId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SdkTagId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArchiveFolderId");
+
+                    b.HasIndex("SdkTagId");
+
+                    b.ToTable("ArchiveFolderReadTags");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolderReadTagVersion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArchiveFolderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ArchiveFolderReadTagId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SdkTagId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ArchiveFolderReadTagVersions");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolderVersion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArchiveFolderId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ArchiveFolderVersions");
+                });
+
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Area", b =>
                 {
                     b.Property<int>("Id")
@@ -3567,8 +3739,20 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DocumentDate")
+                        .HasColumnType("date");
+
+                    b.Property<int>("DocumentDateState")
+                        .HasColumnType("int");
+
                     b.Property<string>("FileName")
                         .HasColumnType("longtext");
+
+                    b.Property<int>("FolderId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("OwnAccess")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
@@ -3585,7 +3769,92 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FolderId");
+
                     b.ToTable("Files");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileReadTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FileId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SdkTagId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FileId");
+
+                    b.HasIndex("SdkTagId");
+
+                    b.ToTable("FileReadTags");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileReadTagVersion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FileId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FileReadTagId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SdkTagId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FileReadTagVersions");
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileTag", b =>
@@ -3760,11 +4029,23 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DocumentDate")
+                        .HasColumnType("date");
+
+                    b.Property<int>("DocumentDateState")
+                        .HasColumnType("int");
+
                     b.Property<int>("FileId")
                         .HasColumnType("int");
 
                     b.Property<string>("FileName")
                         .HasColumnType("longtext");
+
+                    b.Property<int?>("FolderId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("OwnAccess")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
@@ -4301,6 +4582,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("Source")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("TargetDate")
+                        .HasColumnType("date");
+
                     b.Property<int>("TargetId")
                         .HasColumnType("int");
 
@@ -4364,6 +4648,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int>("Source")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("TargetDate")
+                        .HasColumnType("date");
 
                     b.Property<int>("TargetId")
                         .HasColumnType("int");
@@ -7709,6 +7996,27 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Navigation("AdhocTask");
                 });
 
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolder", b =>
+                {
+                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolder", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolderReadTag", b =>
+                {
+                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolder", "ArchiveFolder")
+                        .WithMany("ReadTags")
+                        .HasForeignKey("ArchiveFolderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ArchiveFolder");
+                });
+
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaInitialField", b =>
                 {
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Area", "Area")
@@ -7970,6 +8278,28 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.File", b =>
+                {
+                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolder", "Folder")
+                        .WithMany("Files")
+                        .HasForeignKey("FolderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Folder");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileReadTag", b =>
+                {
+                    b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.File", "File")
+                        .WithMany("ReadTags")
+                        .HasForeignKey("FileId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("File");
+                });
+
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileTags", b =>
                 {
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.File", "File")
@@ -8151,6 +8481,15 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Navigation("Permission");
                 });
 
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolder", b =>
+                {
+                    b.Navigation("Children");
+
+                    b.Navigation("Files");
+
+                    b.Navigation("ReadTags");
+                });
+
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Area", b =>
                 {
                     b.Navigation("AreaInitialField");
@@ -8202,6 +8541,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Navigation("FileTags");
 
                     b.Navigation("PropertyFiles");
+
+                    b.Navigation("ReadTags");
 
                     b.Navigation("UploadedData");
                 });
