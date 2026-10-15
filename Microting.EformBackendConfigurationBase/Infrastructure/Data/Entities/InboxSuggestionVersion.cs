@@ -24,6 +24,7 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Enum;
 
@@ -32,6 +33,10 @@ public class InboxSuggestionVersion : PnBase
     public int InboxDocumentId { get; set; }
     public InboxSuggestionKind Kind { get; set; }
     public int TargetId { get; set; }
+
+    [Column(TypeName = "date")]
+    public DateTime? TargetDate { get; set; }
+
     public InboxSuggestionSource Source { get; set; }
     public double Confidence { get; set; }
     public string Evidence { get; set; }

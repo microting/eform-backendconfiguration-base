@@ -112,6 +112,15 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     public DbSet<FileTags> FilesTags { get; set; }
     public DbSet<FileTagsVersion> FilesTagsVersions { get; set; }
 
+    public DbSet<ArchiveFolder> ArchiveFolders { get; set; }
+    public DbSet<ArchiveFolderVersion> ArchiveFolderVersions { get; set; }
+
+    public DbSet<ArchiveFolderReadTag> ArchiveFolderReadTags { get; set; }
+    public DbSet<ArchiveFolderReadTagVersion> ArchiveFolderReadTagVersions { get; set; }
+
+    public DbSet<FileReadTag> FileReadTags { get; set; }
+    public DbSet<FileReadTagVersion> FileReadTagVersions { get; set; }
+
     public DbSet<InboxAddress> InboxAddresses { get; set; }
     public DbSet<InboxAddressVersion> InboxAddressVersions { get; set; }
     public DbSet<InboxSenderRule> InboxSenderRules { get; set; }
@@ -270,6 +279,32 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
             .HasOne(x => x.InboxDocument)
             .WithMany(x => x.Suggestions)
             .HasForeignKey(x => x.InboxDocumentId);
+
+        // Archive folders (max 2 levels, enforced in the plugin). All FKs are Restrict:
+        // folders and files are soft-deleted, never removed with DELETE.
+        modelBuilder.Entity<ArchiveFolder>().HasOne(x => x.Parent)
+            .WithMany(x => x.Children)
+            .HasForeignKey(x => x.ParentId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<File>().HasOne(x => x.Folder)
+            .WithMany(x => x.Files)
+            .HasForeignKey(x => x.FolderId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<ArchiveFolderReadTag>().HasOne(x => x.ArchiveFolder)
+            .WithMany(x => x.ReadTags)
+            .HasForeignKey(x => x.ArchiveFolderId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<ArchiveFolderReadTag>().HasIndex(e => e.SdkTagId);
+
+        modelBuilder.Entity<FileReadTag>().HasOne(x => x.File)
+            .WithMany(x => x.ReadTags)
+            .HasForeignKey(x => x.FileId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<FileReadTag>().HasIndex(e => e.SdkTagId);
 
         // flutter-chemistry inventory (spec §5.1).
         modelBuilder.Entity<ChemicalLocation>()

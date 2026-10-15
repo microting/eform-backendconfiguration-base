@@ -163,7 +163,15 @@ public abstract class DbTestFixture
             "TailBiteRiskAssessments",
             "TailBiteRiskAssessmentVersions",
             "TailBiteAssessmentActions",
-            "TailBiteAssessmentActionVersions"
+            "TailBiteAssessmentActionVersions",
+            "FileReadTags",
+            "FileReadTagVersions",
+            "ArchiveFolderReadTags",
+            "ArchiveFolderReadTagVersions",
+            "Files",
+            "FileVersions",
+            "ArchiveFolders",
+            "ArchiveFolderVersions"
         };
 
         var firstRunNotDone = true;

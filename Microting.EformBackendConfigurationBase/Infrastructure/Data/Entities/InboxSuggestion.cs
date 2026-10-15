@@ -24,7 +24,9 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Enum;
 
 public class InboxSuggestion : PnBase
@@ -35,8 +37,15 @@ public class InboxSuggestion : PnBase
 
     public InboxSuggestionKind Kind { get; set; }
 
-    /// <summary>Property.Id when Kind = Property, FileTag.Id when Kind = Tag.</summary>
+    /// <summary>
+    /// Property.Id when Kind = Property, FileTag.Id when Kind = Tag, ArchiveFolder.Id when Kind = Folder,
+    /// 0 when Kind = DocumentDate (the value is in TargetDate).
+    /// </summary>
     public int TargetId { get; set; }
+
+    /// <summary>The suggested document date when Kind = DocumentDate; otherwise null.</summary>
+    [Column(TypeName = "date")]
+    public DateTime? TargetDate { get; set; }
 
     public InboxSuggestionSource Source { get; set; }
 

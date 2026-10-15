@@ -24,7 +24,9 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using Enum;
 
 public class FileVersion: PnBase
 {
@@ -32,4 +34,14 @@ public class FileVersion: PnBase
 
 	[ForeignKey("File")]
 	public int FileId { get; set; }
+
+	// Nullable and without FK: history may point at a folder that was deleted later.
+	public int? FolderId { get; set; }
+
+	[Column(TypeName = "date")]
+	public DateTime? DocumentDate { get; set; }
+
+	public DocumentDateState DocumentDateState { get; set; }
+
+	public bool OwnAccess { get; set; }
 }
