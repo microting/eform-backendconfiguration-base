@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -16,7 +15,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             // Step roadmap: create tables -> add nullable/defaulted columns -> default folder
-            // -> batched move -> index -> final sweep -> tighten -> FK.
+            // -> batched move -> index -> default-folder trigger -> final sweep -> tighten -> FK.
             //
             // The steps are ordered by hand. EF's own order would add Files.FolderId as NOT NULL
             // DEFAULT 0 with its FK straight away, and that cannot work on a table that already
@@ -192,14 +191,35 @@ WHERE f.`IsDefault` = 1
             migrationBuilder.Sql(
                 "CREATE INDEX IF NOT EXISTS `IX_Files_FolderId` ON `Files` (`FolderId`);");
 
-            // 6. Final sweep. During a rolling deploy, an old pod may insert a file (FolderId NULL)
-            //    after step 4 read MAX(Id). This statement catches those rows. A row inserted after
-            //    the sweep fails the MODIFY below. The migration then stops with an error, the pod
-            //    restarts, and the re-run catches the row. This race cannot be closed by ordering
-            //    the steps differently. It is closed by failing loudly and running again, as in
-            //    DeviceTokenIdentityModel. Once the column is NOT NULL, an old pod's insert fails
-            //    with ERROR 1364 until that pod is replaced. That error is loud and the upload can
-            //    be retried.
+            // 6. Rollout safety net: DEFAULT 0 on Files.FolderId (step 8) and this trigger.
+            //
+            //    Why they exist: the service plugin runs Migrate() at startup and can pick up this
+            //    base before the new API plugin ships. Old plugin code inserts Files without
+            //    FolderId, or with 0, and would fail with ERROR 1364 (no default) or 1452 (FK).
+            //    The new plugin always sends FolderId, so the EF model has no default: EF never
+            //    compares the DB default. Both can be removed in a later migration once all hosts
+            //    run the new plugin.
+            //
+            //    What the trigger does: a row with FolderId NULL or 0 goes into the default
+            //    folder. A non-zero unknown id is left alone, so the FK still rejects it with
+            //    1452. CREATE OR REPLACE makes a re-run replace it, never duplicate it. The
+            //    single-statement body (IF ... END IF) is sent as one command, like the
+            //    BEGIN NOT ATOMIC blocks in step 4, so no DELIMITER is needed.
+            //
+            //    Why it sits before the final sweep: from here on no new row can end up without
+            //    a folder. Rows inserted earlier are caught by the sweep, later ones by the trigger.
+            migrationBuilder.Sql(@"
+CREATE OR REPLACE TRIGGER `TR_Files_DefaultFolder` BEFORE INSERT ON `Files` FOR EACH ROW
+IF NEW.`FolderId` IS NULL OR NEW.`FolderId` = 0 THEN
+    SET NEW.`FolderId` = (SELECT `Id` FROM `ArchiveFolders`
+                          WHERE `IsDefault` = 1 AND `WorkflowState` <> 'removed'
+                          ORDER BY `Id` LIMIT 1);
+END IF", suppressTransaction: true);
+
+            // 7. Final sweep. A row that an old pod inserted after step 4 read MAX(Id), but before
+            //    the trigger existed, still has FolderId NULL. This statement catches it. If Up
+            //    crashes anywhere, the re-run from the top catches what is left, as in
+            //    DeviceTokenIdentityModel.
             migrationBuilder.Sql(@"
 UPDATE `Files`
 SET `FolderId` = (SELECT MIN(`Id`) FROM `ArchiveFolders` WHERE `IsDefault` = 1)
@@ -212,18 +232,13 @@ UPDATE `FileVersions`
 SET `FolderId` = (SELECT MIN(`Id`) FROM `ArchiveFolders` WHERE `IsDefault` = 1)
 WHERE `FolderId` IS NULL OR `FolderId` = 0;");
 
-            // 7. Tighten. EF emits MODIFY COLUMN, which restates the whole column definition, so
-            //    running it on a column that is already NOT NULL changes nothing.
-            migrationBuilder.AlterColumn<int>(
-                name: "FolderId",
-                table: "Files",
-                type: "int",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int",
-                oldNullable: true);
+            // 8. Tighten. NOT NULL, plus DEFAULT 0 for the safety net in step 6: an insert that
+            //    omits the column is accepted by strict mode, and the trigger fixes it. MODIFY
+            //    restates the whole column definition, so a re-run changes nothing.
+            migrationBuilder.Sql(
+                "ALTER TABLE `Files` MODIFY COLUMN `FolderId` int NOT NULL DEFAULT 0;");
 
-            // 8. FK. Files.FolderId only: FileVersions.FolderId deliberately gets no FK.
+            // 9. FK. Files.FolderId only: FileVersions.FolderId deliberately gets no FK.
             migrationBuilder.Sql(@"
 ALTER TABLE `Files`
     ADD CONSTRAINT `FK_Files_ArchiveFolders_FolderId`
@@ -254,6 +269,9 @@ END";
             // Lossy: folder placement, read access, document dates and date suggestions are dropped.
             // Unlike Up, Down is NOT re-runnable, on purpose (plain EF calls, as in
             // DeviceTokenIdentityModel). Rollbacks are attended and done once.
+            // The trigger reads ArchiveFolders, so it goes first.
+            migrationBuilder.Sql("DROP TRIGGER IF EXISTS `TR_Files_DefaultFolder`;");
+
             migrationBuilder.DropForeignKey(
                 name: "FK_Files_ArchiveFolders_FolderId",
                 table: "Files");

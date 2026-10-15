@@ -133,6 +133,8 @@ public class ArchiveFoldersMigrationUTest
         MigrateTo(_migrationUnderTest);
 
         Assert.That(IsNullable("Files", "FolderId"), Is.EqualTo("NO"));
+        Assert.That(ColumnAttribute("COLUMN_DEFAULT", "Files", "FolderId"), Is.EqualTo("0"));
+        Assert.That(TriggerCount(), Is.EqualTo(1));
         Assert.That(IsNullable("FileVersions", "FolderId"), Is.EqualTo("YES"));
         Assert.That(ForeignKeyCount("Files", "FolderId", "ArchiveFolders"), Is.EqualTo(1));
         Assert.That(ForeignKeyCount("FileVersions", "FolderId", "ArchiveFolders"), Is.EqualTo(0));
@@ -219,6 +221,22 @@ public class ArchiveFoldersMigrationUTest
         Assert.That(_dbContext.ArchiveFolderVersions.AsNoTracking().Count(), Is.EqualTo(1));
         Assert.That(_dbContext.Files.AsNoTracking().Single().FolderId, Is.EqualTo(DefaultFolderId()));
         Assert.That(ForeignKeyCount("Files", "FolderId", "ArchiveFolders"), Is.EqualTo(1));
+        Assert.That(TriggerCount(), Is.EqualTo(1));
+    }
+
+    [Test]
+    public void Migration_OldPluginInsertWithoutFolderId_LandsInArkiv()
+    {
+        MigrateTo(_migrationUnderTest);
+
+        // Old plugin code during the rollout: the old column list without FolderId, and an
+        // explicit 0. DEFAULT 0 lets strict mode accept the first; the trigger fixes both.
+        InsertOldFile(1, "Gammel plugin.pdf", "created");
+        InsertFileWithFolderId(2, "Mappe nul.pdf", 0);
+
+        var folderId = DefaultFolderId();
+        Assert.That(_dbContext.Files.AsNoTracking().OrderBy(f => f.Id).Select(f => f.FolderId).ToList(),
+            Is.EqualTo(new[] { folderId, folderId }));
     }
 
     [Test]
@@ -233,10 +251,10 @@ public class ArchiveFoldersMigrationUTest
 
         Assert.That(() => MigrateTo(_migrationUnderTest), Throws.Nothing);
 
-        // The re-run's batched move (step 4) picks up the late row, because it was written
-        // before the re-run read MAX(Id). The final sweep (step 6) exists for a row written
-        // after that read and before the MODIFY. That window needs concurrency to hit, so it is
-        // covered by reasoning in the migration, not by this test.
+        // The re-run's batched move picks up the late row, because the row was written before
+        // the re-run read MAX(Id). The final sweep exists for a row written after that read and
+        // before the trigger existed. That window needs concurrency to hit, so it is covered by
+        // reasoning in the migration, not by this test.
         var folderId = DefaultFolderId();
         Assert.That(_dbContext.Files.AsNoTracking().Select(f => f.FolderId).ToList(),
             Is.All.EqualTo(folderId));
@@ -289,6 +307,7 @@ public class ArchiveFoldersMigrationUTest
             Assert.That(ColumnCount("FileVersions", column), Is.EqualTo(0), column);
         }
 
+        Assert.That(TriggerCount(), Is.EqualTo(0));
         Assert.That(ColumnCount("InboxSuggestions", "TargetDate"), Is.EqualTo(0));
         Assert.That(ColumnCount("InboxSuggestionVersions", "TargetDate"), Is.EqualTo(0));
         Assert.That(ScalarInt("SELECT COUNT(*) FROM `Files`"), Is.EqualTo(1));
@@ -303,11 +322,12 @@ public class ArchiveFoldersMigrationUTest
 
     private int DefaultFolderId() => _dbContext.ArchiveFolders.AsNoTracking().Single().Id;
 
-    // Puts the database back in the state it has between the data step and the tightening,
-    // with a lost folder version row, and without the history row.
+    // Puts the database back in the state it has right after the batched move: no
+    // trigger, FolderId nullable without FK, a lost folder version row, and no history row.
     private void RewindToPartialState()
     {
         DeleteHistoryRow();
+        _dbContext.Database.ExecuteSqlRaw("DROP TRIGGER IF EXISTS `TR_Files_DefaultFolder`");
         _dbContext.Database.ExecuteSqlRaw(
             "ALTER TABLE `Files` DROP FOREIGN KEY `FK_Files_ArchiveFolders_FolderId`");
         _dbContext.Database.ExecuteSqlRaw("ALTER TABLE `Files` MODIFY COLUMN `FolderId` int NULL");
@@ -319,6 +339,12 @@ public class ArchiveFoldersMigrationUTest
             "INSERT INTO `Files` (`Id`, `FileName`, `CreatedAt`, `UpdatedAt`, `WorkflowState`, " +
             "`CreatedByUserId`, `UpdatedByUserId`, `Version`) VALUES (" + id + ", '" + fileName +
             "', UTC_TIMESTAMP(6), UTC_TIMESTAMP(6), '" + workflowState + "', 0, 0, 1)");
+
+    private void InsertFileWithFolderId(int id, string fileName, int folderId) =>
+        _dbContext.Database.ExecuteSqlRaw(
+            "INSERT INTO `Files` (`Id`, `FileName`, `FolderId`, `CreatedAt`, `UpdatedAt`, `WorkflowState`, " +
+            "`CreatedByUserId`, `UpdatedByUserId`, `Version`) VALUES (" + id + ", '" + fileName + "', " +
+            folderId + ", UTC_TIMESTAMP(6), UTC_TIMESTAMP(6), 'created', 0, 0, 1)");
 
     private void InsertOldFileVersion(int id, int fileId) =>
         _dbContext.Database.ExecuteSqlRaw(
@@ -348,6 +374,10 @@ public class ArchiveFoldersMigrationUTest
 
     private static string ColumnFilter(string table, string column) =>
         "table_schema = DATABASE() AND table_name = '" + table + "' AND column_name = '" + column + "'";
+
+    private int TriggerCount() => ScalarInt(
+        "SELECT COUNT(*) FROM information_schema.TRIGGERS WHERE trigger_schema = DATABASE() " +
+        "AND trigger_name = 'TR_Files_DefaultFolder' AND event_object_table = 'Files'");
 
     private int IndexCount(string table, string indexName) => ScalarInt(
         "SELECT COUNT(DISTINCT index_name) FROM information_schema.STATISTICS WHERE table_schema = DATABASE() " +

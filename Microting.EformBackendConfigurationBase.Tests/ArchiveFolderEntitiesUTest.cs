@@ -31,11 +31,15 @@ using eForm.Infrastructure.Constants;
 using Infrastructure.Data.Entities;
 using Infrastructure.Enum;
 using Microsoft.EntityFrameworkCore;
+using MySqlConnector;
 using NUnit.Framework;
 
 [TestFixture]
 public class ArchiveFolderEntitiesUTest : DbTestFixture
 {
+    // MySQL/MariaDB error 1452: "Cannot add or update a child row: a foreign key constraint fails".
+    private const int ForeignKeyViolation = 1452;
+
     private async Task<ArchiveFolder> CreateFolder(string name, int? parentId = null, bool isDefault = false)
     {
         var folder = new ArchiveFolder
@@ -249,11 +253,35 @@ public class ArchiveFolderEntitiesUTest : DbTestFixture
     }
 
     [Test]
-    public void File_WithoutFolder_IsRejectedByTheForeignKey()
+    public async Task File_WithoutFolder_LandsInTheDefaultFolder()
     {
+        // The rollout safety net in AddArchiveFolders (DEFAULT 0 + TR_Files_DefaultFolder) puts a
+        // file saved by old plugin code (FolderId 0) into the default folder. "Drift" is created
+        // first, so the lowest id is not the default one.
+        await CreateFolder("Drift");
+        var arkiv = await CreateFolder("Arkiv", isDefault: true);
         var file = new File { FileName = "Uden mappe.pdf", CreatedByUserId = 0, UpdatedByUserId = 0 };
 
-        Assert.ThrowsAsync<DbUpdateException>(async () => await file.Create(DbContext));
+        await file.Create(DbContext);
+
+        // EF does not read FolderId back after the insert, so the tracked entity still says 0.
+        var saved = await DbContext.Files.AsNoTracking().SingleAsync(f => f.Id == file.Id);
+        Assert.That(saved.FolderId, Is.EqualTo(arkiv.Id));
+    }
+
+    [Test]
+    public async Task File_WithUnknownFolder_IsRejectedByTheForeignKey()
+    {
+        await CreateFolder("Arkiv", isDefault: true);
+        var file = new File
+        {
+            FileName = "Forkert mappe.pdf", FolderId = 999999, CreatedByUserId = 0, UpdatedByUserId = 0
+        };
+
+        // SaveChanges wraps the provider error in DbUpdateException.
+        var exception = await Assert.ThrowsAsync<DbUpdateException>(async () => await file.Create(DbContext));
+        Assert.That(exception.InnerException, Is.InstanceOf<MySqlException>()
+            .With.Property(nameof(MySqlException.Number)).EqualTo(ForeignKeyViolation));
     }
 
     [Test]
