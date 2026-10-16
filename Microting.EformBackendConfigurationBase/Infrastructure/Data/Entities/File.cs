@@ -41,8 +41,8 @@ public class File : PnBase
 	public virtual List<FileTags> FileTags { get; set; }
 		= new List<FileTags>();
 
-	/// <summary>Required: every archive document lies in exactly one ArchiveFolder.</summary>
-	public int FolderId { get; set; }
+	/// <summary>The archive folder; null means the default folder (resolved by IsDefault).</summary>
+	public int? FolderId { get; set; }
 
 	public virtual ArchiveFolder Folder { get; set; }
 
