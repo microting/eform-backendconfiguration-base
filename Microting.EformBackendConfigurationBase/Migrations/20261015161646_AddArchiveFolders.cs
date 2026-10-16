@@ -15,11 +15,10 @@ namespace Microting.EformBackendConfigurationBase.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             // Step roadmap: create tables -> add nullable/defaulted columns -> default folder
-            // -> batched move -> index -> default-folder trigger -> final sweep -> tighten -> FK.
+            // -> batched move -> index -> final sweep -> FK.
             //
-            // The steps are ordered by hand. EF's own order would add Files.FolderId as NOT NULL
-            // DEFAULT 0 with its FK straight away, and that cannot work on a table that already
-            // has rows.
+            // The steps are ordered by hand. EF's own order would add the FK on Files.FolderId
+            // straight away, and that cannot work on a table whose rows have no folder yet.
             //
             // Each step is written so that running Up again from the top does nothing for the
             // steps that are already done (same reasoning as DeviceTokenIdentityModel). MariaDB
@@ -132,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `FileReadTagVersions` (
     CONSTRAINT `PK_FileReadTagVersions` PRIMARY KEY (`Id`)
 ) CHARACTER SET=utf8mb4;");
 
-            // 2. New columns. FolderId stays nullable until the data step is done.
+            // 2. New columns. FolderId is added nullable and stays nullable (see the note before the FK).
             //    DocumentDateState and OwnAccess are added NOT NULL DEFAULT 0, so existing files
             //    need no UPDATE for them, none of them lands in "Dato skal tjekkes", and an old pod
             //    that inserts without these columns still works. The defaults are kept for good
@@ -181,9 +180,8 @@ WHERE f.`IsDefault` = 1
 
             // 4. Move every file and every file version (all workflow states) into the default
             //    folder, walking the primary key in ranges of MoveBatchSize. The ranges keep the cost
-            //    linear, because there is no index on FolderId yet. `OR FolderId = 0` covers a
-            //    server that is not in strict mode, where a failed earlier tightening would have
-            //    turned NULL into 0. suppressTransaction: each batch commits on its own.
+            //    linear, because there is no index on FolderId yet. `OR FolderId = 0` also moves a
+            //    stray 0, which the FK would reject. suppressTransaction: each batch commits on its own.
             migrationBuilder.Sql(MoveIntoDefaultFolder("Files"), suppressTransaction: true);
             migrationBuilder.Sql(MoveIntoDefaultFolder("FileVersions"), suppressTransaction: true);
 
@@ -191,68 +189,34 @@ WHERE f.`IsDefault` = 1
             migrationBuilder.Sql(
                 "CREATE INDEX IF NOT EXISTS `IX_Files_FolderId` ON `Files` (`FolderId`);");
 
-            // 6. Rollout safety net: DEFAULT 0 on Files.FolderId (step 8) and two triggers,
-            //    TR_Files_DefaultFolder and TR_FileVersions_DefaultFolder.
-            //
-            //    Why they exist: the service plugin runs Migrate() at startup and can pick up this
-            //    base before the new API plugin ships. Old plugin code inserts Files without
-            //    FolderId, or with 0, and would fail with ERROR 1364 (no default) or 1452 (FK).
-            //    The new plugin always sends FolderId, so the EF model has no default: EF never
-            //    compares the DB default. The default and both triggers can be removed together
-            //    in a later migration once all hosts run the new plugin.
-            //
-            //    What the triggers do: a row with FolderId NULL or 0 goes into the default
-            //    folder. A non-zero unknown id is left alone, so the FK on Files still rejects it
-            //    with 1452. The FileVersions trigger is needed because an EF save with FolderId 0
-            //    keeps 0 on the tracked entity (the Files trigger's value is not read back), and
-            //    PnBase.Create copies that 0 into the version row. CREATE OR REPLACE makes a
-            //    re-run replace them, never duplicate them. The single-statement body
-            //    (IF ... END IF) is sent as one command, like the BEGIN NOT ATOMIC blocks in
-            //    step 4, so no DELIMITER is needed.
-            //
-            //    Why they sit before the final sweep: from here on no new row can end up without
-            //    a folder. Rows inserted earlier are caught by the sweep, later ones by a trigger.
-            migrationBuilder.Sql(DefaultFolderTrigger("TR_Files_DefaultFolder", "Files"),
-                suppressTransaction: true);
-            migrationBuilder.Sql(DefaultFolderTrigger("TR_FileVersions_DefaultFolder", "FileVersions"),
-                suppressTransaction: true);
-
-            // 7. Final sweep. A row that an old pod inserted after step 4 read MAX(Id), but before
-            //    the trigger existed, still has FolderId NULL. This statement catches it. If Up
-            //    crashes anywhere, the re-run from the top catches what is left, as in
-            //    DeviceTokenIdentityModel.
+            // 6. Final sweep. It catches a row that an old pod inserted after step 4 read
+            //    MAX(Id). Rows inserted after the migration by code that does not know folders
+            //    keep FolderId NULL, which means the default folder. If Up crashes anywhere, the
+            //    re-run from the top catches what is left, as in DeviceTokenIdentityModel.
             migrationBuilder.Sql(@"
 UPDATE `Files`
 SET `FolderId` = (SELECT MIN(`Id`) FROM `ArchiveFolders` WHERE `IsDefault` = 1)
 WHERE `FolderId` IS NULL OR `FolderId` = 0;");
 
-            // FileVersions.FolderId stays nullable, so a late version row cannot fail the MODIFY.
-            // It is swept anyway, so that history written during the deploy also lands in Arkiv.
+            // FileVersions.FolderId is swept as well, so that history written during the deploy
+            // also lands in Arkiv.
             migrationBuilder.Sql(@"
 UPDATE `FileVersions`
 SET `FolderId` = (SELECT MIN(`Id`) FROM `ArchiveFolders` WHERE `IsDefault` = 1)
 WHERE `FolderId` IS NULL OR `FolderId` = 0;");
 
-            // 8. Tighten. NOT NULL, plus DEFAULT 0 for the safety net in step 6: an insert that
-            //    omits the column is accepted by strict mode, and the trigger fixes it. MODIFY
-            //    restates the whole column definition, so a re-run changes nothing.
-            migrationBuilder.Sql(
-                "ALTER TABLE `Files` MODIFY COLUMN `FolderId` int NOT NULL DEFAULT 0;");
+            // Files.FolderId deliberately stays nullable: no NOT NULL, no DEFAULT, no triggers.
+            // After this migration a host can still run plugin code that does not know folders
+            // (the service plugin also runs Migrate()), and its inserts leave FolderId NULL.
+            // NULL means the default folder; the API resolves it by IsDefault, never by a fixed
+            // id. A later migration fills the NULLs and makes the column NOT NULL.
 
-            // 9. FK. Files.FolderId only: FileVersions.FolderId deliberately gets no FK.
+            // 7. FK. Files.FolderId only: FileVersions.FolderId deliberately gets no FK.
             migrationBuilder.Sql(@"
 ALTER TABLE `Files`
     ADD CONSTRAINT `FK_Files_ArchiveFolders_FolderId`
     FOREIGN KEY IF NOT EXISTS (`FolderId`) REFERENCES `ArchiveFolders` (`Id`) ON DELETE RESTRICT;");
         }
-
-        private static string DefaultFolderTrigger(string name, string table) => $@"
-CREATE OR REPLACE TRIGGER `{name}` BEFORE INSERT ON `{table}` FOR EACH ROW
-IF NEW.`FolderId` IS NULL OR NEW.`FolderId` = 0 THEN
-    SET NEW.`FolderId` = (SELECT `Id` FROM `ArchiveFolders`
-                          WHERE `IsDefault` = 1 AND `WorkflowState` <> 'removed'
-                          ORDER BY `Id` LIMIT 1);
-END IF";
 
         // v_from and v_max are BIGINT, so that v_from + MoveBatchSize cannot overflow INT on the
         // last batch when ids come near 2,147,483,647.
@@ -280,10 +244,6 @@ END";
             // Lossy: folder placement, read access, document dates and date suggestions are dropped.
             // Unlike Up, Down is NOT re-runnable, on purpose (plain EF calls, as in
             // DeviceTokenIdentityModel). Rollbacks are attended and done once.
-            // The triggers read ArchiveFolders, so they go first.
-            migrationBuilder.Sql("DROP TRIGGER IF EXISTS `TR_Files_DefaultFolder`;");
-            migrationBuilder.Sql("DROP TRIGGER IF EXISTS `TR_FileVersions_DefaultFolder`;");
-
             migrationBuilder.DropForeignKey(
                 name: "FK_Files_ArchiveFolders_FolderId",
                 table: "Files");

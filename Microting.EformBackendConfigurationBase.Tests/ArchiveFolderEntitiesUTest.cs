@@ -253,24 +253,19 @@ public class ArchiveFolderEntitiesUTest : DbTestFixture
     }
 
     [Test]
-    public async Task File_WithoutFolder_LandsInTheDefaultFolder()
+    public async Task File_WithoutFolder_KeepsNullFolder()
     {
-        // The rollout safety net in AddArchiveFolders (DEFAULT 0 + the default-folder triggers on
-        // Files and FileVersions) puts a file saved by old plugin code (FolderId 0) and its
-        // version row into the default folder. "Drift" is created first, so the lowest id is not
-        // the default one.
-        await CreateFolder("Drift");
-        var arkiv = await CreateFolder("Arkiv", isDefault: true);
+        // NULL means the default folder. There is no default and no trigger, so a file saved by
+        // code that does not know folders keeps NULL on the row and on its version row.
+        await CreateFolder("Arkiv", isDefault: true);
         var file = new File { FileName = "Uden mappe.pdf", CreatedByUserId = 0, UpdatedByUserId = 0 };
 
         await file.Create(DbContext);
 
-        // EF does not read FolderId back after the insert, so the tracked entity still says 0,
-        // and Create copies that 0 into the version row. The FileVersions trigger fixes it.
         var saved = await DbContext.Files.AsNoTracking().SingleAsync(f => f.Id == file.Id);
-        Assert.That(saved.FolderId, Is.EqualTo(arkiv.Id));
+        Assert.That(saved.FolderId, Is.Null);
         var version = await DbContext.FileVersions.AsNoTracking().SingleAsync(v => v.FileId == file.Id);
-        Assert.That(version.FolderId, Is.EqualTo(arkiv.Id));
+        Assert.That(version.FolderId, Is.Null);
     }
 
     [Test]

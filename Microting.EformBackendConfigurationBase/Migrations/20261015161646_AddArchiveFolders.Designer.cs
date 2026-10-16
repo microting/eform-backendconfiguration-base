@@ -3751,7 +3751,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("FileName")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("FolderId")
+                    b.Property<int?>("FolderId")
                         .HasColumnType("int");
 
                     b.Property<bool>("OwnAccess")
@@ -8286,8 +8286,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasOne("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolder", "Folder")
                         .WithMany("Files")
                         .HasForeignKey("FolderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Folder");
                 });
