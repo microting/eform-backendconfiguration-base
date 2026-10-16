@@ -56,7 +56,7 @@ public class TailBiteLocationUTest : DbTestFixture
     {
         var code = "dup-code-0000000000000";
         await new TailBiteLocation { PropertyId = 1, Name = "A", QrCode = code }.Create(DbContext);
-        Assert.ThrowsAsync<DbUpdateException>(async () =>
+        await Assert.ThrowsAsync<DbUpdateException>(async () =>
             await new TailBiteLocation { PropertyId = 1, Name = "B", QrCode = code }.Create(DbContext));
     }
 }

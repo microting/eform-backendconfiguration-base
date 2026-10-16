@@ -43,7 +43,7 @@ public class TailBiteOutbreakUTest : DbTestFixture
     public async Task TwoOpenOutbreaks_SameLocation_Rejected()
     {
         await Open(10).Create(DbContext);
-        Assert.ThrowsAsync<DbUpdateException>(async () => await Open(10).Create(DbContext));
+        await Assert.ThrowsAsync<DbUpdateException>(async () => await Open(10).Create(DbContext));
     }
 
     [Test]
@@ -91,7 +91,7 @@ public class TailBiteOutbreakUTest : DbTestFixture
         await reg.Create(DbContext);
         var regLoc = new TailBiteRegistrationLocation { RegistrationId = reg.Id, LocationId = 10 };
         await regLoc.Create(DbContext);
-        Assert.ThrowsAsync<DbUpdateException>(async () =>
+        await Assert.ThrowsAsync<DbUpdateException>(async () =>
             await new TailBiteOutbreakLink { OutbreakId = 999999, RegistrationLocationId = regLoc.Id }.Create(DbContext));
     }
 }
