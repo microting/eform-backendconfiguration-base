@@ -114,7 +114,7 @@ public class InboxEntitiesUTest : DbTestFixture
         var hubId = Guid.NewGuid().ToString();
         await NewDocument(hubId).Create(DbContext);
 
-        Assert.ThrowsAsync<DbUpdateException>(async () => await NewDocument(hubId).Create(DbContext));
+        await Assert.ThrowsAsync<DbUpdateException>(async () => await NewDocument(hubId).Create(DbContext));
     }
 
     [Test]

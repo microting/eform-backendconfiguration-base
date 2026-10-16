@@ -46,7 +46,7 @@ public class TailBiteRegistrationUTest : DbTestFixture
     {
         var uuid = Guid.NewGuid();
         await NewReg(uuid).Create(DbContext);
-        Assert.ThrowsAsync<DbUpdateException>(async () => await NewReg(uuid).Create(DbContext));
+        await Assert.ThrowsAsync<DbUpdateException>(async () => await NewReg(uuid).Create(DbContext));
     }
 
     [Test]
@@ -65,7 +65,7 @@ public class TailBiteRegistrationUTest : DbTestFixture
     {
         var p = Guid.NewGuid();
         await new TailBiteRegistrationPhoto { PhotoUuid = p, PropertyId = 1, UploadedBySiteId = 7, RegistrationClientUuid = Guid.NewGuid(), SdkUploadedDataId = 1 }.Create(DbContext);
-        Assert.ThrowsAsync<DbUpdateException>(async () =>
+        await Assert.ThrowsAsync<DbUpdateException>(async () =>
             await new TailBiteRegistrationPhoto { PhotoUuid = p, PropertyId = 1, UploadedBySiteId = 7, RegistrationClientUuid = Guid.NewGuid(), SdkUploadedDataId = 2 }.Create(DbContext));
     }
 
@@ -75,7 +75,7 @@ public class TailBiteRegistrationUTest : DbTestFixture
         var reg = NewReg(Guid.NewGuid());
         await reg.Create(DbContext);
         await new TailBiteRegistrationLocation { RegistrationId = reg.Id, LocationId = 5 }.Create(DbContext);
-        Assert.ThrowsAsync<DbUpdateException>(async () =>
+        await Assert.ThrowsAsync<DbUpdateException>(async () =>
             await new TailBiteRegistrationLocation { RegistrationId = reg.Id, LocationId = 5 }.Create(DbContext));
     }
 }

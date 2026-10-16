@@ -241,7 +241,7 @@ public class GoogleDriveIntegrationUTest : DbTestFixture
     }
 
     [Test]
-    public void DriveWatchChannel_Create_WithoutValidGoogleOAuthTokenId_FailsFkConstraint()
+    public async Task DriveWatchChannel_Create_WithoutValidGoogleOAuthTokenId_FailsFkConstraint()
     {
         // Arrange — point at a token id that does not exist; the FK on
         // DriveWatchChannels.GoogleOAuthTokenId must reject it.
@@ -257,7 +257,7 @@ public class GoogleDriveIntegrationUTest : DbTestFixture
         };
 
         // Act + Assert — Pomelo wraps the MySQL FK violation as a DbUpdateException.
-        Assert.ThrowsAsync<DbUpdateException>(async () => await orphan.Create(DbContext));
+        await Assert.ThrowsAsync<DbUpdateException>(async () => await orphan.Create(DbContext));
     }
 
     [Test]
@@ -303,7 +303,7 @@ public class GoogleDriveIntegrationUTest : DbTestFixture
     }
 
     [Test]
-    public void AreaRulePlanningFile_WithBadGoogleOAuthTokenId_FailsFkConstraint()
+    public async Task AreaRulePlanningFile_WithBadGoogleOAuthTokenId_FailsFkConstraint()
     {
         // Arrange — point AreaRulePlanningFile.GoogleOAuthTokenId at a token
         // id that does not exist; the FK must reject it. This locks the
@@ -323,6 +323,6 @@ public class GoogleDriveIntegrationUTest : DbTestFixture
             UpdatedByUserId = 1,
         };
 
-        Assert.ThrowsAsync<DbUpdateException>(async () => await orphan.Create(DbContext));
+        await Assert.ThrowsAsync<DbUpdateException>(async () => await orphan.Create(DbContext));
     }
 }

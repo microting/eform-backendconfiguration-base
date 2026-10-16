@@ -149,7 +149,7 @@ public class ChemicalInventoryUTest : DbTestFixture
         DbContext.ChangeTracker.Clear();
         var duplicate = new ChemicalPropertySettings { PropertyId = property.Id, CreatedByUserId = 1, UpdatedByUserId = 1 };
 
-        Assert.That(async () => await duplicate.Create(DbContext), Throws.InstanceOf<DbUpdateException>());
+        await Assert.ThatAsync(async () => await duplicate.Create(DbContext), Throws.InstanceOf<DbUpdateException>());
     }
 
     [Test]
@@ -171,7 +171,7 @@ public class ChemicalInventoryUTest : DbTestFixture
 
         DbContext.ChangeTracker.Clear();
         var duplicate = new ChemicalWorkerPermission { PropertyId = property.Id, WorkerId = 77, CreatedByUserId = 1, UpdatedByUserId = 1 };
-        Assert.That(async () => await duplicate.Create(DbContext), Throws.InstanceOf<DbUpdateException>());
+        await Assert.ThatAsync(async () => await duplicate.Create(DbContext), Throws.InstanceOf<DbUpdateException>());
     }
 
     [Test]

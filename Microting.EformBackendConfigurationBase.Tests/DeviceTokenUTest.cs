@@ -103,7 +103,7 @@ public class DeviceTokenUTest : DbTestFixture
         // [Required] as tidy-up cannot pass unnoticed.
         var deviceToken = NewDeviceToken("install-null-appid", appId: null);
 
-        Assert.ThrowsAsync<DbUpdateException>(async () => await deviceToken.Create(DbContext));
+        await Assert.ThrowsAsync<DbUpdateException>(async () => await deviceToken.Create(DbContext));
     }
 
     [Test]
@@ -199,7 +199,7 @@ public class DeviceTokenUTest : DbTestFixture
         await deviceTokenOne.Create(DbContext);
 
         // Act & Assert
-        Assert.ThrowsAsync<DbUpdateException>(async () => await deviceTokenTwo.Create(DbContext));
+        await Assert.ThrowsAsync<DbUpdateException>(async () => await deviceTokenTwo.Create(DbContext));
     }
 
     [Test]
