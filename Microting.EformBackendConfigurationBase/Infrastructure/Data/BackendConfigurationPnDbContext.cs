@@ -194,6 +194,8 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
 
     public DbSet<DeviceToken> DeviceTokens { get; set; }
     public DbSet<DeviceTokenVersion> DeviceTokenVersions { get; set; }
+    public DbSet<LederAssignment> LederAssignments { get; set; }
+    public DbSet<LederAssignmentVersion> LederAssignmentVersions { get; set; }
 
     public DbSet<ChemicalLocation> ChemicalLocations { get; set; }
     public DbSet<ChemicalLocationVersion> ChemicalLocationVersions { get; set; }
@@ -261,6 +263,11 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
         // Prune-by-token after an FCM permanent failure.
         modelBuilder.Entity<DeviceToken>()
             .HasIndex(e => e.FcmToken);
+
+        // One row per login; unfiltered, so removed rows count too (see LederAssignment).
+        modelBuilder.Entity<LederAssignment>()
+            .HasIndex(e => e.EformUserId)
+            .IsUnique();
 
         // A hub retry after a timeout must not create a second inbox row.
         modelBuilder.Entity<InboxDocument>()
