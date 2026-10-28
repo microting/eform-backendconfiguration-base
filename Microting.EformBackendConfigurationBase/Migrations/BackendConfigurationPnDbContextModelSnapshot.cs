@@ -17,7 +17,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.12")
+                .HasAnnotation("ProductVersion", "10.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -59,7 +59,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PropertyId");
 
-                    b.ToTable("AdhocAreas");
+                    b.ToTable("AdhocAreas", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocAreaVersion", b =>
@@ -100,7 +100,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdhocAreaVersions");
+                    b.ToTable("AdhocAreaVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocTag", b =>
@@ -138,7 +138,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdhocTags");
+                    b.ToTable("AdhocTags", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocTagVersion", b =>
@@ -179,7 +179,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdhocTagVersions");
+                    b.ToTable("AdhocTagVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocTaskAssignment", b =>
@@ -219,7 +219,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AdhocTaskId");
 
-                    b.ToTable("AdhocTaskAssignments");
+                    b.ToTable("AdhocTaskAssignments", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocTaskAssignmentLog", b =>
@@ -265,7 +265,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AdhocTaskId");
 
-                    b.ToTable("AdhocTaskAssignmentLogs");
+                    b.ToTable("AdhocTaskAssignmentLogs", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocTaskAssignmentLogVersion", b =>
@@ -312,7 +312,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdhocTaskAssignmentLogVersions");
+                    b.ToTable("AdhocTaskAssignmentLogVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocTaskAssignmentVersion", b =>
@@ -353,7 +353,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdhocTaskAssignmentVersions");
+                    b.ToTable("AdhocTaskAssignmentVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocTaskComment", b =>
@@ -396,7 +396,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AdhocTaskId");
 
-                    b.ToTable("AdhocTaskComments");
+                    b.ToTable("AdhocTaskComments", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocTaskCommentVersion", b =>
@@ -440,7 +440,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdhocTaskCommentVersions");
+                    b.ToTable("AdhocTaskCommentVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocTaskEntity", b =>
@@ -540,7 +540,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PropertyId");
 
-                    b.ToTable("AdhocTasks");
+                    b.ToTable("AdhocTasks", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocTaskEntityVersion", b =>
@@ -638,7 +638,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdhocTaskVersions");
+                    b.ToTable("AdhocTaskVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocTaskPhoto", b =>
@@ -681,7 +681,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AdhocTaskId");
 
-                    b.ToTable("AdhocTaskPhotos");
+                    b.ToTable("AdhocTaskPhotos", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocTaskPhotoVersion", b =>
@@ -725,7 +725,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdhocTaskPhotoVersions");
+                    b.ToTable("AdhocTaskPhotoVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocTaskTag", b =>
@@ -767,7 +767,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AdhocTaskId");
 
-                    b.ToTable("AdhocTaskTags");
+                    b.ToTable("AdhocTaskTags", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocTaskTagVersion", b =>
@@ -808,7 +808,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdhocTaskTagVersions");
+                    b.ToTable("AdhocTaskTagVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolder", b =>
@@ -853,7 +853,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("ArchiveFolders");
+                    b.ToTable("ArchiveFolders", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolderReadTag", b =>
@@ -895,7 +895,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("SdkTagId");
 
-                    b.ToTable("ArchiveFolderReadTags");
+                    b.ToTable("ArchiveFolderReadTags", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolderReadTagVersion", b =>
@@ -936,7 +936,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ArchiveFolderReadTagVersions");
+                    b.ToTable("ArchiveFolderReadTagVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ArchiveFolderVersion", b =>
@@ -980,7 +980,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ArchiveFolderVersions");
+                    b.ToTable("ArchiveFolderVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Area", b =>
@@ -1024,7 +1024,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Areas");
+                    b.ToTable("Areas", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaInitialField", b =>
@@ -1089,7 +1089,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("AreaId")
                         .IsUnique();
 
-                    b.ToTable("AreaInitialFields");
+                    b.ToTable("AreaInitialFields", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaInitialFieldVersion", b =>
@@ -1156,7 +1156,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AreaId");
 
-                    b.ToTable("AreaInitialFieldVersions");
+                    b.ToTable("AreaInitialFieldVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaProperty", b =>
@@ -1204,7 +1204,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PropertyId");
 
-                    b.ToTable("AreaProperties");
+                    b.ToTable("AreaProperties", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaPropertyVersion", b =>
@@ -1251,7 +1251,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AreaPropertyVersions");
+                    b.ToTable("AreaPropertyVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRule", b =>
@@ -1353,7 +1353,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PropertyId");
 
-                    b.ToTable("AreaRules");
+                    b.ToTable("AreaRules", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRuleInitialField", b =>
@@ -1418,7 +1418,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("AreaRuleId")
                         .IsUnique();
 
-                    b.ToTable("AreaRuleInitialFields");
+                    b.ToTable("AreaRuleInitialFields", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulePlanning", b =>
@@ -1525,7 +1525,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AreaRuleId");
 
-                    b.ToTable("AreaRulePlannings");
+                    b.ToTable("AreaRulePlannings", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulePlanningFile", b =>
@@ -1588,7 +1588,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("GoogleOAuthTokenId");
 
-                    b.ToTable("AreaRulePlanningFiles");
+                    b.ToTable("AreaRulePlanningFiles", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulePlanningFileVersion", b =>
@@ -1650,7 +1650,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AreaRulePlanningFileVersions");
+                    b.ToTable("AreaRulePlanningFileVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulePlanningTag", b =>
@@ -1690,7 +1690,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AreaRulePlanningId");
 
-                    b.ToTable("AreaRulePlanningTags");
+                    b.ToTable("AreaRulePlanningTags", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulePlanningTagVersion", b =>
@@ -1731,7 +1731,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AreaRulePlanningTagVersion");
+                    b.ToTable("AreaRulePlanningTagVersion", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulePlanningVersion", b =>
@@ -1839,7 +1839,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AreaRulesPlanningVersions");
+                    b.ToTable("AreaRulesPlanningVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulePlanningWorkerTag", b =>
@@ -1879,7 +1879,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AreaRulePlanningId");
 
-                    b.ToTable("AreaRulePlanningWorkerTags");
+                    b.ToTable("AreaRulePlanningWorkerTags", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRulePlanningWorkerTagVersion", b =>
@@ -1920,7 +1920,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AreaRulePlanningWorkerTagVersion");
+                    b.ToTable("AreaRulePlanningWorkerTagVersion", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRuleTranslation", b =>
@@ -1967,7 +1967,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AreaRuleId");
 
-                    b.ToTable("AreaRuleTranslations");
+                    b.ToTable("AreaRuleTranslations", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRuleTranslationVersion", b =>
@@ -2011,7 +2011,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AreaRuleTranslationVersions");
+                    b.ToTable("AreaRuleTranslationVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaRuleVersion", b =>
@@ -2112,7 +2112,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AreaRuleVersions");
+                    b.ToTable("AreaRuleVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaTranslation", b =>
@@ -2167,7 +2167,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AreaId");
 
-                    b.ToTable("AreaTranslations");
+                    b.ToTable("AreaTranslations", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaTranslationVersion", b =>
@@ -2223,7 +2223,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AreaTranslationVersions");
+                    b.ToTable("AreaTranslationVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AreaVersion", b =>
@@ -2270,7 +2270,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AreaVersions");
+                    b.ToTable("AreaVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.CalendarBoard", b =>
@@ -2311,7 +2311,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CalendarBoards");
+                    b.ToTable("CalendarBoards", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.CalendarConfiguration", b =>
@@ -2360,7 +2360,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AreaRulePlanningId");
 
-                    b.ToTable("CalendarConfigurations");
+                    b.ToTable("CalendarConfigurations", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.CalendarOccurrenceException", b =>
@@ -2425,7 +2425,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("AreaRulePlanningId", "OriginalDate")
                         .IsUnique();
 
-                    b.ToTable("CalendarOccurrenceExceptions");
+                    b.ToTable("CalendarOccurrenceExceptions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.CalendarOccurrenceExceptionSite", b =>
@@ -2465,7 +2465,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("CalendarOccurrenceExceptionId");
 
-                    b.ToTable("CalendarOccurrenceExceptionSites");
+                    b.ToTable("CalendarOccurrenceExceptionSites", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalAlertLog", b =>
@@ -2517,7 +2517,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PlacementId", "Threshold", "DeadlineKind", "Channel");
 
-                    b.ToTable("ChemicalAlertLogs");
+                    b.ToTable("ChemicalAlertLogs", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalAlertLogVersion", b =>
@@ -2570,7 +2570,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ChemicalAlertLogVersions");
+                    b.ToTable("ChemicalAlertLogVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalLocation", b =>
@@ -2622,7 +2622,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PropertyId", "WorkflowState");
 
-                    b.ToTable("ChemicalLocations");
+                    b.ToTable("ChemicalLocations", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalLocationVersion", b =>
@@ -2674,7 +2674,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ChemicalLocationVersions");
+                    b.ToTable("ChemicalLocationVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalPlacement", b =>
@@ -2746,7 +2746,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("LocationId", "RemovedAt");
 
-                    b.ToTable("ChemicalPlacements");
+                    b.ToTable("ChemicalPlacements", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalPlacementVersion", b =>
@@ -2817,7 +2817,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ChemicalPlacementVersions");
+                    b.ToTable("ChemicalPlacementVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalPropertySettings", b =>
@@ -2861,7 +2861,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("PropertyId")
                         .IsUnique();
 
-                    b.ToTable("ChemicalPropertySettings");
+                    b.ToTable("ChemicalPropertySettings", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalPropertySettingsVersion", b =>
@@ -2905,7 +2905,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ChemicalPropertySettingsVersions");
+                    b.ToTable("ChemicalPropertySettingsVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalStockEntry", b =>
@@ -2972,7 +2972,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PlacementId");
 
-                    b.ToTable("ChemicalStockEntries");
+                    b.ToTable("ChemicalStockEntries", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalStockEntryVersion", b =>
@@ -3040,7 +3040,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ChemicalStockEntryVersions");
+                    b.ToTable("ChemicalStockEntryVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalWorkerPermission", b =>
@@ -3101,7 +3101,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("PropertyId", "WorkerId")
                         .IsUnique();
 
-                    b.ToTable("ChemicalWorkerPermissions");
+                    b.ToTable("ChemicalWorkerPermissions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ChemicalWorkerPermissionVersion", b =>
@@ -3160,7 +3160,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ChemicalWorkerPermissionVersions");
+                    b.ToTable("ChemicalWorkerPermissionVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Compliance", b =>
@@ -3231,7 +3231,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("PlanningId", "Deadline")
                         .IsUnique();
 
-                    b.ToTable("Compliances");
+                    b.ToTable("Compliances", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ComplianceVersion", b =>
@@ -3302,7 +3302,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ComplianceVersions");
+                    b.ToTable("ComplianceVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.DeviceToken", b =>
@@ -3362,7 +3362,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AppId", "SdkSiteId", "WorkflowState");
 
-                    b.ToTable("DeviceTokens");
+                    b.ToTable("DeviceTokens", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.DeviceTokenVersion", b =>
@@ -3412,7 +3412,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DeviceTokenVersions");
+                    b.ToTable("DeviceTokenVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.DriveWatchChannel", b =>
@@ -3464,7 +3464,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("GoogleOAuthTokenId");
 
-                    b.ToTable("DriveWatchChannels");
+                    b.ToTable("DriveWatchChannels", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.DriveWatchChannelVersion", b =>
@@ -3517,7 +3517,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DriveWatchChannelVersions");
+                    b.ToTable("DriveWatchChannelVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Email", b =>
@@ -3579,7 +3579,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Emails");
+                    b.ToTable("Emails", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.EmailAttachment", b =>
@@ -3622,7 +3622,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("EmailId");
 
-                    b.ToTable("EmailAttachments");
+                    b.ToTable("EmailAttachments", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.EmailAttachmentVersion", b =>
@@ -3666,7 +3666,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmailAttachmentVersions");
+                    b.ToTable("EmailAttachmentVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.EmailVersion", b =>
@@ -3722,7 +3722,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmailVersions");
+                    b.ToTable("EmailVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.File", b =>
@@ -3771,7 +3771,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("FolderId");
 
-                    b.ToTable("Files");
+                    b.ToTable("Files", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileReadTag", b =>
@@ -3813,7 +3813,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("SdkTagId");
 
-                    b.ToTable("FileReadTags");
+                    b.ToTable("FileReadTags", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileReadTagVersion", b =>
@@ -3854,7 +3854,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FileReadTagVersions");
+                    b.ToTable("FileReadTagVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileTag", b =>
@@ -3891,7 +3891,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FileTags");
+                    b.ToTable("FileTags", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileTagVersion", b =>
@@ -3929,7 +3929,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FileTagVersions");
+                    b.ToTable("FileTagVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileTags", b =>
@@ -3971,7 +3971,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("FileTagId");
 
-                    b.ToTable("FilesTags");
+                    b.ToTable("FilesTags", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileTagsVersion", b =>
@@ -4012,7 +4012,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FilesTagsVersions");
+                    b.ToTable("FilesTagsVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.FileVersion", b =>
@@ -4062,7 +4062,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FileVersions");
+                    b.ToTable("FileVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.GoogleOAuthToken", b =>
@@ -4114,7 +4114,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GoogleOAuthTokens");
+                    b.ToTable("GoogleOAuthTokens", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.GoogleOAuthTokenVersion", b =>
@@ -4169,7 +4169,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GoogleOAuthTokenVersions");
+                    b.ToTable("GoogleOAuthTokenVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.InboxAddress", b =>
@@ -4220,7 +4220,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("TokenHash")
                         .IsUnique();
 
-                    b.ToTable("InboxAddresses");
+                    b.ToTable("InboxAddresses", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.InboxAddressVersion", b =>
@@ -4267,7 +4267,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InboxAddressVersions");
+                    b.ToTable("InboxAddressVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.InboxDocument", b =>
@@ -4369,7 +4369,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("Status", "WorkflowState");
 
-                    b.ToTable("InboxDocuments");
+                    b.ToTable("InboxDocuments", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.InboxDocumentVersion", b =>
@@ -4458,7 +4458,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InboxDocumentVersions");
+                    b.ToTable("InboxDocumentVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.InboxSenderRule", b =>
@@ -4498,7 +4498,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InboxSenderRules");
+                    b.ToTable("InboxSenderRules", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.InboxSenderRuleVersion", b =>
@@ -4539,7 +4539,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InboxSenderRuleVersions");
+                    b.ToTable("InboxSenderRuleVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.InboxSuggestion", b =>
@@ -4605,7 +4605,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("InboxDocumentId");
 
-                    b.ToTable("InboxSuggestions");
+                    b.ToTable("InboxSuggestions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.InboxSuggestionVersion", b =>
@@ -4670,7 +4670,83 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InboxSuggestionVersions");
+                    b.ToTable("InboxSuggestionVersions", (string)null);
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.LederAssignment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EformUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EformUserId")
+                        .IsUnique();
+
+                    b.ToTable("LederAssignments", (string)null);
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.LederAssignmentVersion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EformUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LederAssignmentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkflowState")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LederAssignmentVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PlanningSite", b =>
@@ -4719,7 +4795,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AreaRulePlanningsId");
 
-                    b.ToTable("PlanningSites");
+                    b.ToTable("PlanningSites", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PlanningSiteVersion", b =>
@@ -4772,7 +4848,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PlanningSitesVersions");
+                    b.ToTable("PlanningSitesVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PoolAccident", b =>
@@ -4840,7 +4916,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PoolAccidents");
+                    b.ToTable("PoolAccidents", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PoolAccidentVersion", b =>
@@ -4911,7 +4987,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PoolAccidentVersions");
+                    b.ToTable("PoolAccidentVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PoolHistorySite", b =>
@@ -4955,7 +5031,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PoolHistorySites");
+                    b.ToTable("PoolHistorySites", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PoolHistorySiteVersion", b =>
@@ -5002,7 +5078,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PoolHistorySiteVersions");
+                    b.ToTable("PoolHistorySiteVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PoolHour", b =>
@@ -5052,7 +5128,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PoolHours");
+                    b.ToTable("PoolHours", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PoolHourResult", b =>
@@ -5150,7 +5226,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PoolHourResults");
+                    b.ToTable("PoolHourResults", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PoolHourResultVersion", b =>
@@ -5251,7 +5327,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PoolHourResultVersions");
+                    b.ToTable("PoolHourResultVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PoolHourVersion", b =>
@@ -5298,7 +5374,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PoolHourVersions");
+                    b.ToTable("PoolHourVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.Property", b =>
@@ -5387,7 +5463,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Properties");
+                    b.ToTable("Properties", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertyFile", b =>
@@ -5429,7 +5505,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PropertyId");
 
-                    b.ToTable("PropertyFiles");
+                    b.ToTable("PropertyFiles", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertyFileVersion", b =>
@@ -5470,7 +5546,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PropertyFileVersions");
+                    b.ToTable("PropertyFileVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertySelectedLanguage", b =>
@@ -5510,7 +5586,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PropertyId");
 
-                    b.ToTable("PropertySelectedLanguages");
+                    b.ToTable("PropertySelectedLanguages", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertySelectedLanguageVersion", b =>
@@ -5551,7 +5627,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PropertySelectedLanguageVersions");
+                    b.ToTable("PropertySelectedLanguageVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertyVersion", b =>
@@ -5643,7 +5719,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PropertieVersions");
+                    b.ToTable("PropertieVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertyWorker", b =>
@@ -5700,7 +5776,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PropertyId");
 
-                    b.ToTable("PropertyWorkers");
+                    b.ToTable("PropertyWorkers", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.PropertyWorkerVersion", b =>
@@ -5758,7 +5834,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PropertyWorkerVersions");
+                    b.ToTable("PropertyWorkerVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ProperyAreaFolder", b =>
@@ -5798,7 +5874,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("ProperyAreaAsignmentId");
 
-                    b.ToTable("ProperyAreaFolders");
+                    b.ToTable("ProperyAreaFolders", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.ProperyAreaFolderVersion", b =>
@@ -5839,7 +5915,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProperyAreaFolderVersions");
+                    b.ToTable("ProperyAreaFolderVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteActionType", b =>
@@ -5890,7 +5966,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("PropertyId", "Code")
                         .IsUnique();
 
-                    b.ToTable("TailBiteActionTypes");
+                    b.ToTable("TailBiteActionTypes", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteActionTypeVersion", b =>
@@ -5939,7 +6015,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TailBiteActionTypeVersions");
+                    b.ToTable("TailBiteActionTypeVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteAssessmentAction", b =>
@@ -6006,7 +6082,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AssessmentId");
 
-                    b.ToTable("TailBiteAssessmentActions");
+                    b.ToTable("TailBiteAssessmentActions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteAssessmentActionVersion", b =>
@@ -6073,7 +6149,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TailBiteAssessmentActionVersions");
+                    b.ToTable("TailBiteAssessmentActionVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteLocation", b =>
@@ -6129,7 +6205,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PropertyId", "ParentId");
 
-                    b.ToTable("TailBiteLocations");
+                    b.ToTable("TailBiteLocations", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteLocationVersion", b =>
@@ -6181,7 +6257,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TailBiteLocationVersions");
+                    b.ToTable("TailBiteLocationVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteOccupancy", b =>
@@ -6227,7 +6303,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("LocationId", "ValidFrom");
 
-                    b.ToTable("TailBiteOccupancies");
+                    b.ToTable("TailBiteOccupancies", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteOccupancyVersion", b =>
@@ -6274,7 +6350,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TailBiteOccupancyVersions");
+                    b.ToTable("TailBiteOccupancyVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteOutbreak", b =>
@@ -6340,7 +6416,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PropertyId", "ClosedAt");
 
-                    b.ToTable("TailBiteOutbreaks");
+                    b.ToTable("TailBiteOutbreaks", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteOutbreakLink", b =>
@@ -6383,7 +6459,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("OutbreakId", "RegistrationLocationId")
                         .IsUnique();
 
-                    b.ToTable("TailBiteOutbreakLinks");
+                    b.ToTable("TailBiteOutbreakLinks", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteOutbreakLinkVersion", b =>
@@ -6424,7 +6500,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TailBiteOutbreakLinkVersions");
+                    b.ToTable("TailBiteOutbreakLinkVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteOutbreakVersion", b =>
@@ -6483,7 +6559,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TailBiteOutbreakVersions");
+                    b.ToTable("TailBiteOutbreakVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteProperty", b =>
@@ -6527,7 +6603,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("PropertyId")
                         .IsUnique();
 
-                    b.ToTable("TailBiteProperties");
+                    b.ToTable("TailBiteProperties", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBitePropertyVersion", b =>
@@ -6571,7 +6647,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TailBitePropertyVersions");
+                    b.ToTable("TailBitePropertyVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRegistration", b =>
@@ -6652,7 +6728,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PropertyId", "EffectiveAt");
 
-                    b.ToTable("TailBiteRegistrations");
+                    b.ToTable("TailBiteRegistrations", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRegistrationAction", b =>
@@ -6692,7 +6768,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("RegistrationId");
 
-                    b.ToTable("TailBiteRegistrationActions");
+                    b.ToTable("TailBiteRegistrationActions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRegistrationActionVersion", b =>
@@ -6733,7 +6809,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TailBiteRegistrationActionVersions");
+                    b.ToTable("TailBiteRegistrationActionVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRegistrationLocation", b =>
@@ -6788,7 +6864,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("RegistrationId", "LocationId")
                         .IsUnique();
 
-                    b.ToTable("TailBiteRegistrationLocations");
+                    b.ToTable("TailBiteRegistrationLocations", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRegistrationLocationVersion", b =>
@@ -6841,7 +6917,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TailBiteRegistrationLocationVersions");
+                    b.ToTable("TailBiteRegistrationLocationVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRegistrationPhoto", b =>
@@ -6893,7 +6969,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("RegistrationClientUuid");
 
-                    b.ToTable("TailBiteRegistrationPhotos");
+                    b.ToTable("TailBiteRegistrationPhotos", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRegistrationPhotoVersion", b =>
@@ -6943,7 +7019,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TailBiteRegistrationPhotoVersions");
+                    b.ToTable("TailBiteRegistrationPhotoVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRegistrationVersion", b =>
@@ -7019,7 +7095,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TailBiteRegistrationVersions");
+                    b.ToTable("TailBiteRegistrationVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRiskAssessment", b =>
@@ -7081,7 +7157,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("OutbreakId")
                         .IsUnique();
 
-                    b.ToTable("TailBiteRiskAssessments");
+                    b.ToTable("TailBiteRiskAssessments", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRiskAssessmentVersion", b =>
@@ -7143,7 +7219,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TailBiteRiskAssessmentVersions");
+                    b.ToTable("TailBiteRiskAssessmentVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRule", b =>
@@ -7192,7 +7268,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("TailBiteRules");
+                    b.ToTable("TailBiteRules", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TailBiteRuleVersion", b =>
@@ -7242,7 +7318,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TailBiteRuleVersions");
+                    b.ToTable("TailBiteRuleVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TaskTrackerColumn", b =>
@@ -7283,7 +7359,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TaskTrackerColumns");
+                    b.ToTable("TaskTrackerColumns", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TaskTrackerColumnVersion", b =>
@@ -7327,7 +7403,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TaskTrackerColumnVersions");
+                    b.ToTable("TaskTrackerColumnVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.UploadedData", b =>
@@ -7385,7 +7461,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("FileId")
                         .IsUnique();
 
-                    b.ToTable("UploadedDatas");
+                    b.ToTable("UploadedDatas", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.UploadedDataVersion", b =>
@@ -7443,7 +7519,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UploadedDataVersions");
+                    b.ToTable("UploadedDataVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.WorkorderCase", b =>
@@ -7533,7 +7609,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PropertyWorkerId");
 
-                    b.ToTable("WorkorderCases");
+                    b.ToTable("WorkorderCases", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.WorkorderCaseImage", b =>
@@ -7571,7 +7647,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WorkorderCaseImages");
+                    b.ToTable("WorkorderCaseImages", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.WorkorderCaseImageVersion", b =>
@@ -7612,7 +7688,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WorkorderCaseImageVersions");
+                    b.ToTable("WorkorderCaseImageVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.WorkorderCaseVersion", b =>
@@ -7701,7 +7777,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WorkorderCaseVersions");
+                    b.ToTable("WorkorderCaseVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.eFormApi.BasePn.Infrastructure.Database.Entities.PluginConfigurationValue", b =>
@@ -7739,7 +7815,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PluginConfigurationValues");
+                    b.ToTable("PluginConfigurationValues", (string)null);
                 });
 
             modelBuilder.Entity("Microting.eFormApi.BasePn.Infrastructure.Database.Entities.PluginConfigurationValueVersion", b =>
@@ -7777,7 +7853,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PluginConfigurationValueVersions");
+                    b.ToTable("PluginConfigurationValueVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.eFormApi.BasePn.Infrastructure.Database.Entities.PluginGroupPermission", b =>
@@ -7820,7 +7896,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("PermissionId");
 
-                    b.ToTable("PluginGroupPermissions");
+                    b.ToTable("PluginGroupPermissions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.eFormApi.BasePn.Infrastructure.Database.Entities.PluginGroupPermissionVersion", b =>
@@ -7864,7 +7940,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PluginGroupPermissionVersions");
+                    b.ToTable("PluginGroupPermissionVersions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.eFormApi.BasePn.Infrastructure.Database.Entities.PluginPermission", b =>
@@ -7902,7 +7978,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PluginPermissions");
+                    b.ToTable("PluginPermissions", (string)null);
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.AdhocArea", b =>

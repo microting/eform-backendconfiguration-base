@@ -171,7 +171,9 @@ public abstract class DbTestFixture
             "Files",
             "FileVersions",
             "ArchiveFolders",
-            "ArchiveFolderVersions"
+            "ArchiveFolderVersions",
+            "LederAssignments",
+            "LederAssignmentVersions"
         };
 
         var firstRunNotDone = true;
