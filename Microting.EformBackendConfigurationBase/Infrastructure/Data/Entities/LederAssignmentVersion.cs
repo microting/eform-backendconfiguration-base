@@ -32,5 +32,7 @@ public class LederAssignmentVersion : PnBase
 {
     public int LederAssignmentId { get; set; }
 
-    public int EformUserId { get; set; }
+    public int? SiteId { get; set; }
+
+    public int? EformUserId { get; set; }
 }

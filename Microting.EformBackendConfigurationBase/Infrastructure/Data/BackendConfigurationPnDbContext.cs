@@ -264,7 +264,11 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
         modelBuilder.Entity<DeviceToken>()
             .HasIndex(e => e.FcmToken);
 
-        // One row per login; unfiltered, so removed rows count too (see LederAssignment).
+        // One row per site (D-L15) and, for legacy rows, one per login (D-L13). Both unfiltered, so removed rows
+        // count too (see LederAssignment). Unique indexes on nullable columns allow many NULLs.
+        modelBuilder.Entity<LederAssignment>()
+            .HasIndex(e => e.SiteId)
+            .IsUnique();
         modelBuilder.Entity<LederAssignment>()
             .HasIndex(e => e.EformUserId)
             .IsUnique();

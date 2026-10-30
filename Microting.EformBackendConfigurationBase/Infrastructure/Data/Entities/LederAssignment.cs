@@ -24,11 +24,15 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
-// One row per login (EformUser id): the Leder flag, live while WorkflowState != Removed.
-// The unique index on EformUserId also covers removed rows, so a grant must find the row,
-// set WorkflowState back to Created and call Update(); Create() over a revoked login throws
-// DbUpdateException. No foreign key: AspNetUsers is in another database.
+// The Leder flag of one worker, keyed by the SDK Sites.Id of its Medarbejdere row (D-L15); live while
+// WorkflowState != Removed. Both unique indexes (SiteId, EformUserId) also cover removed rows, so a grant must find
+// the row, set WorkflowState back to Created and call Update(); Create() over a revoked site throws
+// DbUpdateException. New rows carry SiteId only. EformUserId is the legacy per-login key (D-L13): rows written before
+// D-L15 keep it until the plugin converts them at startup (D-L19). No foreign keys: Sites and AspNetUsers live in
+// other databases.
 public class LederAssignment : PnBase
 {
-    public int EformUserId { get; set; }
+    public int? SiteId { get; set; }
+
+    public int? EformUserId { get; set; }
 }
