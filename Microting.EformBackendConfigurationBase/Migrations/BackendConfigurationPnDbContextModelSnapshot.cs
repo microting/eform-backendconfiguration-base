@@ -17,7 +17,7 @@ namespace Microting.EformBackendConfigurationBase.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.13")
+                .HasAnnotation("ProductVersion", "10.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -4687,7 +4687,10 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EformUserId")
+                    b.Property<int?>("EformUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SiteId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -4708,6 +4711,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("EformUserId")
                         .IsUnique();
 
+                    b.HasIndex("SiteId")
+                        .IsUnique();
+
                     b.ToTable("LederAssignments", (string)null);
                 });
 
@@ -4725,10 +4731,13 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EformUserId")
+                    b.Property<int?>("EformUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("LederAssignmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SiteId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")

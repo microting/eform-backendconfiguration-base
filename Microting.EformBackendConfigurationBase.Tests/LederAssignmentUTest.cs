@@ -155,4 +155,92 @@ public class LederAssignmentUTest : DbTestFixture
 
         Assert.That(DbContext.LederAssignments.AsNoTracking().Count(), Is.EqualTo(2));
     }
+
+    private static LederAssignment NewSiteAssignment(int siteId)
+    {
+        return new LederAssignment
+        {
+            SiteId = siteId,
+            CreatedByUserId = 1,
+            UpdatedByUserId = 1,
+        };
+    }
+
+    [Test]
+    public async Task LederAssignment_SiteKeyed_SavesWithoutEformUserId_AndTheVersionCarriesSiteId()
+    {
+        var assignment = NewSiteAssignment(701);
+
+        await assignment.Create(DbContext);
+
+        var row = DbContext.LederAssignments.AsNoTracking().Single();
+        Assert.That(row.SiteId, Is.EqualTo(701));
+        Assert.That(row.EformUserId, Is.Null);
+        var version = DbContext.LederAssignmentVersions.AsNoTracking().Single();
+        Assert.That(version.LederAssignmentId, Is.EqualTo(assignment.Id));
+        Assert.That(version.SiteId, Is.EqualTo(701));
+        Assert.That(version.EformUserId, Is.Null);
+    }
+
+    [Test]
+    public async Task LederAssignment_Create_SameSiteId_Throws()
+    {
+        await NewSiteAssignment(702).Create(DbContext);
+
+        await Assert.ThrowsAsync<DbUpdateException>(
+            async () => await NewSiteAssignment(702).Create(DbContext));
+    }
+
+    [Test]
+    public async Task LederAssignment_Create_SameSiteId_ThrowsEvenWhenFirstIsRemoved()
+    {
+        // No WorkflowState filter on the SiteId index either: grant and revoke flip one row per site.
+        var first = NewSiteAssignment(703);
+        await first.Create(DbContext);
+        await first.Delete(DbContext);
+
+        await Assert.ThrowsAsync<DbUpdateException>(
+            async () => await NewSiteAssignment(703).Create(DbContext));
+    }
+
+    [Test]
+    public async Task LederAssignment_ManySiteRows_WithoutEformUserId_DoSave()
+    {
+        // EformUserId is NULL on every site-keyed row: a unique index never treats two NULLs as equal.
+        await NewSiteAssignment(704).Create(DbContext);
+        await NewSiteAssignment(705).Create(DbContext);
+        await NewSiteAssignment(706).Create(DbContext);
+
+        Assert.That(DbContext.LederAssignments.AsNoTracking().Count(x => x.EformUserId == null), Is.EqualTo(3));
+    }
+
+    [Test]
+    public async Task LederAssignment_LegacyLoginRow_AndSiteRows_Coexist()
+    {
+        await NewLederAssignment(707).Create(DbContext);
+        await NewSiteAssignment(708).Create(DbContext);
+
+        var rows = DbContext.LederAssignments.AsNoTracking().OrderBy(x => x.Id).ToList();
+        Assert.That(rows.Select(x => (x.EformUserId, x.SiteId)),
+            Is.EqualTo(new (int?, int?)[] { (707, null), (null, 708) }));
+    }
+
+    [Test]
+    public async Task LederAssignment_SiteRow_RevokeThenGrant_ReusesRowAndWritesVersions()
+    {
+        var assignment = NewSiteAssignment(709);
+        await assignment.Create(DbContext);
+        await assignment.Delete(DbContext);
+
+        assignment.WorkflowState = Constants.WorkflowStates.Created;
+        assignment.UpdatedByUserId = 2;
+        await assignment.Update(DbContext);
+
+        var row = DbContext.LederAssignments.AsNoTracking().Single();
+        Assert.That((row.Id, row.SiteId, row.WorkflowState, row.Version),
+            Is.EqualTo((assignment.Id, (int?)709, Constants.WorkflowStates.Created, 3)));
+        var versions = DbContext.LederAssignmentVersions.AsNoTracking().OrderBy(x => x.Version).ToList();
+        Assert.That(versions.Select(x => x.SiteId), Is.All.EqualTo(709));
+        Assert.That(versions, Has.Count.EqualTo(3));
+    }
 }
