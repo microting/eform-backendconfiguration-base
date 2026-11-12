@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -11,144 +10,53 @@ namespace Microting.EformBackendConfigurationBase.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "AppBuild",
-                table: "DeviceTokenVersions",
-                type: "longtext",
-                nullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4");
+            // MariaDB DDL is not transactional: a pod that dies after some of these
+            // statements but before EF records the migration re-runs Up() on the next
+            // start. Guarded like DeviceTokenIdentityModel so that re-run finishes the
+            // job instead of failing on a duplicate column.
+            migrationBuilder.Sql(
+                "ALTER TABLE `DeviceTokens` ADD COLUMN IF NOT EXISTS `AppVersion` varchar(32) CHARACTER SET utf8mb4 NULL;");
+            migrationBuilder.Sql(
+                "ALTER TABLE `DeviceTokens` ADD COLUMN IF NOT EXISTS `AppBuild` varchar(32) CHARACTER SET utf8mb4 NULL;");
+            migrationBuilder.Sql(
+                "ALTER TABLE `DeviceTokens` ADD COLUMN IF NOT EXISTS `DeviceModel` varchar(128) CHARACTER SET utf8mb4 NULL;");
+            migrationBuilder.Sql(
+                "ALTER TABLE `DeviceTokens` ADD COLUMN IF NOT EXISTS `DeviceManufacturer` varchar(128) CHARACTER SET utf8mb4 NULL;");
+            migrationBuilder.Sql(
+                "ALTER TABLE `DeviceTokens` ADD COLUMN IF NOT EXISTS `OsVersion` varchar(64) CHARACTER SET utf8mb4 NULL;");
+            migrationBuilder.Sql(
+                "ALTER TABLE `DeviceTokens` ADD COLUMN IF NOT EXISTS `LastSeenAt` datetime(6) NULL;");
 
-            migrationBuilder.AddColumn<string>(
-                name: "AppVersion",
-                table: "DeviceTokenVersions",
-                type: "longtext",
-                nullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.AddColumn<string>(
-                name: "DeviceManufacturer",
-                table: "DeviceTokenVersions",
-                type: "longtext",
-                nullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.AddColumn<string>(
-                name: "DeviceModel",
-                table: "DeviceTokenVersions",
-                type: "longtext",
-                nullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "LastSeenAt",
-                table: "DeviceTokenVersions",
-                type: "datetime(6)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "OsVersion",
-                table: "DeviceTokenVersions",
-                type: "longtext",
-                nullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.AddColumn<string>(
-                name: "AppBuild",
-                table: "DeviceTokens",
-                type: "varchar(32)",
-                maxLength: 32,
-                nullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.AddColumn<string>(
-                name: "AppVersion",
-                table: "DeviceTokens",
-                type: "varchar(32)",
-                maxLength: 32,
-                nullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.AddColumn<string>(
-                name: "DeviceManufacturer",
-                table: "DeviceTokens",
-                type: "varchar(128)",
-                maxLength: 128,
-                nullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.AddColumn<string>(
-                name: "DeviceModel",
-                table: "DeviceTokens",
-                type: "varchar(128)",
-                maxLength: 128,
-                nullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "LastSeenAt",
-                table: "DeviceTokens",
-                type: "datetime(6)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "OsVersion",
-                table: "DeviceTokens",
-                type: "varchar(64)",
-                maxLength: 64,
-                nullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4");
+            migrationBuilder.Sql(
+                "ALTER TABLE `DeviceTokenVersions` ADD COLUMN IF NOT EXISTS `AppVersion` longtext CHARACTER SET utf8mb4 NULL;");
+            migrationBuilder.Sql(
+                "ALTER TABLE `DeviceTokenVersions` ADD COLUMN IF NOT EXISTS `AppBuild` longtext CHARACTER SET utf8mb4 NULL;");
+            migrationBuilder.Sql(
+                "ALTER TABLE `DeviceTokenVersions` ADD COLUMN IF NOT EXISTS `DeviceModel` longtext CHARACTER SET utf8mb4 NULL;");
+            migrationBuilder.Sql(
+                "ALTER TABLE `DeviceTokenVersions` ADD COLUMN IF NOT EXISTS `DeviceManufacturer` longtext CHARACTER SET utf8mb4 NULL;");
+            migrationBuilder.Sql(
+                "ALTER TABLE `DeviceTokenVersions` ADD COLUMN IF NOT EXISTS `OsVersion` longtext CHARACTER SET utf8mb4 NULL;");
+            migrationBuilder.Sql(
+                "ALTER TABLE `DeviceTokenVersions` ADD COLUMN IF NOT EXISTS `LastSeenAt` datetime(6) NULL;");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "AppBuild",
-                table: "DeviceTokenVersions");
+            migrationBuilder.Sql("ALTER TABLE `DeviceTokens` DROP COLUMN IF EXISTS `AppVersion`;");
+            migrationBuilder.Sql("ALTER TABLE `DeviceTokens` DROP COLUMN IF EXISTS `AppBuild`;");
+            migrationBuilder.Sql("ALTER TABLE `DeviceTokens` DROP COLUMN IF EXISTS `DeviceModel`;");
+            migrationBuilder.Sql("ALTER TABLE `DeviceTokens` DROP COLUMN IF EXISTS `DeviceManufacturer`;");
+            migrationBuilder.Sql("ALTER TABLE `DeviceTokens` DROP COLUMN IF EXISTS `OsVersion`;");
+            migrationBuilder.Sql("ALTER TABLE `DeviceTokens` DROP COLUMN IF EXISTS `LastSeenAt`;");
 
-            migrationBuilder.DropColumn(
-                name: "AppVersion",
-                table: "DeviceTokenVersions");
-
-            migrationBuilder.DropColumn(
-                name: "DeviceManufacturer",
-                table: "DeviceTokenVersions");
-
-            migrationBuilder.DropColumn(
-                name: "DeviceModel",
-                table: "DeviceTokenVersions");
-
-            migrationBuilder.DropColumn(
-                name: "LastSeenAt",
-                table: "DeviceTokenVersions");
-
-            migrationBuilder.DropColumn(
-                name: "OsVersion",
-                table: "DeviceTokenVersions");
-
-            migrationBuilder.DropColumn(
-                name: "AppBuild",
-                table: "DeviceTokens");
-
-            migrationBuilder.DropColumn(
-                name: "AppVersion",
-                table: "DeviceTokens");
-
-            migrationBuilder.DropColumn(
-                name: "DeviceManufacturer",
-                table: "DeviceTokens");
-
-            migrationBuilder.DropColumn(
-                name: "DeviceModel",
-                table: "DeviceTokens");
-
-            migrationBuilder.DropColumn(
-                name: "LastSeenAt",
-                table: "DeviceTokens");
-
-            migrationBuilder.DropColumn(
-                name: "OsVersion",
-                table: "DeviceTokens");
+            migrationBuilder.Sql("ALTER TABLE `DeviceTokenVersions` DROP COLUMN IF EXISTS `AppVersion`;");
+            migrationBuilder.Sql("ALTER TABLE `DeviceTokenVersions` DROP COLUMN IF EXISTS `AppBuild`;");
+            migrationBuilder.Sql("ALTER TABLE `DeviceTokenVersions` DROP COLUMN IF EXISTS `DeviceModel`;");
+            migrationBuilder.Sql("ALTER TABLE `DeviceTokenVersions` DROP COLUMN IF EXISTS `DeviceManufacturer`;");
+            migrationBuilder.Sql("ALTER TABLE `DeviceTokenVersions` DROP COLUMN IF EXISTS `OsVersion`;");
+            migrationBuilder.Sql("ALTER TABLE `DeviceTokenVersions` DROP COLUMN IF EXISTS `LastSeenAt`;");
         }
     }
 }
