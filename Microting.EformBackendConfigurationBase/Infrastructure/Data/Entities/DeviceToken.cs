@@ -24,6 +24,7 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
+using System;
 using System.ComponentModel.DataAnnotations;
 
 // Identity is the app install, not the token: (AppId, InstallationId) is
@@ -58,4 +59,25 @@ public class DeviceToken : PnBase
     // e.g. "android" or "ios"
     [StringLength(50)]
     public string Platform { get; set; }
+
+    // Install report (#1335): the app sends these on every start-up / login
+    // through ReportInstall, with or without push permission. A row written
+    // only by ReportInstall has no FcmToken; push senders must skip it.
+    [StringLength(32)]
+    public string AppVersion { get; set; }
+
+    [StringLength(32)]
+    public string AppBuild { get; set; }
+
+    [StringLength(128)]
+    public string DeviceModel { get; set; }
+
+    [StringLength(128)]
+    public string DeviceManufacturer { get; set; }
+
+    [StringLength(64)]
+    public string OsVersion { get; set; }
+
+    // Written as UTC by the caller; datetime(6) stores no kind.
+    public DateTime? LastSeenAt { get; set; }
 }

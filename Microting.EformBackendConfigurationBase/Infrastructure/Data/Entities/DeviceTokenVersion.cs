@@ -24,6 +24,8 @@ SOFTWARE.
 
 namespace Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities;
 
+using System;
+
 // PnBase.MapVersion copies DeviceToken into this type BY PROPERTY NAME via
 // reflection, and swallows the failure per property. A name that does not
 // match here is silently dropped from the snapshot, with nothing logged - so
@@ -41,4 +43,16 @@ public class DeviceTokenVersion : PnBase
     public int SdkSiteId { get; set; }
 
     public string Platform { get; set; }
+
+    public string AppVersion { get; set; }
+
+    public string AppBuild { get; set; }
+
+    public string DeviceModel { get; set; }
+
+    public string DeviceManufacturer { get; set; }
+
+    public string OsVersion { get; set; }
+
+    public DateTime? LastSeenAt { get; set; }
 }

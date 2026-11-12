@@ -295,4 +295,86 @@ public class DeviceTokenUTest : DbTestFixture
         Assert.That(deviceTokenVersion.InstallationId, Is.EqualTo("install-v"));
         Assert.That(deviceTokenVersion.SdkSiteId, Is.EqualTo(102));
     }
+
+    [Test]
+    public async Task DeviceToken_InstallReport_IsSaved_AndCarriedIntoTheVersionRow()
+    {
+        // #1335: ReportInstall writes the app version and device details on
+        // every start-up. The version row must carry them too (MapVersion
+        // copies by property name).
+        var lastSeenAt = new DateTime(2026, 11, 12, 9, 30, 0, DateTimeKind.Utc);
+        var deviceToken = NewDeviceToken("install-report");
+        deviceToken.AppVersion = "4.1.23";
+        deviceToken.AppBuild = "40123";
+        deviceToken.DeviceModel = "Pixel 8";
+        deviceToken.DeviceManufacturer = "Google";
+        deviceToken.OsVersion = "15";
+        deviceToken.LastSeenAt = lastSeenAt;
+
+        await deviceToken.Create(DbContext);
+
+        var saved = DbContext.DeviceTokens.AsNoTracking().Single();
+        var version = DbContext.DeviceTokenVersions.AsNoTracking().Single();
+        Assert.Multiple(() =>
+        {
+            Assert.That(saved.AppVersion, Is.EqualTo("4.1.23"));
+            Assert.That(saved.AppBuild, Is.EqualTo("40123"));
+            Assert.That(saved.DeviceModel, Is.EqualTo("Pixel 8"));
+            Assert.That(saved.DeviceManufacturer, Is.EqualTo("Google"));
+            Assert.That(saved.OsVersion, Is.EqualTo("15"));
+            Assert.That(saved.LastSeenAt, Is.EqualTo(lastSeenAt));
+            Assert.That(version.AppVersion, Is.EqualTo("4.1.23"));
+            Assert.That(version.AppBuild, Is.EqualTo("40123"));
+            Assert.That(version.DeviceModel, Is.EqualTo("Pixel 8"));
+            Assert.That(version.DeviceManufacturer, Is.EqualTo("Google"));
+            Assert.That(version.OsVersion, Is.EqualTo("15"));
+            Assert.That(version.LastSeenAt, Is.EqualTo(lastSeenAt));
+        });
+    }
+
+    [Test]
+    public async Task DeviceToken_InstallReport_Update_IsCarriedIntoTheNewVersionRow()
+    {
+        // ReportInstall mostly UPDATES the existing install row on start-up;
+        // Update() snapshots through MapVersion too.
+        var deviceToken = NewDeviceToken("install-report-update");
+        deviceToken.AppVersion = "4.1.21";
+        await deviceToken.Create(DbContext);
+
+        var lastSeenAt = new DateTime(2026, 11, 12, 10, 0, 0, DateTimeKind.Utc);
+        deviceToken.AppVersion = "4.1.23";
+        deviceToken.OsVersion = "18.1";
+        deviceToken.LastSeenAt = lastSeenAt;
+        await deviceToken.Update(DbContext);
+
+        var versions = DbContext.DeviceTokenVersions.AsNoTracking().OrderBy(x => x.Id).ToList();
+        Assert.Multiple(() =>
+        {
+            Assert.That(versions, Has.Count.EqualTo(2));
+            Assert.That(versions[0].AppVersion, Is.EqualTo("4.1.21"));
+            Assert.That(versions[1].AppVersion, Is.EqualTo("4.1.23"));
+            Assert.That(versions[1].OsVersion, Is.EqualTo("18.1"));
+            Assert.That(versions[1].LastSeenAt, Is.EqualTo(lastSeenAt));
+        });
+    }
+
+    [Test]
+    public async Task DeviceToken_InstallReportOnly_WithoutAPushToken_IsSaved()
+    {
+        // An install that never granted push permission still reports itself:
+        // the row exists with no FcmToken.
+        var deviceToken = NewDeviceToken("install-no-push");
+        deviceToken.FcmToken = null;
+        deviceToken.AppVersion = "1.1.1";
+        deviceToken.LastSeenAt = DateTime.UtcNow;
+
+        await deviceToken.Create(DbContext);
+
+        var saved = DbContext.DeviceTokens.AsNoTracking().Single();
+        Assert.Multiple(() =>
+        {
+            Assert.That(saved.FcmToken, Is.Null);
+            Assert.That(saved.AppVersion, Is.EqualTo("1.1.1"));
+        });
+    }
 }

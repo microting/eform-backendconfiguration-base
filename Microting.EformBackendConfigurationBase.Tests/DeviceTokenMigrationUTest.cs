@@ -27,6 +27,7 @@ SOFTWARE.
 namespace Microting.EformBackendConfigurationBase.Tests;
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Infrastructure.Data;
@@ -92,6 +93,23 @@ public class DeviceTokenMigrationUTest
         dbContext.Database.EnsureDeleted();
     }
 
+    // The fixture stops at an older migration, so a whole-entity load would
+    // SELECT columns added by later migrations (e.g. the #1335 install
+    // report) and fail. Read only the columns these tests assert on.
+    private sealed record DeviceTokenRow(int Id, string AppId, string InstallationId, string FcmToken, int SdkSiteId);
+
+    private sealed record DeviceTokenVersionRow(int Id, string AppId, string InstallationId);
+
+    private List<DeviceTokenRow> LoadDeviceTokens()
+        => _dbContext.DeviceTokens.AsNoTracking().OrderBy(x => x.Id)
+            .Select(x => new DeviceTokenRow(x.Id, x.AppId, x.InstallationId, x.FcmToken, x.SdkSiteId))
+            .ToList();
+
+    private List<DeviceTokenVersionRow> LoadDeviceTokenVersions()
+        => _dbContext.DeviceTokenVersions.AsNoTracking().OrderBy(x => x.Id)
+            .Select(x => new DeviceTokenVersionRow(x.Id, x.AppId, x.InstallationId))
+            .ToList();
+
     [Test]
     public void Migration_PopulatedTable_BackfillsEveryRowAndUniqueIndexHolds()
     {
@@ -99,7 +117,7 @@ public class DeviceTokenMigrationUTest
 
         MigrateTo(MigrationUnderTest);
 
-        var deviceTokenList = _dbContext.DeviceTokens.AsNoTracking().OrderBy(x => x.Id).ToList();
+        var deviceTokenList = LoadDeviceTokens();
 
         Assert.That(deviceTokenList, Has.Count.EqualTo(3));
         Assert.That(deviceTokenList.Select(x => x.AppId), Is.All.EqualTo("adhoc"));
@@ -117,8 +135,7 @@ public class DeviceTokenMigrationUTest
         Assert.That(deviceTokenList[1].FcmToken, Is.EqualTo("shared-token"));
         Assert.That(deviceTokenList[2].FcmToken, Is.Null);
 
-        var deviceTokenVersionList =
-            _dbContext.DeviceTokenVersions.AsNoTracking().OrderBy(x => x.Id).ToList();
+        var deviceTokenVersionList = LoadDeviceTokenVersions();
 
         Assert.That(deviceTokenVersionList, Has.Count.EqualTo(3));
         Assert.That(deviceTokenVersionList.Select(x => x.AppId), Is.All.EqualTo("adhoc"));
@@ -157,7 +174,7 @@ public class DeviceTokenMigrationUTest
 
         Assert.That(() => MigrateTo(MigrationUnderTest), Throws.Nothing);
 
-        var deviceTokenList = _dbContext.DeviceTokens.AsNoTracking().OrderBy(x => x.Id).ToList();
+        var deviceTokenList = LoadDeviceTokens();
 
         Assert.That(deviceTokenList, Has.Count.EqualTo(3));
         Assert.That(deviceTokenList.Select(x => x.AppId), Is.All.EqualTo("adhoc"));
@@ -206,7 +223,7 @@ public class DeviceTokenMigrationUTest
 
         Assert.That(() => MigrateTo(MigrationUnderTest), Throws.Nothing);
 
-        var deviceTokenList = _dbContext.DeviceTokens.AsNoTracking().OrderBy(x => x.Id).ToList();
+        var deviceTokenList = LoadDeviceTokens();
 
         Assert.That(deviceTokenList, Has.Count.EqualTo(4));
         Assert.That(deviceTokenList.Select(x => x.AppId), Is.All.EqualTo("adhoc"));
@@ -274,7 +291,7 @@ public class DeviceTokenMigrationUTest
 
         Assert.That(() => MigrateTo(MigrationUnderTest), Throws.Nothing);
 
-        var deviceTokenList = _dbContext.DeviceTokens.AsNoTracking().OrderBy(x => x.Id).ToList();
+        var deviceTokenList = LoadDeviceTokens();
 
         Assert.That(deviceTokenList, Has.Count.EqualTo(4));
         Assert.That(deviceTokenList.Select(x => x.AppId), Is.All.EqualTo("adhoc"));
