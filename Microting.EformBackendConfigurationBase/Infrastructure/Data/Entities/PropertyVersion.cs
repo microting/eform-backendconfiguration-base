@@ -70,4 +70,6 @@ public class PropertyVersion : PnBase
     public int? EntitySearchListPoolWorkers { get; set; }
 
     public string MainMailAddress { get; set; }
+
+    public string TimeZone { get; set; }
 }
