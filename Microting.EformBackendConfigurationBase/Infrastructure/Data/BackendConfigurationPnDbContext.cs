@@ -236,6 +236,9 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     public DbSet<TailBiteAssessmentAction> TailBiteAssessmentActions { get; set; }
     public DbSet<TailBiteAssessmentActionVersion> TailBiteAssessmentActionVersions { get; set; }
 
+    // Append-only change feed, hard-deleted after 24 h (see TaskChangeFeed).
+    public DbSet<TaskChangeFeedEntry> TaskChangeFeedEntries { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -455,6 +458,9 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
         modelBuilder.Entity<TailBiteOutbreakLink>().HasOne<TailBiteRegistrationLocation>().WithMany().HasForeignKey(e => e.RegistrationLocationId).OnDelete(DeleteBehavior.Restrict);
         modelBuilder.Entity<TailBiteRiskAssessment>().HasOne<TailBiteOutbreak>().WithMany().HasForeignKey(e => e.OutbreakId).OnDelete(DeleteBehavior.Restrict);
         modelBuilder.Entity<TailBiteAssessmentAction>().HasOne<TailBiteRiskAssessment>().WithMany().HasForeignKey(e => e.AssessmentId).OnDelete(DeleteBehavior.Restrict);
+
+        // Serves the 24 h clean-up and the reader's overlap window.
+        modelBuilder.Entity<TaskChangeFeedEntry>().HasIndex(e => e.CreatedAt);
 
         modelBuilder.SeedLatest();
     }
