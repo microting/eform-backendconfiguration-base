@@ -26,16 +26,11 @@ namespace Microting.EformBackendConfigurationBase.Tests;
 
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Const;
-using Infrastructure.Data;
-using Infrastructure.Data.Factories;
 using Infrastructure.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using NUnit.Framework;
 
 // The raw SQL below concatenates only literals, table names and migration ids.
@@ -44,49 +39,13 @@ using NUnit.Framework;
 // AddTaskChangeFeed: additive, guarded, and the table the model maps. Own database: the tests roll
 // the schema backwards, which the shared one cannot survive.
 [TestFixture]
-public class TaskChangeFeedMigrationUTest
+public class TaskChangeFeedMigrationUTest : MigrationTestBase
 {
-    private const string DatabaseName = "backend-configuration-pn-task-change-feed-migration-tests";
+    protected override string DatabaseName => "backend-configuration-pn-task-change-feed-migration-tests";
 
-    private const string ConnectionString =
-        "Server = localhost; port = 3306; Database = " + DatabaseName +
-        "; user = root; password = secretpassword; Convert Zero Datetime = true;";
+    protected override string MigrationName => "AddTaskChangeFeed";
 
     private const string Table = "TaskChangeFeedEntries";
-
-    private BackendConfigurationPnDbContext _dbContext;
-    private string _migrationUnderTest;
-    private string _previousMigration;
-
-    // One full migration for the fixture; each test then starts at the previous migration, and
-    // moving across AddTaskChangeFeed alone is cheap.
-    [OneTimeSetUp]
-    public void OneTimeSetUp()
-    {
-        using var dbContext = CreateContext();
-        dbContext.Database.EnsureDeleted();
-        var all = dbContext.Database.GetMigrations().ToList();
-        _migrationUnderTest = all.Single(m => m.EndsWith("_AddTaskChangeFeed", StringComparison.Ordinal));
-        _previousMigration = all[all.IndexOf(_migrationUnderTest) - 1];
-        dbContext.GetService<IMigrator>().Migrate(_previousMigration);
-    }
-
-    [SetUp]
-    public void Setup()
-    {
-        _dbContext = CreateContext();
-        MigrateTo(_previousMigration);
-    }
-
-    [TearDown]
-    public void TearDown() => _dbContext.Dispose();
-
-    [OneTimeTearDown]
-    public void OneTimeTearDown()
-    {
-        using var dbContext = CreateContext();
-        dbContext.Database.EnsureDeleted();
-    }
 
     [Test]
     public void Model_HasNoChangesMissingFromTheSnapshot()
@@ -204,18 +163,6 @@ public class TaskChangeFeedMigrationUTest
         Assert.That(_dbContext.ChangeTracker.HasChanges(), Is.False);
     }
 
-    private static BackendConfigurationPnDbContext CreateContext()
-    {
-        var dbContext = new BackendConfigurationPnContextFactory().CreateDbContext(new[] { ConnectionString });
-        dbContext.Database.SetCommandTimeout(600);
-        return dbContext;
-    }
-
-    // Always an explicit target, never Migrate() with no argument, so a later migration cannot
-    // quietly take over these tests.
-    private void MigrateTo(string targetMigration) =>
-        _dbContext.GetService<IMigrator>().Migrate(targetMigration);
-
     private int TableCount() => Convert.ToInt32(Scalar(
         "SELECT COUNT(*) FROM information_schema.TABLES WHERE table_schema = DATABASE() AND table_name = '" + Table + "'"));
 
@@ -226,48 +173,4 @@ public class TaskChangeFeedMigrationUTest
     private List<string> Columns(string table) => Strings(
         "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE table_schema = DATABASE() " +
         "AND table_name = '" + table + "' ORDER BY COLUMN_NAME");
-
-    // One row per table, column and index column: everything an ALTER of an existing table would change.
-    private List<string> SchemaFingerprint() => Strings(
-        "SELECT CONCAT_WS('|', TABLE_NAME, 'col', COLUMN_NAME, COLUMN_TYPE, IS_NULLABLE, " +
-        "COALESCE(COLUMN_DEFAULT, '<none>'), EXTRA, COALESCE(CHARACTER_SET_NAME, ''), ORDINAL_POSITION) " +
-        "FROM information_schema.COLUMNS WHERE table_schema = DATABASE() " +
-        "UNION ALL " +
-        "SELECT CONCAT_WS('|', TABLE_NAME, 'idx', INDEX_NAME, NON_UNIQUE, SEQ_IN_INDEX, COLUMN_NAME) " +
-        "FROM information_schema.STATISTICS WHERE table_schema = DATABASE() " +
-        "UNION ALL " +
-        "SELECT CONCAT_WS('|', TABLE_NAME, 'fk', CONSTRAINT_NAME, REFERENCED_TABLE_NAME, DELETE_RULE) " +
-        "FROM information_schema.REFERENTIAL_CONSTRAINTS WHERE constraint_schema = DATABASE()");
-
-    private object Scalar(string sql)
-    {
-        using var command = OpenCommand(sql);
-        return command.ExecuteScalar();
-    }
-
-    private List<string> Strings(string sql)
-    {
-        using var command = OpenCommand(sql);
-        using var reader = command.ExecuteReader();
-        var result = new List<string>();
-        while (reader.Read())
-        {
-            result.Add(reader.GetString(0));
-        }
-
-        return result;
-    }
-
-    private IDbCommand OpenCommand(string sql)
-    {
-        var connection = _dbContext.Database.GetDbConnection();
-        if (connection.State != ConnectionState.Open)
-        {
-            connection.Open();
-        }
-
-        var command = connection.CreateCommand();
-        command.CommandText = sql;
-        return command;
-    }
 }

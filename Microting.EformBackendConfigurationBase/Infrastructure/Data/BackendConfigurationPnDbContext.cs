@@ -367,6 +367,10 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
             .HasForeignKey(x => x.ProperyAreaAsignmentId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        // The web plugin looks tasks up by ItemPlanningId after task writes, and occurrences join on it.
+        // Non-unique: several tasks may share a planning; 0 means not deployed yet.
+        modelBuilder.Entity<AreaRulePlanning>().HasIndex(e => e.ItemPlanningId);
+
         modelBuilder.Entity<AreaRulePlanning>().HasOne(x => x.AreaRule)
             .WithMany(x => x.AreaRulesPlannings)
             .HasForeignKey(x => x.AreaRuleId)
