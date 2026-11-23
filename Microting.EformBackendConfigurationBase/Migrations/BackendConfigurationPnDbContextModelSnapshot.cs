@@ -1525,6 +1525,8 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.HasIndex("AreaRuleId");
 
+                    b.HasIndex("ItemPlanningId");
+
                     b.ToTable("AreaRulePlannings");
                 });
 
