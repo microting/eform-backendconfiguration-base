@@ -176,7 +176,9 @@ public class TaskNotificationsMigrationUTest : MigrationTestBase
                     "AND table_name = '" + table + "' AND column_name = 'TaskReminders'"), Is.EqualTo("0"), table);
             }
         });
-        Assert.That(_dbContext.DeviceTokens.AsNoTracking().Single().TaskReminders, Is.False);
+        // Read only the asserted column: a whole-entity load at this fixed migration point would break
+        // when a later migration adds a column to DeviceTokens.
+        Assert.That(_dbContext.DeviceTokens.AsNoTracking().Select(x => x.TaskReminders).Single(), Is.False);
     }
 
     private void AssertMigrated()

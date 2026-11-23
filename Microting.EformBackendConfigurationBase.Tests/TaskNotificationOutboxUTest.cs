@@ -26,7 +26,9 @@ namespace Microting.EformBackendConfigurationBase.Tests;
 
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Infrastructure.Const;
 using Infrastructure.Data;
@@ -35,6 +37,7 @@ using Infrastructure.Data.Factories;
 using Infrastructure.Enum;
 using Infrastructure.Helpers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using NUnit.Framework;
 
 // TaskNotificationOutbox: planner side, deliverer side, retention. Own database, migrated once.
@@ -158,8 +161,10 @@ public class TaskNotificationOutboxUTest
 
         var row = await Get(id);
         var revived = from != to;
-        var inFlight = from is TaskNotificationState.Sending or TaskNotificationState.Withdrawing;
-        AssertResult(result, inserted: 0, revived: revived ? 1 : 0, inFlight: inFlight ? [id] : []);
+        // Wanted afterwards: Pending, Sending, Sent (or finished by time: Expired, Failed). A row still
+        // being withdrawn must be planned again.
+        var retry = from == TaskNotificationState.Withdrawing;
+        AssertResult(result, inserted: 0, revived: revived ? 1 : 0, retry: retry ? [id] : []);
         Assert.That(row.State, Is.EqualTo(to));
         if (to == TaskNotificationState.Pending && revived)
         {
@@ -182,7 +187,7 @@ public class TaskNotificationOutboxUTest
 
         var replan = await TaskNotificationOutbox.PlanAsync(_dbContext, [Plan(startInMinutes: 60)], Now.AddMinutes(1));
 
-        AssertResult(replan, inserted: 0, revived: 0, inFlight: [nine]);
+        AssertResult(replan, inserted: 0, revived: 0, retry: [nine]);
 
         Assert.That(await TaskNotificationOutbox.MarkWithdrawnAsync(_dbContext, claim, Now.AddMinutes(1)), Is.True);
         var retry = await TaskNotificationOutbox.PlanAsync(_dbContext, [Plan(startInMinutes: 60)], Now.AddMinutes(2));
@@ -239,8 +244,8 @@ public class TaskNotificationOutboxUTest
 
         Assert.That(result.Cancelled, Is.EqualTo(1));
         Assert.That(result.WithdrawRequested, Is.EqualTo(1));
-        Assert.That(result.InFlightIds,
-            Is.EquivalentTo(new[] { ids[TaskNotificationState.Sending], ids[TaskNotificationState.Withdrawing] }));
+        // Not retracted yet: only the row being sent (a withdraw in flight is already on its way out).
+        Assert.That(result.RetryIds, Is.EqualTo(new[] { ids[TaskNotificationState.Sending] }));
 
         await Assert.MultipleAsync(async () =>
         {
@@ -274,7 +279,7 @@ public class TaskNotificationOutboxUTest
         var result = await TaskNotificationOutbox.CancelOrWithdrawAsync(_dbContext, [], Now);
 
         Assert.That(result.Cancelled + result.WithdrawRequested, Is.EqualTo(0));
-        Assert.That(result.InFlightIds, Is.Empty);
+        Assert.That(result.RetryIds, Is.Empty);
     }
 
     [Test]
@@ -566,6 +571,72 @@ public class TaskNotificationOutboxUTest
         Assert.That((await Get(claim.Id)).State, Is.EqualTo(TaskNotificationState.Sending));
     }
 
+    // ---------------------------------------------------------------- interleavings (PR #894 review)
+    // A command interceptor on the helper's context runs a competing deliverer step on another
+    // connection right before the helper's N-th query, i.e. between two of the helper's statements.
+
+    // The withdraw finishes between the revival updates and the final read: the wanted 09:00
+    // reminder is Withdrawn, so it must be reported for another pass.
+    [Test]
+    public async Task Plan_WhenAWithdrawFinishesBetweenItsSteps_ReportsTheRowForRetry()
+    {
+        var nine = await PlanOne(startInMinutes: 60);
+        var claim = await ClaimOne(existingId: nine, sentFirst: true);
+
+        var interleave = new Interleave(readerNumber: 1,
+            () => WithFresh(db => TaskNotificationOutbox.MarkWithdrawnAsync(db, claim, Now.AddMinutes(1))));
+        await using var planner = CreateContext(interleave);
+        var result = await TaskNotificationOutbox.PlanAsync(planner, [Plan(startInMinutes: 60)], Now.AddMinutes(1));
+
+        Assert.That(interleave.Ran, Is.True);
+        Assert.That((await Get(nine)).State, Is.EqualTo(TaskNotificationState.Withdrawn));
+        AssertResult(result, inserted: 0, revived: 0, retry: [nine]);
+    }
+
+    // The send finishes (Sent) or backs off (Pending) after the retraction updates: the unwanted
+    // reminder is still live, so it must be reported for another pass.
+    [TestCase(true)]
+    [TestCase(false)]
+    public async Task CancelOrWithdraw_WhenASendEndsBetweenItsSteps_ReportsTheRowForRetry(bool sent)
+    {
+        var claim = await ClaimOne();
+
+        var interleave = new Interleave(readerNumber: 1, () => WithFresh(db => sent
+            ? TaskNotificationOutbox.MarkSentAsync(db, claim, Now)
+            : TaskNotificationOutbox.MarkRetryAsync(db, claim, Now.AddSeconds(4), "UNAVAILABLE", Now)));
+        await using var planner = CreateContext(interleave);
+        var result = await TaskNotificationOutbox.CancelOrWithdrawAsync(planner, [claim.Id], Now);
+
+        Assert.That(interleave.Ran, Is.True);
+        Assert.That((await Get(claim.Id)).State, Is.EqualTo(sent ? TaskNotificationState.Sent : TaskNotificationState.Pending));
+        Assert.That(result.Cancelled + result.WithdrawRequested, Is.EqualTo(0));
+        Assert.That(result.RetryIds, Is.EqualTo(new[] { claim.Id }));
+    }
+
+    // Deliverer A wins the claim UPDATE, then pauses; its lease is reaped and B claims the row before
+    // A reads its claim back. A must get nothing for that row (B's token is not A's).
+    [Test]
+    public async Task Claim_WhenTheRowIsReclaimedBeforeTheReadBack_ReturnsNothingForIt()
+    {
+        var id = await PlanOne(startInMinutes: 5);
+        TaskNotification bClaim = null;
+        var later = Now + Lease + TimeSpan.FromSeconds(1);
+
+        var interleave = new Interleave(readerNumber: 2, async () =>
+        {
+            await WithFresh(db => TaskNotificationOutbox.ReapExpiredLeasesAsync(db, later));
+            bClaim = (await WithFresh(db => TaskNotificationOutbox.ClaimDueAsync(db, later, 10, Lease))).Single();
+        });
+        await using var deliverer = CreateContext(interleave);
+        var aClaims = await TaskNotificationOutbox.ClaimDueAsync(deliverer, Now, 10, Lease);
+
+        Assert.That(interleave.Ran, Is.True);
+        Assert.That(aClaims, Is.Empty, "A must not receive B's claim");
+        Assert.That(bClaim.Id, Is.EqualTo(id));
+        Assert.That(bClaim.Attempts, Is.EqualTo(2));
+        Assert.That(await TaskNotificationOutbox.MarkSentAsync(_dbContext, bClaim, later), Is.True);
+    }
+
     // ---------------------------------------------------------------- retention and text
 
     [Test]
@@ -660,11 +731,11 @@ public class TaskNotificationOutboxUTest
         return claimed.Single(c => c.Id == id);
     }
 
-    private static void AssertResult(TaskNotificationPlanResult result, int inserted, int revived, long[] inFlight = null)
+    private static void AssertResult(TaskNotificationPlanResult result, int inserted, int revived, long[] retry = null)
     {
         Assert.That(result.Inserted, Is.EqualTo(inserted), "inserted");
         Assert.That(result.Revived, Is.EqualTo(revived), "revived");
-        Assert.That(result.InFlightIds, Is.EqualTo(inFlight ?? []), "in flight");
+        Assert.That(result.RetryIds, Is.EqualTo(retry ?? []), "retry");
     }
 
     // Rows the helper returns carry UTC kinds, like the values that went in.
@@ -697,6 +768,43 @@ public class TaskNotificationOutboxUTest
     }
 
     private async Task<List<long>> Ids() => (await All()).Select(r => r.Id).ToList();
+
+    private static async Task<T> WithFresh<T>(Func<BackendConfigurationPnDbContext, Task<T>> action)
+    {
+        await using var dbContext = CreateContext();
+        return await action(dbContext);
+    }
+
+    // A context whose N-th reader command first runs a competing step (on other connections).
+    private static BackendConfigurationPnDbContext CreateContext(Interleave interleave)
+    {
+        var options = new DbContextOptionsBuilder<BackendConfigurationPnDbContext>()
+            .UseMySql(ConnectionString, new MariaDbServerVersion(ServerVersion.AutoDetect(ConnectionString)))
+            .AddInterceptors(interleave)
+            .Options;
+        return new BackendConfigurationPnDbContext(options);
+    }
+
+    // Test seam only: runs Hook once, right before the ReaderNumber-th query of the context.
+    private sealed class Interleave(int readerNumber, Func<Task> hook) : DbCommandInterceptor
+    {
+        private int _readers;
+
+        public bool Ran { get; private set; }
+
+        public override async ValueTask<InterceptionResult<DbDataReader>> ReaderExecutingAsync(
+            DbCommand command, CommandEventData eventData, InterceptionResult<DbDataReader> result,
+            CancellationToken cancellationToken = default)
+        {
+            if (++_readers == readerNumber && !Ran)
+            {
+                Ran = true;
+                await hook();
+            }
+
+            return result;
+        }
+    }
 
     private static BackendConfigurationPnDbContext CreateContext()
     {

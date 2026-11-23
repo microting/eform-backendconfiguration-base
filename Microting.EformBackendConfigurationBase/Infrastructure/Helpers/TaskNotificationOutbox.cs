@@ -50,11 +50,13 @@ public sealed record TaskNotificationPlan(
     string Title,
     string Body);
 
-/// <summary>Outcome of <see cref="TaskNotificationOutbox.PlanAsync"/>.</summary>
-public sealed record TaskNotificationPlanResult(int Inserted, int Revived, IReadOnlyList<long> InFlightIds);
+/// <summary>Outcome of <see cref="TaskNotificationOutbox.PlanAsync"/>. If RetryIds is non-empty,
+/// keep the property dirty and plan it again.</summary>
+public sealed record TaskNotificationPlanResult(int Inserted, int Revived, IReadOnlyList<long> RetryIds);
 
-/// <summary>Outcome of <see cref="TaskNotificationOutbox.CancelOrWithdrawAsync"/>.</summary>
-public sealed record TaskNotificationRetractResult(int Cancelled, int WithdrawRequested, IReadOnlyList<long> InFlightIds);
+/// <summary>Outcome of <see cref="TaskNotificationOutbox.CancelOrWithdrawAsync"/>. If RetryIds is
+/// non-empty, keep the property dirty and plan it again.</summary>
+public sealed record TaskNotificationRetractResult(int Cancelled, int WithdrawRequested, IReadOnlyList<long> RetryIds);
 
 /// <summary>
 /// The task reminder outbox (<see cref="TaskNotification"/>), shared by the planner (web host) and
@@ -80,18 +82,23 @@ public sealed record TaskNotificationRetractResult(int Cancelled, int WithdrawRe
 /// Sending/Withdrawing Failed          deliverer  MarkFailedAsync
 /// </code>
 /// <para>
-/// <b>In-flight rows</b> (Sending, Withdrawing) belong to the deliverer that claimed them; the planner
-/// never changes them. <see cref="CancelOrWithdrawAsync"/> returns their ids: the planner keeps the
-/// property dirty and its next pass, after the deliverer has finished (Sent, or back in a queue),
-/// withdraws or cancels them. A withdraw in flight needs nothing more.
+/// <b>Planner contract.</b> In-flight rows (Sending, Withdrawing) belong to the deliverer that
+/// claimed them; the planner never changes them, and a deliverer may finish a step at any moment.
+/// <see cref="PlanAsync"/> and <see cref="CancelOrWithdrawAsync"/> therefore end with a check, after
+/// all their updates, that every row they were asked about is in the wanted end state, and return
+/// the ids that are not in <c>RetryIds</c>. <b>If RetryIds is non-empty, keep the property dirty and
+/// plan it again</b> (a few seconds later). The check cannot be outdated by a deliverer: from a
+/// wanted end state the deliverer only moves a row to another wanted end state.
 /// </para>
 /// <para>
-/// <b>Claims and fencing.</b> A claim is a conditional <c>UPDATE ... WHERE Id = @id AND State =
-/// @expected AND NextAttemptAtUtc &lt;= @now</c>; InnoDB lets only one of two concurrent updates
-/// match, so the affected-row count proves ownership. Each claim increments
-/// <see cref="TaskNotification.Attempts"/>, which is never reset; every Mark* applies only while the
-/// row still has the state AND attempt number of the claim passed in, so a deliverer whose lease
-/// expired (and whose row was reaped and claimed again) cannot overwrite the newer claim.
+/// <b>Claims and fencing.</b> A claim is a conditional <c>UPDATE ... SET Attempts = @seen + 1 WHERE
+/// Id = @id AND State = @expected AND Attempts = @seen AND NextAttemptAtUtc &lt;= @now</c>, where
+/// @seen is the attempt number this call read; InnoDB lets only one of two concurrent updates match,
+/// so the affected-row count proves ownership. The claim's token is therefore known to this call
+/// (state and @seen + 1; attempt numbers are unique per row); a row whose read-back no longer
+/// carries that token (it was reaped and claimed by another deliverer in between) is not returned.
+/// Attempts is never reset; every Mark* applies only while the row still has the state AND attempt
+/// number of the claim passed in, so a deliverer whose lease expired cannot overwrite a newer claim.
 /// </para>
 /// </summary>
 public static class TaskNotificationOutbox
@@ -105,9 +112,9 @@ public static class TaskNotificationOutbox
     /// Pending, due at their SendAtUtc. An existing key is left alone, except a retracted row that is
     /// wanted again: Cancelled/Withdrawn becomes Pending (with the new text, if its start is still
     /// ahead) and WithdrawPending goes back to Sent. Idempotent; a duplicate is never an error.
-    /// A planned key whose row is in flight (Sending, Withdrawing) is returned in
-    /// <see cref="TaskNotificationPlanResult.InFlightIds"/>, as by <see cref="CancelOrWithdrawAsync"/>:
-    /// the planner keeps the property dirty and plans again once the deliverer is done.
+    /// A planned key whose row is, after this call, not in a wanted state (Pending, Sending, Sent;
+    /// Expired and Failed are final) is returned in <see cref="TaskNotificationPlanResult.RetryIds"/>,
+    /// e.g. a withdraw in flight or one that finished meanwhile (see the class doc).
     /// </summary>
     /// <exception cref="ArgumentException">An invalid row (ids &gt; 0, ComplianceId &gt; 0 when set,
     /// a known kind, a real yyyy-MM-dd day, Title 1-200 and Body 1-400 characters, SendAtUtc not
@@ -127,7 +134,7 @@ public static class TaskNotificationOutbox
         }
 
         int inserted = 0, revived = 0;
-        var inFlight = new List<long>();
+        var retry = new List<long>();
         foreach (var r in rows)
         {
             // INSERT IGNORE only skips the duplicate key here: every value was validated above, so no
@@ -177,21 +184,25 @@ VALUES
                     .SetProperty(n => n.UpdatedAtUtc, nowUtc), cancellationToken)
                 .ConfigureAwait(false);
 
-            // A row in flight cannot be revived now; the planner retries after the deliverer is done.
-            inFlight.AddRange(await sameKey
-                .Where(n => n.State == TaskNotificationState.Sending || n.State == TaskNotificationState.Withdrawing)
+            // Wanted end states: Pending, Sending, Sent (Expired, Failed final); others retry (class doc).
+            retry.AddRange(await sameKey
+                .Where(n => n.PlannedStartUtc > nowUtc
+                            && n.State != TaskNotificationState.Pending && n.State != TaskNotificationState.Sending
+                            && n.State != TaskNotificationState.Sent && n.State != TaskNotificationState.Expired
+                            && n.State != TaskNotificationState.Failed)
                 .Select(n => n.Id)
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false));
         }
 
-        return new TaskNotificationPlanResult(inserted, revived, inFlight);
+        return new TaskNotificationPlanResult(inserted, revived, retry);
     }
 
     /// <summary>
     /// Retracts reminders the planner no longer wants: Pending becomes Cancelled (nothing was sent),
-    /// Sent becomes WithdrawPending (due at once). Rows in flight are not touched and are returned in
-    /// <see cref="TaskNotificationRetractResult.InFlightIds"/> (see the class doc); finished rows are
+    /// Sent becomes WithdrawPending (due at once). A row being sent is not touched; it, and any row
+    /// a deliverer moved back to Pending or on to Sent while this call ran, is returned in
+    /// <see cref="TaskNotificationRetractResult.RetryIds"/> (see the class doc). Finished rows are
     /// left as they are.
     /// </summary>
     public static async Task<TaskNotificationRetractResult> CancelOrWithdrawAsync(
@@ -230,15 +241,17 @@ VALUES
                 .SetProperty(n => n.UpdatedAtUtc, nowUtc), cancellationToken)
             .ConfigureAwait(false);
 
-        var inFlight = await dbContext.TaskNotifications
+        // Unwanted rows must end Cancelled, Withdraw*, Expired or Failed; others retry (class doc).
+        var retry = await dbContext.TaskNotifications
             .Where(n => list.Contains(n.Id)
-                        && (n.State == TaskNotificationState.Sending || n.State == TaskNotificationState.Withdrawing))
+                        && (n.State == TaskNotificationState.Pending || n.State == TaskNotificationState.Sending
+                            || n.State == TaskNotificationState.Sent))
             .OrderBy(n => n.Id)
             .Select(n => n.Id)
             .ToListAsync(cancellationToken)
             .ConfigureAwait(false);
 
-        return new TaskNotificationRetractResult(cancelled, withdraw, inFlight);
+        return new TaskNotificationRetractResult(cancelled, withdraw, retry);
     }
 
     /// <summary>Re-renders the text of a Pending row (e.g. the task was renamed). Returns false when
@@ -308,29 +321,33 @@ VALUES
                         && n.NextAttemptAtUtc <= nowUtc)
             .OrderBy(n => n.NextAttemptAtUtc).ThenBy(n => n.Id)
             .Take(max)
-            .Select(n => new { n.Id, n.State })
+            .Select(n => new { n.Id, n.State, n.Attempts })
             .ToListAsync(cancellationToken)
             .ConfigureAwait(false);
 
         var leaseUntil = nowUtc + leaseFor;
-        var claimed = new List<long>();
+        // The claim token of each row this call won: state and attempt number.
+        var claimed = new List<(long Id, TaskNotificationState State, int Attempts)>();
         foreach (var candidate in candidates)
         {
             var expected = candidate.State;
+            var seen = candidate.Attempts;
+            var mine = seen + 1;
             var target = expected == TaskNotificationState.Pending
                 ? TaskNotificationState.Sending
                 : TaskNotificationState.Withdrawing;
             var won = await dbContext.TaskNotifications
-                .Where(n => n.Id == candidate.Id && n.State == expected && n.NextAttemptAtUtc <= nowUtc)
+                .Where(n => n.Id == candidate.Id && n.State == expected && n.Attempts == seen
+                            && n.NextAttemptAtUtc <= nowUtc)
                 .ExecuteUpdateAsync(s => s
                     .SetProperty(n => n.State, target)
                     .SetProperty(n => n.LeaseUntilUtc, leaseUntil)
-                    .SetProperty(n => n.Attempts, n => n.Attempts + 1)
+                    .SetProperty(n => n.Attempts, mine)
                     .SetProperty(n => n.UpdatedAtUtc, nowUtc), cancellationToken)
                 .ConfigureAwait(false);
             if (won == 1)
             {
-                claimed.Add(candidate.Id);
+                claimed.Add((candidate.Id, target, mine));
             }
         }
 
@@ -339,11 +356,25 @@ VALUES
             return [];
         }
 
+        var ids = claimed.Select(c => c.Id).ToList();
         var rows = await dbContext.TaskNotifications.AsNoTracking()
-            .Where(n => claimed.Contains(n.Id))
+            .Where(n => ids.Contains(n.Id))
             .ToListAsync(cancellationToken)
             .ConfigureAwait(false);
-        return rows.OrderBy(n => claimed.IndexOf(n.Id)).ToList();
+
+        // Return a row only while it still carries this call's token; otherwise it was reaped and
+        // claimed by another deliverer between the UPDATE and this read, and is not ours any more.
+        var result = new List<TaskNotification>();
+        foreach (var (id, state, attempts) in claimed)
+        {
+            var row = rows.SingleOrDefault(n => n.Id == id);
+            if (row != null && row.State == state && row.Attempts == attempts)
+            {
+                result.Add(row);
+            }
+        }
+
+        return result;
     }
 
     /// <summary>
