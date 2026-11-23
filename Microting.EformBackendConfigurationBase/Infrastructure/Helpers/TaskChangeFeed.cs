@@ -69,14 +69,23 @@ public static class TaskChangeFeed
 
     /// <summary>
     /// Inserts one row in its own autocommit SaveChanges and returns it, detached. Call it after your
-    /// own changes are saved: it refuses a context with pending changes, so a failing feed write never
-    /// takes a business write down with it and never commits someone else's half-done changes. The
-    /// row is detached on success and on failure, so a long-lived context neither accumulates feed rows
-    /// nor retries a failed one on its next SaveChanges. Exceptions are rethrown.
+    /// own changes are saved AND committed: it refuses a context with pending changes, an open EF
+    /// transaction on the context and an ambient <see cref="System.Transactions.Transaction"/>.
+    /// Inside a business transaction the row would stay invisible until that commits (possibly after
+    /// the reader's window) and would be rolled back with it; with pending changes a failing feed
+    /// write would take a business write down with it. The row is detached on success and on failure,
+    /// so a long-lived context neither accumulates feed rows nor retries a failed one on its next
+    /// SaveChanges. Exceptions are rethrown.
+    /// <para>
+    /// Routing: <c>changed</c>, <c>removed</c> and <c>property</c> need <paramref name="propertyId"/>
+    /// (the hub's property group); <c>assignments</c> needs <paramref name="sdkSiteId"/> (the worker's
+    /// site group). Ids must be positive.
+    /// </para>
     /// </summary>
-    /// <exception cref="ArgumentException">Unknown <paramref name="kind"/>, malformed
-    /// <paramref name="planDayKey"/> or too long <paramref name="source"/>.</exception>
-    /// <exception cref="InvalidOperationException">The context has unsaved changes.</exception>
+    /// <exception cref="ArgumentException">Unknown <paramref name="kind"/>, a missing or non-positive
+    /// routing id, malformed <paramref name="planDayKey"/> or too long <paramref name="source"/>.</exception>
+    /// <exception cref="InvalidOperationException">The context has unsaved changes or the call runs
+    /// inside a transaction.</exception>
     public static async Task<TaskChangeFeedEntry> AppendAndSaveAsync(
         BackendConfigurationPnDbContext dbContext,
         string kind,
@@ -94,6 +103,18 @@ public static class TaskChangeFeed
             throw new ArgumentException($"Unknown task change kind '{kind}'; use TaskChangeKinds.", nameof(kind));
         }
 
+        if (kind == TaskChangeKinds.Assignments)
+        {
+            if (sdkSiteId is not > 0)
+            {
+                throw new ArgumentException("An assignments change needs a positive SDK site id.", nameof(sdkSiteId));
+            }
+        }
+        else if (propertyId is not > 0)
+        {
+            throw new ArgumentException($"A '{kind}' change needs a positive property id.", nameof(propertyId));
+        }
+
         if (planDayKey != null && !DateTime.TryParseExact(
                 planDayKey, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
         {
@@ -109,6 +130,12 @@ public static class TaskChangeFeed
         {
             throw new InvalidOperationException(
                 "TaskChangeFeed.AppendAndSaveAsync needs a context without unsaved changes; save your own changes first.");
+        }
+
+        if (dbContext.Database.CurrentTransaction != null || System.Transactions.Transaction.Current != null)
+        {
+            throw new InvalidOperationException(
+                "TaskChangeFeed.AppendAndSaveAsync must run outside a transaction; the business transaction must be committed first.");
         }
 
         var entry = new TaskChangeFeedEntry

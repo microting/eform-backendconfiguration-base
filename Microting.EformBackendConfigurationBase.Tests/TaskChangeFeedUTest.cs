@@ -135,8 +135,82 @@ public class TaskChangeFeedUTest
     public void AppendAndSave_RejectsASourceLongerThanTheColumn()
     {
         Assert.That(async () => await TaskChangeFeed.AppendAndSaveAsync(
-                _dbContext, TaskChangeKinds.Changed, source: new string('x', 65)),
+                _dbContext, TaskChangeKinds.Changed, propertyId: 1, source: new string('x', 65)),
             Throws.ArgumentException.With.Property("ParamName").EqualTo("source"));
+    }
+
+    // A hint nobody can route is useless: each kind needs the id its hub group is keyed by.
+    [TestCase(TaskChangeKinds.Changed, null)]
+    [TestCase(TaskChangeKinds.Changed, 0)]
+    [TestCase(TaskChangeKinds.Removed, null)]
+    [TestCase(TaskChangeKinds.Removed, -1)]
+    [TestCase(TaskChangeKinds.Property, null)]
+    [TestCase(TaskChangeKinds.Property, 0)]
+    public async Task AppendAndSave_RequiresAPositivePropertyId_ForPropertyKinds(string kind, int? propertyId)
+    {
+        Assert.That(async () => await TaskChangeFeed.AppendAndSaveAsync(_dbContext, kind, propertyId: propertyId, sdkSiteId: 3),
+            Throws.ArgumentException.With.Property("ParamName").EqualTo("propertyId"));
+        Assert.That(await Fresh(db => db.TaskChangeFeedEntries.CountAsync()), Is.EqualTo(0));
+    }
+
+    [TestCase(null)]
+    [TestCase(0)]
+    [TestCase(-5)]
+    public async Task AppendAndSave_RequiresAPositiveSdkSiteId_ForAssignments(int? sdkSiteId)
+    {
+        Assert.That(async () => await TaskChangeFeed.AppendAndSaveAsync(
+                _dbContext, TaskChangeKinds.Assignments, propertyId: 4, sdkSiteId: sdkSiteId),
+            Throws.ArgumentException.With.Property("ParamName").EqualTo("sdkSiteId"));
+        Assert.That(await Fresh(db => db.TaskChangeFeedEntries.CountAsync()), Is.EqualTo(0));
+    }
+
+    [TestCase(TaskChangeKinds.Changed)]
+    [TestCase(TaskChangeKinds.Removed)]
+    [TestCase(TaskChangeKinds.Property)]
+    public async Task AppendAndSave_AcceptsAPropertyKind_WithOnlyThePropertyId(string kind)
+    {
+        var entry = await TaskChangeFeed.AppendAndSaveAsync(_dbContext, kind, propertyId: 9);
+
+        Assert.That(entry.Id, Is.GreaterThan(0));
+        Assert.That(entry.SdkSiteId, Is.Null);
+    }
+
+    // Inside the caller's transaction the row would stay invisible until that commits (possibly
+    // after the reader's window) and would be rolled back with it.
+    [TestCase(false)]
+    [TestCase(true)]
+    public async Task AppendAndSave_RefusesAnActiveEfTransaction(bool commit)
+    {
+        await using (var transaction = await _dbContext.Database.BeginTransactionAsync())
+        {
+            Assert.That(async () => await TaskChangeFeed.AppendAndSaveAsync(_dbContext, TaskChangeKinds.Changed, propertyId: 1),
+                Throws.InvalidOperationException.With.Message.Contains("committed"));
+            Assert.That(_dbContext.ChangeTracker.HasChanges(), Is.False);
+
+            if (commit)
+            {
+                await transaction.CommitAsync();
+            }
+            else
+            {
+                await transaction.RollbackAsync();
+            }
+        }
+
+        Assert.That(await Fresh(db => db.TaskChangeFeedEntries.CountAsync()), Is.EqualTo(0));
+    }
+
+    [Test]
+    public async Task AppendAndSave_RefusesAnAmbientTransactionScope()
+    {
+        using (new System.Transactions.TransactionScope(System.Transactions.TransactionScopeAsyncFlowOption.Enabled))
+        {
+            Assert.That(async () => await TaskChangeFeed.AppendAndSaveAsync(_dbContext, TaskChangeKinds.Changed, propertyId: 1),
+                Throws.InvalidOperationException.With.Message.Contains("committed"));
+            Assert.That(_dbContext.ChangeTracker.HasChanges(), Is.False);
+        }
+
+        Assert.That(await Fresh(db => db.TaskChangeFeedEntries.CountAsync()), Is.EqualTo(0));
     }
 
     [Test]
