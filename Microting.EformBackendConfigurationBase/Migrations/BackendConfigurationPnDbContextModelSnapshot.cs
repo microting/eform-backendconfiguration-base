@@ -7371,6 +7371,49 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.ToTable("TailBiteRuleVersions");
                 });
 
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TaskChangeFeedEntry", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int?>("AreaRulePlanningId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ComplianceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Kind")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("PlanDayKey")
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<int?>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SdkSiteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Source")
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.ToTable("TaskChangeFeedEntries");
+                });
+
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TaskTrackerColumn", b =>
                 {
                     b.Property<int>("Id")
