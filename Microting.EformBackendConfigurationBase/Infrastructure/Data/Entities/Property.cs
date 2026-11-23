@@ -80,5 +80,10 @@ public class Property: PnBase
 
     public string MainMailAddress { get; set; }
 
+    // IANA time zone id, e.g. "Europe/Copenhagen". Null means PropertyTimeZones.Default; resolve it
+    // with PropertyTimeZones.Resolve. No UI yet.
+    [System.ComponentModel.DataAnnotations.StringLength(64)]
+    public string TimeZone { get; set; }
+
     public virtual List<PropertyFile> PropertyFiles { get; set; } = new();
 }

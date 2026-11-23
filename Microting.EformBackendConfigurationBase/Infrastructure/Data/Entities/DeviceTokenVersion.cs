@@ -55,4 +55,6 @@ public class DeviceTokenVersion : PnBase
     public string OsVersion { get; set; }
 
     public DateTime? LastSeenAt { get; set; }
+
+    public bool TaskReminders { get; set; }
 }

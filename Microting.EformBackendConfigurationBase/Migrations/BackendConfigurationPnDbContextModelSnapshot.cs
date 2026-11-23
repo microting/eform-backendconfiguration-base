@@ -3365,6 +3365,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<int>("SdkSiteId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("TaskReminders")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -3439,6 +3442,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int>("SdkSiteId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("TaskReminders")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
@@ -5497,6 +5503,10 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("TimeZone")
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -5752,6 +5762,9 @@ namespace Microting.EformBackendConfigurationBase.Migrations
 
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
+
+                    b.Property<string>("TimeZone")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
@@ -7414,6 +7427,95 @@ namespace Microting.EformBackendConfigurationBase.Migrations
                     b.HasIndex("CreatedAt");
 
                     b.ToTable("TaskChangeFeedEntries");
+                });
+
+            modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TaskNotification", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("AreaRulePlanningId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Attempts")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasMaxLength(400)
+                        .HasColumnType("varchar(400)");
+
+                    b.Property<int?>("ComplianceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Kind")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("LastError")
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.Property<DateTime?>("LeaseUntilUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("NextAttemptAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("PlanDayKey")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<DateTime>("PlannedStartUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SdkSiteId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SendAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("SentAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<byte>("State")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("WithdrawnAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAtUtc");
+
+                    b.HasIndex("PropertyId", "PlanDayKey");
+
+                    b.HasIndex("State", "NextAttemptAtUtc");
+
+                    b.HasIndex("SdkSiteId", "AreaRulePlanningId", "PlanDayKey", "PlannedStartUtc", "Kind")
+                        .IsUnique()
+                        .HasDatabaseName("UX_TaskNotifications_Site_Task_Day_Start_Kind");
+
+                    b.ToTable("TaskNotifications");
                 });
 
             modelBuilder.Entity("Microting.EformBackendConfigurationBase.Infrastructure.Data.Entities.TaskTrackerColumn", b =>

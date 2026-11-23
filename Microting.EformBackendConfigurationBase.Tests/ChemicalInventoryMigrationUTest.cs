@@ -124,7 +124,10 @@ public class ChemicalInventoryMigrationUTest
             Assert.That(TableCount(table), Is.EqualTo(1), table);
         }
 
-        Assert.That(_dbContext.Properties.AsNoTracking().Single(x => x.Id == 1).Name, Is.EqualTo("Gården"));
+        // Read only the asserted column: the fixture stops at an older migration, so a whole-entity
+        // load would SELECT columns added by later migrations (as in DeviceTokenMigrationUTest).
+        Assert.That(_dbContext.Properties.AsNoTracking().Where(x => x.Id == 1).Select(x => x.Name).Single(),
+            Is.EqualTo("Gården"));
         Assert.That(UniqueIndexColumnCount("ChemicalWorkerPermissions", "IX_ChemicalWorkerPermissions_PropertyId_WorkerId"),
             Is.EqualTo(2));
         Assert.That(UniqueIndexColumnCount("ChemicalPropertySettings", "IX_ChemicalPropertySettings_PropertyId"),

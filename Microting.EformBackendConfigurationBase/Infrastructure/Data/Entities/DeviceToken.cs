@@ -80,4 +80,8 @@ public class DeviceToken : PnBase
 
     // Written as UTC by the caller; datetime(6) stores no kind.
     public DateTime? LastSeenAt { get; set; }
+
+    // True when the installed app version handles task reminders; set by the app when it registers
+    // its push token. False for existing rows and old app versions: they get no task reminders.
+    public bool TaskReminders { get; set; }
 }

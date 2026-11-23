@@ -27,7 +27,9 @@ namespace Microting.EformBackendConfigurationBase.Infrastructure.Data;
 using eFormApi.BasePn.Abstractions;
 using eFormApi.BasePn.Infrastructure.Database.Entities;
 using Entities;
+using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Extensions.Seed;
 
 public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
@@ -239,6 +241,15 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
     // Append-only change feed, hard-deleted after 24 h (see TaskChangeFeed).
     public DbSet<TaskChangeFeedEntry> TaskChangeFeedEntries { get; set; }
 
+    // Task reminder outbox, hard-deleted after 30 days (see TaskNotificationOutbox).
+    public DbSet<TaskNotification> TaskNotifications { get; set; }
+
+
+    private static readonly ValueConverter<DateTime, DateTime> UtcConverter =
+        new(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
+
+    private static readonly ValueConverter<DateTime?, DateTime?> NullableUtcConverter =
+        new(v => v, v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -465,6 +476,33 @@ public class BackendConfigurationPnDbContext: DbContext, IPluginDbContext
 
         // Serves the 24 h clean-up and the reader's overlap window.
         modelBuilder.Entity<TaskChangeFeedEntry>().HasIndex(e => e.CreatedAt);
+
+        // Task reminders. One reminder per worker, task, day, planned time and kind; planning inserts
+        // ignore duplicates on this key. Named explicitly: EF's generated name exceeds MariaDB's 64
+        // characters and would be truncated.
+        modelBuilder.Entity<TaskNotification>()
+            .HasIndex(e => new { e.SdkSiteId, e.AreaRulePlanningId, e.PlanDayKey, e.PlannedStartUtc, e.Kind })
+            .IsUnique()
+            .HasDatabaseName("UX_TaskNotifications_Site_Task_Day_Start_Kind");
+        // The deliverer's due query.
+        modelBuilder.Entity<TaskNotification>().HasIndex(e => new { e.State, e.NextAttemptAtUtc });
+        // The planner's diff, per property and day.
+        modelBuilder.Entity<TaskNotification>().HasIndex(e => new { e.PropertyId, e.PlanDayKey });
+        // The 30-day clean-up.
+        modelBuilder.Entity<TaskNotification>().HasIndex(e => e.CreatedAtUtc);
+        // Every time column is UTC; read it back as DateTimeKind.Utc (datetime(6) stores no kind).
+        // No schema change.
+        foreach (var property in modelBuilder.Entity<TaskNotification>().Metadata.GetProperties())
+        {
+            if (property.ClrType == typeof(DateTime))
+            {
+                property.SetValueConverter(UtcConverter);
+            }
+            else if (property.ClrType == typeof(DateTime?))
+            {
+                property.SetValueConverter(NullableUtcConverter);
+            }
+        }
 
         modelBuilder.SeedLatest();
     }
